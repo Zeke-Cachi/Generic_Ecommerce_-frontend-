@@ -1,11 +1,14 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
 import { CartContext } from "../Contexts/CartContext";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Header = () => {
   const { state } = useContext(CartContext);
+  const router = useRouter;
 
   return (
     <div className="navbar h-32 border-b-2 border-b-purple-800 mb-4 px-4">
@@ -44,7 +47,9 @@ const Header = () => {
               <span className="font-bold text-lg">Items</span>
               <span className="text-info">Subtotal: </span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
+                <Link href="/cart" className="btn btn-primary btn-block">
+                  View Cart
+                </Link>
               </div>
             </div>
           </div>

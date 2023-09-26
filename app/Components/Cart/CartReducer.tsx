@@ -14,19 +14,30 @@ export function CartReducer(state: CartInitialState, action: any) {
 
     //--------------------------------------------------------------------------
     case TYPES.ADD_TO_CART: {
-      let itemToAdd: Product | undefined = state.products.find(
+      const itemToAdd: Product | undefined = state.products.find(
+        (item: Product) => item.id === action.payload
+      );
+      const isItemOnCart: Product | undefined = state.cart.find(
         (item: Product) => item.id === action.payload
       );
 
-      if (itemToAdd) {
-        if (!itemToAdd.quantity) {
-          const newItem = { ...itemToAdd, quantity: 1 };
-          return { ...state, cart: [...state.cart, newItem] };
-        } else {
-          return {
-            ...state,
-            cart: [{ ...itemToAdd, quantity: itemToAdd.quantity + 1 }],
-          };
+      if (!itemToAdd) {
+        return state;
+      } else {
+        if (itemToAdd) {
+          if (isItemOnCart) {
+            const newCartState = state.cart.map((item) =>
+              item.id === action.payload
+                ? { ...item, quantity: item.quantity! + 1 }
+                : item
+            );
+            return { ...state, cart: [...newCartState] };
+          } else {
+            return {
+              ...state,
+              cart: [...state.cart, { ...itemToAdd, quantity: 1 }],
+            };
+          }
         }
       }
     }
@@ -40,7 +51,7 @@ export function CartReducer(state: CartInitialState, action: any) {
       if (itemToDelete) {
         if (itemToDelete.quantity === 1) {
           const filteredCart = state.cart.filter(
-            (item) => item.id !== itemToDelete.id
+            (item) => item.id !== action.payload
           );
           return { ...state, cart: [...filteredCart] };
         } else {
@@ -56,7 +67,14 @@ export function CartReducer(state: CartInitialState, action: any) {
 
           return { ...state, cart: [...reducedQuantity] };
         }
+      } else {
+        return { ...state };
       }
+
+    //--------------------------------------------------------------------------
+
+    case TYPES.REMOVE_ALL_ITEMS:
+      return { ...state, cart: [] };
 
     default: {
       return state;

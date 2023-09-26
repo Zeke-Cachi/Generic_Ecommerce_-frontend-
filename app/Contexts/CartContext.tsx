@@ -10,6 +10,7 @@ export const CartContext = createContext<CartContextType>({
   setProduct: () => {},
   addToCart: () => {},
   removeFromCart: () => {},
+  removeAllFromCart: () => {},
   state: {
     products: [],
     cart: [],
@@ -37,6 +38,10 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: TYPES.REMOVE_ITEM, payload: id });
   };
 
+  const removeAllFromCart = () => {
+    dispatch({ type: TYPES.REMOVE_ALL_ITEMS });
+  };
+
   //------------------------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -51,7 +56,14 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ product, setProduct, addToCart, removeFromCart, state }}
+      value={{
+        product,
+        setProduct,
+        addToCart,
+        removeFromCart,
+        removeAllFromCart,
+        state,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -10,7 +10,8 @@ import { CartContext } from "@/app/Contexts/CartContext";
 const ProductDetails = () => {
   const searchParams = useSearchParams();
   const [productInfo, setProductInfo] = useState<Product>();
-  const { addToCart, removeFromCart } = useContext(CartContext);
+  const { addToCart, removeFromCart, removeAllFromCart } =
+    useContext(CartContext);
 
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ const ProductDetails = () => {
         count: Number(keyArray[7]),
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //--------------------------------------------------------------------------------------------------------------------------
@@ -102,6 +104,13 @@ const ProductDetails = () => {
             onClick={() => removeFromCart(productInfo.id)}
           >
             Remove from Cart
+          </button>
+
+          <button
+            className="btn bg-purple-800 w-40 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
+            onClick={() => removeAllFromCart()}
+          >
+            Remove all from Cart
           </button>
         </div>
       </div>
