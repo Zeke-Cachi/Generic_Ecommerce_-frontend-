@@ -56,19 +56,15 @@ export function CartReducer(state: CartInitialState, action: any) {
           return { ...state, cart: [...filteredCart] };
         } else {
           const reducedQuantity = state.cart.map((item) => {
-            if (item.quantity) {
-              return item.id === action.payload
-                ? (item.quantity = item.quantity - 1)
-                : null;
-            } else {
-              return item;
-            }
+            return item.id === action.payload
+              ? { ...item, quantity: item.quantity! - 1 }
+              : item;
           }) as Product[];
 
           return { ...state, cart: [...reducedQuantity] };
         }
       } else {
-        return { ...state };
+        return state;
       }
 
     //--------------------------------------------------------------------------

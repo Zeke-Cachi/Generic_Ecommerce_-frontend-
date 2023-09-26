@@ -24,7 +24,7 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
       </div>
 
       <div className="flex">
-        <button onClick={() => removeFromCart}>-</button>
+        <button onClick={() => removeFromCart(item.id)}>-</button>
         <p>{item.quantity}</p>
         <button onClick={() => addToCart(item.id)}>+</button>
       </div>
