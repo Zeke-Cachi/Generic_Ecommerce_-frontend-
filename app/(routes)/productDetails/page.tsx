@@ -99,19 +99,6 @@ const ProductDetails = () => {
           >
             Add to Cart
           </button>
-          <button
-            className="btn bg-purple-800 w-40 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-            onClick={() => removeFromCart(productInfo.id)}
-          >
-            Remove from Cart
-          </button>
-
-          <button
-            className="btn bg-purple-800 w-40 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-            onClick={() => removeAllFromCart()}
-          >
-            Remove all from Cart
-          </button>
         </div>
       </div>
 

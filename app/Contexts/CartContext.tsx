@@ -15,6 +15,7 @@ export const CartContext = createContext<CartContextType>({
     products: [],
     cart: [],
   },
+  totalAmount: 0,
 });
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -23,6 +24,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [product, setProduct] = useState<Product[]>([]);
 
   const [state, dispatch] = useReducer(CartReducer, cartInitialState);
+
+  const [totalAmount, setTotalAmount] = useState(0);
 
   //------------------------------------------------------------------------------------------------------------------
 
@@ -54,6 +57,16 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    const totalValue = state.cart.reduce(
+      (acc, item) => (acc = acc + item.quantity! * item.price),
+      0
+    );
+    setTotalAmount(() => totalValue);
+  }, [state]);
+
+  //------------------------------------------------------------------------------------------------------------------
+
   return (
     <CartContext.Provider
       value={{
@@ -63,6 +76,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         removeFromCart,
         removeAllFromCart,
         state,
+        totalAmount,
       }}
     >
       {children}

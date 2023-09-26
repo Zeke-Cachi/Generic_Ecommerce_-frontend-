@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Header = () => {
-  const { state } = useContext(CartContext);
+  const { state, totalAmount } = useContext(CartContext);
   const router = useRouter;
 
   return (
@@ -43,11 +43,19 @@ const Header = () => {
             tabIndex={0}
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
-            <div className="card-body">
-              <span className="font-bold text-lg">Items</span>
-              <span className="text-info">Subtotal: </span>
+            <div className="card-body border rounded-xl border-gray-200 bg-gray-100">
+              <span className="font-bold text-lg">
+                {state.cart.length} Items
+              </span>
+              <span className="text-black">
+                Subtotal:{" "}
+                <span className="font-bold">${totalAmount.toFixed(2)}</span>{" "}
+              </span>
               <div className="card-actions">
-                <Link href="/cart" className="btn btn-primary btn-block">
+                <Link
+                  href="/cart"
+                  className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
+                >
                   View Cart
                 </Link>
               </div>

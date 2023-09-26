@@ -10,6 +10,7 @@ export type CartContextType = {
   removeFromCart: (id: number) => void;
   removeAllFromCart: () => void;
   state: CartInitialState;
+  totalAmount: number;
 };
 
 export interface Product {

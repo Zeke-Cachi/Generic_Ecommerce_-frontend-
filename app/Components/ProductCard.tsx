@@ -33,7 +33,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
         <p className="text-[1.5rem] font-bold mt-2">${item.price}</p>
         <div className="card-actions justify-end">
           <button
-            className="btn btn-primary mx-auto"
+            className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
             onClick={() => {
               const queryParams = `product=${item.id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.category}&product=${item.image}&product=${item.rating.rate}&product=${item.rating.count}`;
               router.push(`/productDetails?${queryParams}`);
