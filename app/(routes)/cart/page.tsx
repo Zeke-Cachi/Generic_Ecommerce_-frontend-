@@ -29,15 +29,20 @@ const Cart = () => {
           state.cart.map((item, i) => <CartCard key={i} item={item} />)
         )}
       </div>
-      <div className="flex items-end mb-28">
+      <div className="flex items-center justify-start mb-28 mt-8">
         <h2
           className={`${
             state.cart.length === 0 ? "hidden" : "block"
-          } text-[2rem] mt-8 me-4`}
+          } text-[2rem] me-4`}
         >
           Total: ${totalAmount.toFixed(2)}
         </h2>
-        <Link href="/cart/checkout" className="btn btn-link">
+        <Link
+          href="/cart/checkout"
+          className={`btn btn-link mt-4${
+            state.cart.length === 0 ? "hidden" : "block"
+          }`}
+        >
           Go to checkout
         </Link>
       </div>

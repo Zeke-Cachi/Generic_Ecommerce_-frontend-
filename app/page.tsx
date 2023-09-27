@@ -11,11 +11,17 @@ export default function Home() {
   return (
     <>
       <Carousel />
-      <div className="px-4 flex gap-4 flex-wrap mt-4 mx-auto justify-center">
-        {product.map((item: Product, i) => {
-          return <ProductCard key={i} item={item} />;
-        })}
-      </div>
+      {product.length === 0 ? (
+        <div className="w-full text-center">
+          <div className="loading loading-spinner w-40 text-gray-300"></div>
+        </div>
+      ) : (
+        <div className="px-4 flex gap-4 flex-wrap mt-4 mx-auto justify-center">
+          {product.map((item: Product, i) => {
+            return <ProductCard key={i} item={item} />;
+          })}
+        </div>
+      )}
     </>
   );
 }
