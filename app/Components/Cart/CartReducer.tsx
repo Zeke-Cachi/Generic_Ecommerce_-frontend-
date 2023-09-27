@@ -70,6 +70,17 @@ export function CartReducer(state: CartInitialState, action: any) {
     //--------------------------------------------------------------------------
 
     case TYPES.REMOVE_ALL_ITEMS:
+      const deleteFullItem = state.cart.find(
+        (item) => item.id === action.payload
+      );
+      const filterOutItem = state.cart.filter(
+        (item) => item.id !== deleteFullItem?.id
+      );
+      return { ...state, cart: [...filterOutItem] };
+
+    //--------------------------------------------------------------------------
+
+    case TYPES.CLEAR_CART:
       return { ...state, cart: [] };
 
     default: {

@@ -8,7 +8,8 @@ export type CartContextType = {
   setProduct: React.Dispatch<React.SetStateAction<Product[]>>;
   addToCart: (id: number) => void;
   removeFromCart: (id: number) => void;
-  removeAllFromCart: () => void;
+  completelyRemoveItem: (id: number) => void;
+  clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
 };

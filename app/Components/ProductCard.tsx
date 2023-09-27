@@ -8,7 +8,6 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(item);
     if (item.title.length > 20) {
       const shortened = `${item.title.slice(0, 20)}...`;
       setShortenedTitle(shortened);

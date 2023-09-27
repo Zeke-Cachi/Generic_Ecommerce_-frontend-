@@ -5,10 +5,11 @@ import Image from "next/image";
 import { CartContext } from "../Contexts/CartContext";
 
 const CartCard: React.FC<{ item: Product }> = ({ item }) => {
-  const { addToCart, removeFromCart } = useContext(CartContext);
+  const { addToCart, removeFromCart, completelyRemoveItem } =
+    useContext(CartContext);
 
   return (
-    <div className="h-36 w-[90vw] grid grid-cols-3 grid-rows-1 bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2">
+    <div className="h-36 w-[90vw] grid grid-cols-4 grid-rows-1 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2">
       <div className="w-full flex flex-col justify-around">
         <h3 className="text-xl">{item.title}</h3>
         <p>
@@ -16,7 +17,7 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
         </p>
       </div>
 
-      <div className="relative w-full">
+      <div className="relative w-full h-full">
         <Image
           src={item.image}
           fill={true}
@@ -40,6 +41,13 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
           +
         </button>
       </div>
+
+      <button
+        onClick={() => completelyRemoveItem(item.id)}
+        className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
+      >
+        Remove item
+      </button>
     </div>
   );
 };

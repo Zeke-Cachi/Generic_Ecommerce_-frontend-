@@ -10,7 +10,8 @@ export const CartContext = createContext<CartContextType>({
   setProduct: () => {},
   addToCart: () => {},
   removeFromCart: () => {},
-  removeAllFromCart: () => {},
+  completelyRemoveItem: () => {},
+  clearCart: () => {},
   state: {
     products: [],
     cart: [],
@@ -41,8 +42,12 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: TYPES.REMOVE_ITEM, payload: id });
   };
 
-  const removeAllFromCart = () => {
-    dispatch({ type: TYPES.REMOVE_ALL_ITEMS });
+  const completelyRemoveItem = (id: number) => {
+    dispatch({ type: TYPES.REMOVE_ALL_ITEMS, payload: id });
+  };
+
+  const clearCart = () => {
+    dispatch({ type: TYPES.CLEAR_CART });
   };
 
   //------------------------------------------------------------------------------------------------------------------
@@ -74,7 +79,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setProduct,
         addToCart,
         removeFromCart,
-        removeAllFromCart,
+        completelyRemoveItem,
+        clearCart,
         state,
         totalAmount,
       }}
