@@ -8,6 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {},
+    keyframes: {
+      cartClick: {
+        "0%": { opacity: "1", transform: "scale(1)", color: "green" },
+        "100%": { opacity: "0", transform: "scale(1.5)" },
+      },
+    },
+    animation: {
+      clickedCart: "cartClick 300ms ease-out",
+    },
   },
   plugins: [require("daisyui")],
 };

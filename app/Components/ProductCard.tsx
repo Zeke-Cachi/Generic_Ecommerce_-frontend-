@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { CartContext } from "../Contexts/CartContext";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { FaShoppingCart } from "react-icons/fa";
 
 const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const [shortenedTitle, setShortenedTitle] = useState<string>("");
+  const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     if (item.title.length > 20) {
@@ -16,8 +20,22 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
     }
   }, [item]);
 
+  const handleShoppingCartClick = (item: number) => {
+    setIsClicked(() => true);
+    addToCart(item);
+    setTimeout(() => {
+      setIsClicked(() => false);
+    }, 300);
+  };
+
   return (
-    <div className="card w-64 max-h-[40rem] p-2 shadow-2xl relative border border-gray-200 text-center bg-gray-100">
+    <div className="group card w-64 max-h-[40rem] p-2 shadow-2xl relative border border-gray-200 text-center bg-gray-100">
+      <FaShoppingCart
+        onClick={() => handleShoppingCartClick(item.id)}
+        className={`absolute top-4 right-4 w-8 h-8 text-purple-400 transition-all opacity-0 group-hover:opacity-100 cursor-pointer ${
+          isClicked ? "animate-clickedCart" : ""
+        }`}
+      />
       <Image
         src={item.image}
         width={300}
