@@ -11,7 +11,10 @@ export default function Home() {
 
   useEffect(() => {
     setTimeout(() => {
-      goToRef.current && goToRef.current.scrollIntoView({ behavior: "smooth" });
+      if (window.scrollY === 0) {
+        goToRef.current &&
+          goToRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     }, 2000);
   }, []);
 
