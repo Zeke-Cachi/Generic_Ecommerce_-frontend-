@@ -12,7 +12,7 @@ const Checkout = () => {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Your work has been saved",
+      title: "Your purchase is completed!",
       showConfirmButton: false,
       timer: 1500,
       backdrop: true,

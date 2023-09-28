@@ -11,7 +11,7 @@ const Header = () => {
   const router = useRouter;
 
   return (
-    <div className="navbar h-32 border-b-2 border-b-purple-800 mb-4 px-4">
+    <div className="navbar h-32 border-b-2 border-b-purple-800 px-4">
       <div className="flex-1">
         <Image src="/site-logo.png" width={180} height={180} alt="site logo" />
       </div>

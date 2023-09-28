@@ -1,75 +1,24 @@
 import React from "react";
-import Image from "next/image";
 
 const Carousel = () => {
   return (
-    <div className="carousel w-full h-[30rem]">
-      <div id="slide1" className="carousel-item relative w-full">
-        <Image
-          src="/carousel-img/carousel-1.jpg"
-          className="w-full object-contain"
-          alt="carousel images"
-          width={200}
-          height={200}
-        />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide4" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide2" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide2" className="carousel-item relative w-full">
-        <Image
-          src="/carousel-img/carousel-2.jpg"
-          className="w-full object-contain"
-          alt="carousel images"
-          width={500}
-          height={500}
-        />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide1" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide3" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide3" className="carousel-item relative w-full">
-        <Image
-          src="/carousel-img/carousel-3.jpg"
-          className="w-full object-contain"
-          alt="carousel images"
-          width={500}
-          height={500}
-        />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide2" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide4" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide4" className="carousel-item relative w-full">
-        <Image
-          src="/carousel-img/carousel-4.jpg"
-          className="w-full object-contain"
-          alt="carousel images"
-          width={500}
-          height={500}
-        />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide3" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide1" className="btn btn-circle">
-            ❯
-          </a>
+    <div
+      className="hero min-h-screen"
+      style={{
+        backgroundImage: "url(/banner-image.png)",
+      }}
+    >
+      <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="max-w-md">
+          <h1 className="mb-5 text-5xl font-bold">
+            Welcome to you shopping Hub
+          </h1>
+          <p className="mb-5">
+            At Generic Ecommerce, we take pride of selecting and curating the
+            best offers to support you and your lifestyle. Whatever it is that
+            you are looking for, you´ll find it here!
+          </p>
         </div>
       </div>
     </div>
