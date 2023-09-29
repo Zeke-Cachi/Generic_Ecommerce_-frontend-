@@ -8,12 +8,19 @@ import Link from "next/link";
 
 const Header = () => {
   const { state, totalAmount } = useContext(CartContext);
-  const router = useRouter;
+  const router = useRouter();
 
   return (
     <div className="navbar h-32 border-b-2 border-b-purple-800 px-4">
       <div className="flex-1">
-        <Image src="/site-logo.png" width={180} height={180} alt="site logo" />
+        <Link href={"/"}>
+          <Image
+            src="/site-logo.png"
+            width={180}
+            height={180}
+            alt="site logo"
+          />
+        </Link>
       </div>
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">
@@ -73,16 +80,10 @@ const Header = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
+              <a className="justify-between">Profile</a>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
+              <Link href={"/login"}>Login</Link>
             </li>
           </ul>
         </div>

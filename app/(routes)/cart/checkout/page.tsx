@@ -53,7 +53,9 @@ const Checkout = () => {
           ))}
         </div>
         <div className="flex items-end justify-between mt-4">
-          <h3 className="text-[2.5rem]">Total: ${totalAmount} + tax</h3>
+          <h3 className="text-[2.5rem]">
+            Total: ${totalAmount.toFixed(2)} + tax
+          </h3>
           <button
             onClick={handlePurchase}
             className="btn btn-primary bg-purple-800 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"

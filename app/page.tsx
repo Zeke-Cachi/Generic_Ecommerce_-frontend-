@@ -1,5 +1,5 @@
 "use client";
-import Carousel from "./Components/Carousel";
+import Hero from "./Components/Hero";
 import ProductCard from "./Components/ProductCard";
 import { useContext, useEffect, useRef } from "react";
 import { CartContext } from "./Contexts/CartContext";
@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <>
-      <Carousel />
+      <Hero />
       <h2 ref={goToRef} className="px-4 my-4 text-[2.5rem]">
         Popular items
       </h2>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Carousel = () => {
+const Hero = () => {
   return (
     <div
       className="hero min-h-screen"
@@ -25,4 +25,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default Hero;
