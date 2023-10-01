@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">
-            Welcome to you shopping Hub
+            Welcome to your shopping Hub
           </h1>
           <p className="mb-5">
             At Generic Ecommerce, we take pride of selecting and curating the

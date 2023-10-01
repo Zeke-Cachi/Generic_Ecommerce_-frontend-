@@ -4,6 +4,7 @@ import ProductCard from "./Components/ProductCard";
 import { useContext, useEffect, useRef } from "react";
 import { CartContext } from "./Contexts/CartContext";
 import { Product } from "@/typesAndInterfaces";
+import PopularProducts from "./Components/PopularProducts";
 
 export default function Home() {
   const { product } = useContext(CartContext);
@@ -21,8 +22,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <PopularProducts />
       <h2 ref={goToRef} className="px-4 my-4 text-[2.5rem]">
-        Popular items
+        Browse
       </h2>
       {product.length === 0 ? (
         <div className="w-full text-center">
