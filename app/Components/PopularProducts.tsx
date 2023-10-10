@@ -6,43 +6,67 @@ import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const PopularItemsSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [popularItems, setPopularItems] = useState<Product[]>([]);
+  const [firstSlide, setFirstSlide] = useState<Product[]>([]);
+  const [secondSlide, setSecondSlide] = useState<Product[]>([]);
+  const [slideProduct, setSlideProducts] = useState<string>("");
+
   const { product } = useContext(CartContext);
 
   useEffect(() => {
-    const slicedArr = product.sort(() => Math.random() - 0.5).slice(0, 10);
-    setPopularItems(slicedArr);
+    const sortedProductArray = product
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
+    setFirstSlide(() => sortedProductArray.slice(0, 5));
+    setSecondSlide(() => sortedProductArray.slice(5, 10));
   }, [product]);
 
-  const renderSlide = (start: number, end: number) => {
-    return popularItems
-      .slice(start, end)
-      .map((item, index) => <ProductCard key={index} item={item} />);
+  const moveRight = () => {
+    setSlideProducts("right");
   };
 
-  const goToNextSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? 5 : 0));
-  };
-
-  const goToPrevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? 5 : 0));
+  const moveLeft = () => {
+    setSlideProducts("left");
   };
 
   return (
     <>
-      <h2 className="text-[2.5rem] px-4">Popular Items</h2>
-      <div className="flex w-full gap-4 px-4 relative">
+      <h2 className="text-[2.5rem] ps-4">Popular Products</h2>
+      <div className="flex relative gap-4 ps-4  h-[45rem]">
         <GrFormPrevious
-          onClick={goToPrevSlide}
-          className="h-12 w-12 absolute top-[50%] left-8 z-20 rounded-full bg-purple-100 cursor-pointer opacity-50 hover:opacity-100"
+          className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-50 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+            slideProduct === "left" || slideProduct === ""
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:opacity-100"
+          }`}
+          onClick={() => moveLeft()}
         />
-        <div className="flex justify-between w-full">
-          {renderSlide(currentIndex, currentIndex + 5)}
+        <div
+          className={`flex gap-12 justify-center absolute h-full w-full top-0 left-0 transition-all ${
+            slideProduct === "right" ? "translate-x-full" : ""
+          }`}
+        >
+          {firstSlide.map((product) => (
+            <ProductCard key={product.id} item={product} />
+          ))}
+        </div>
+        <div
+          className={`flex gap-4 justify-center absolute h-full w-full top-0 left-0 transition-all ${
+            slideProduct === "left" || slideProduct === ""
+              ? "translate-x-full"
+              : "translate-x-0"
+          }`}
+        >
+          {secondSlide.map((product) => (
+            <ProductCard key={product.id} item={product} />
+          ))}
         </div>
         <GrFormNext
-          onClick={goToNextSlide}
-          className="h-12 w-12 absolute top-[50%] right-8 z-20 rounded-full bg-purple-100 cursor-pointer opacity-50 hover:opacity-100"
+          className={`absolute right-16 top-1/2 -translate-y-1/2 h-12 w-12  z-50 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+            slideProduct === "right"
+              ? "cursor-not-allowed"
+              : "cursor-pointer hover:opacity-100"
+          }`}
+          onClick={() => moveRight()}
         />
       </div>
     </>
