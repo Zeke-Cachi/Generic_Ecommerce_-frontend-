@@ -4,6 +4,7 @@ import { CartContext } from "@/app/Contexts/CartContext";
 import CartCard from "@/app/Components/CartCard";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import Button from "@/app/Components/Button";
 
 const Cart = () => {
   const { state, totalAmount, clearCart } = useContext(CartContext);
@@ -12,12 +13,7 @@ const Cart = () => {
     <section className="px-8">
       <div className="flex justify-between items-center w-[90vw]">
         <h2 className="text-[2.5rem] mb-8">Your Cart</h2>
-        <button
-          onClick={clearCart}
-          className="btn btn-primary bg-purple-800 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-        >
-          Empty cart
-        </button>
+        <Button passedFunction={clearCart} title={"EMPTY CART"} />
       </div>
       <div>
         {state.cart.length === 0 ? (

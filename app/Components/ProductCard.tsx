@@ -4,6 +4,7 @@ import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaShoppingCart } from "react-icons/fa";
+import Button from "./Button";
 
 const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const [shortenedTitle, setShortenedTitle] = useState<string>("");
@@ -28,6 +29,11 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
     }, 300);
   };
 
+  const setParams = () => {
+    const queryParams = `product=${item.id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.category}&product=${item.image}&product=${item.rating.rate}&product=${item.rating.count}`;
+    router.push(`/productDetails?${queryParams}`);
+  };
+
   return (
     <div className="group card w-64 max-h-[40rem] p-2 shadow-2xl relative border border-gray-200 text-center bg-gray-100">
       <FaShoppingCart
@@ -49,15 +55,11 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
         </h2>
         <p className="text-[1.5rem] font-bold mt-2">${item.price}</p>
         <div className="card-actions justify-end">
-          <button
-            className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-            onClick={() => {
-              const queryParams = `product=${item.id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.category}&product=${item.image}&product=${item.rating.rate}&product=${item.rating.count}`;
-              router.push(`/productDetails?${queryParams}`);
-            }}
-          >
-            Buy now!
-          </button>
+          <Button
+            passedFunction={setParams}
+            title={"BUY NOW"}
+            optionalStyle={"mx-auto"}
+          />
         </div>
       </div>
     </div>

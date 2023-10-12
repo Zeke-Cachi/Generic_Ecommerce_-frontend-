@@ -6,9 +6,9 @@ export type Slides = {
 export type CartContextType = {
   product: Product[];
   setProduct: React.Dispatch<React.SetStateAction<Product[]>>;
-  addToCart: (id: number) => void;
+  addToCart: (id?: number) => void;
   removeFromCart: (id: number) => void;
-  completelyRemoveItem: (id: number) => void;
+  completelyRemoveItem: (id?: number) => void;
   clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
@@ -31,4 +31,11 @@ export interface Product {
 export interface CartInitialState {
   products: Product[];
   cart: Product[];
+}
+
+export interface ButtonProps {
+  passedFunction?: (id?: number) => void;
+  title: string;
+  id?: number;
+  optionalStyle?: string;
 }

@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { CartContext } from "../Contexts/CartContext";
+import Button from "./Button";
 
 const CartCard: React.FC<{ item: Product }> = ({ item }) => {
   const { addToCart, removeFromCart, completelyRemoveItem } =
@@ -42,12 +43,12 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
         </button>
       </div>
 
-      <button
-        onClick={() => completelyRemoveItem(item.id)}
-        className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-      >
-        Remove item
-      </button>
+      <Button
+        passedFunction={completelyRemoveItem}
+        id={item.id}
+        title={"remove Item"}
+        optionalStyle="mx-auto"
+      />
     </div>
   );
 };

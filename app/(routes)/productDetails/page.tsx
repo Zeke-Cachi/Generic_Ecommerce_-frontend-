@@ -4,14 +4,14 @@ import { useSearchParams } from "next/navigation";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { CartContext } from "@/app/Contexts/CartContext";
+import Button from "@/app/Components/Button";
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 const ProductDetails = () => {
   const searchParams = useSearchParams();
   const [productInfo, setProductInfo] = useState<Product>();
-  const { addToCart, removeFromCart, removeAllFromCart } =
-    useContext(CartContext);
+  const { addToCart, removeFromCart } = useContext(CartContext);
 
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -93,12 +93,12 @@ const ProductDetails = () => {
               {productInfo.rating.count}
             </span>
           </p>
-          <button
-            className="btn bg-purple-800 w-40 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-            onClick={() => addToCart(productInfo.id)}
-          >
-            Add to Cart
-          </button>
+          <Button
+            passedFunction={addToCart}
+            title={"ADD TO CART"}
+            id={productInfo.id}
+            optionalStyle={"mx-auto"}
+          />
         </div>
       </div>
 

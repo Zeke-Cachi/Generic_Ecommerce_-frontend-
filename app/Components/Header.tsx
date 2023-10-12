@@ -5,6 +5,7 @@ import Image from "next/image";
 import { CartContext } from "../Contexts/CartContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Button from "./Button";
 
 const Header = () => {
   const { state, totalAmount } = useContext(CartContext);
@@ -59,11 +60,8 @@ const Header = () => {
                 <span className="font-bold">${totalAmount.toFixed(2)}</span>{" "}
               </span>
               <div className="card-actions">
-                <Link
-                  href="/cart"
-                  className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-                >
-                  View Cart
+                <Link href="/cart" className="mx-auto">
+                  <Button title={"View Cart"} />
                 </Link>
               </div>
             </div>

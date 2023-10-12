@@ -29,6 +29,8 @@ const Profile = () => {
           Edit personal information
         </button>
       </div>
+
+      
     </div>
   );
 };
