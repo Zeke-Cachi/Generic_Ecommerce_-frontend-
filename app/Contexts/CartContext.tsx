@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useState, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useReducer,
+  useContext,
+} from "react";
 import { CartContextType, Product } from "../../typesAndInterfaces";
 import axios from "axios";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
@@ -34,7 +40,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: TYPES.INITIALIZE_STATE, payload: product });
   };
 
-  const addToCart = (id: number) => {
+  const addToCart = (id?: number) => {
     dispatch({ type: TYPES.ADD_TO_CART, payload: id });
   };
 
@@ -42,7 +48,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: TYPES.REMOVE_ITEM, payload: id });
   };
 
-  const completelyRemoveItem = (id: number) => {
+  const completelyRemoveItem = (id?: number) => {
     dispatch({ type: TYPES.REMOVE_ALL_ITEMS, payload: id });
   };
 
@@ -91,3 +97,9 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default CartProvider;
+
+//-------------------------------------------------------------------------------
+
+export const useGlobal = () => {
+  return useContext(CartContext);
+};

@@ -1,11 +1,11 @@
 "use client";
-import { useContext } from "react";
-import { CartContext } from "@/app/Contexts/CartContext";
+import { useGlobal } from "@/app/Contexts/CartContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import Button from "@/app/Components/Button";
 
 const Checkout = () => {
-  const { state, totalAmount, clearCart } = useContext(CartContext);
+  const { state, totalAmount, clearCart } = useGlobal();
   const router = useRouter();
 
   const handlePurchase = () => {
@@ -56,12 +56,7 @@ const Checkout = () => {
           <h3 className="text-[2.5rem]">
             Total: ${totalAmount.toFixed(2)} + tax
           </h3>
-          <button
-            onClick={handlePurchase}
-            className="btn btn-primary bg-purple-800 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800"
-          >
-            Complete purchase
-          </button>
+          <Button passedFunction={handlePurchase} title={"COMPLETE PURCHASE"} />
         </div>
       </div>
     </div>

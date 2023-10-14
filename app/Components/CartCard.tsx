@@ -1,13 +1,11 @@
 "use client";
-import React, { useContext } from "react";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { CartContext } from "../Contexts/CartContext";
+import { useGlobal } from "../Contexts/CartContext";
 import Button from "./Button";
 
 const CartCard: React.FC<{ item: Product }> = ({ item }) => {
-  const { addToCart, removeFromCart, completelyRemoveItem } =
-    useContext(CartContext);
+  const { addToCart, removeFromCart, completelyRemoveItem } = useGlobal();
 
   return (
     <div className="h-36 w-[90vw] grid grid-cols-4 grid-rows-1 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2">

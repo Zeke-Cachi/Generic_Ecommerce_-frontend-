@@ -1,14 +1,13 @@
 "use client";
-import React, { useContext } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import { CartContext } from "../Contexts/CartContext";
+import { useGlobal } from "../Contexts/CartContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "./Button";
 
 const Header = () => {
-  const { state, totalAmount } = useContext(CartContext);
+  const { state, totalAmount } = useGlobal();
   const router = useRouter();
 
   return (

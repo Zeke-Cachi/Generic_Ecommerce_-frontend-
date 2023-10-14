@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import Button from "@/app/Components/Button";
 
 const Register = () => {
   return (
@@ -79,9 +81,7 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary w-48 bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800">
-                  Register
-                </button>
+                <Button title={"Login"} />
               </div>
             </div>
           </div>

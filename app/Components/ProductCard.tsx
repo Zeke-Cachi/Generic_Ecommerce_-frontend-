@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { CartContext } from "../Contexts/CartContext";
+import React, { useEffect, useState } from "react";
+import { useGlobal } from "../Contexts/CartContext";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const [shortenedTitle, setShortenedTitle] = useState<string>("");
   const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useGlobal();
 
   useEffect(() => {
     if (item.title.length > 20) {

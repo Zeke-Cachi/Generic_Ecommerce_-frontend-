@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const dotenv = require("dotenv");
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -8,6 +9,9 @@ const nextConfig = {
         port: "",
       },
     ],
+  },
+  env: {
+    ...dotenv.config().parsed,
   },
 };
 

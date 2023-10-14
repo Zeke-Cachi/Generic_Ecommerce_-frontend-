@@ -1,13 +1,12 @@
 "use client";
-import React, { useContext } from "react";
-import { CartContext } from "@/app/Contexts/CartContext";
+import { useGlobal } from "@/app/Contexts/CartContext";
 import CartCard from "@/app/Components/CartCard";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
 
 const Cart = () => {
-  const { state, totalAmount, clearCart } = useContext(CartContext);
+  const { state, totalAmount, clearCart } = useGlobal();
 
   return (
     <section className="px-8">
