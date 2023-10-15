@@ -2,25 +2,49 @@
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
 import { useGlobal } from "../Contexts/CartContext";
-import { useRouter } from "next/navigation";
+import { useWindowHeight } from "../Contexts/CartContext";
 import Link from "next/link";
 import Button from "./Button";
+import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
   const { state, totalAmount } = useGlobal();
-  const router = useRouter();
+  const checkHeight = useWindowHeight();
 
   return (
-    <div className="navbar h-32 border-b-2 border-b-purple-800 px-4">
-      <div className="flex-1">
+    <div
+      className={`navbar ${
+        checkHeight === 0 ? "h-32 bg-white" : "h-16 bg-white opacity-90"
+      } sticky top-0 border-b-2 border-b-purple-800 px-4 flex justify-between transition-all z-50`}
+    >
+      <div>
         <Link href={"/"}>
-          <Image
-            src="/site-logo.png"
-            width={180}
-            height={180}
-            alt="site logo"
-          />
+          {checkHeight === 0 ? (
+            <Image
+              src="/site-logo.png"
+              width={180}
+              height={180}
+              alt="site logo"
+            />
+          ) : (
+            <Image
+              src="/scroll-logo.png"
+              width={50}
+              height={50}
+              alt="site logo"
+              className="ms-8"
+            />
+          )}
         </Link>
+      </div>
+
+      <div className="flex justify-center gap-4 items-center">
+        <input
+          type="text"
+          placeholder="search"
+          className="ps-4 w-[20rem] h-12 border-2 border-gray-200 rounded-lg"
+        />
+        <FaSearch className="text-gray-400" />
       </div>
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">

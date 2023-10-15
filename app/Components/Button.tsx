@@ -9,7 +9,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      onClick={() => passedFunction && passedFunction(id)}
+      onClick={(e) => passedFunction && passedFunction(id)}
       className={`${optionalStyle} btn btn-primary bg-purple-800 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800`}
     >
       {title}

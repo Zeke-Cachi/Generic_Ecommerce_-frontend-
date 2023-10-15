@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@types/react-slick": "^0.23.10",
-    "daisyui": "^3.7.7"
+    "daisyui": "^3.7.7",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.6"
   }
 }

@@ -1,7 +1,11 @@
-export type Slides = {
-  id: number;
-  image: string;
-};
+//ALPHABETICALLY ORDERED
+
+export interface ButtonProps {
+  passedFunction?: (id?: number) => void;
+  title: string;
+  id?: number;
+  optionalStyle?: string;
+}
 
 export type CartContextType = {
   product: Product[];
@@ -13,6 +17,11 @@ export type CartContextType = {
   state: CartInitialState;
   totalAmount: number;
 };
+
+export interface CartInitialState {
+  products: Product[];
+  cart: Product[];
+}
 
 export interface Product {
   id: number;
@@ -28,14 +37,15 @@ export interface Product {
   quantity?: number;
 }
 
-export interface CartInitialState {
-  products: Product[];
-  cart: Product[];
+export interface RegisterData {
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  repeatedPassword: string;
 }
 
-export interface ButtonProps {
-  passedFunction?: (id?: number) => void;
-  title: string;
-  id?: number;
-  optionalStyle?: string;
-}
+export type Slides = {
+  id: number;
+  image: string;
+};

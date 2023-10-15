@@ -103,3 +103,21 @@ export default CartProvider;
 export const useGlobal = () => {
   return useContext(CartContext);
 };
+
+//-------------------------------------------------------------------------------
+
+export const useWindowHeight = () => {
+  const [checkHeight, setCheckHeight] = useState<number>(0);
+
+  useEffect(() => {
+    const setState = () => {
+      setCheckHeight(window.scrollY);
+      console.log(window.scrollY);
+    };
+
+    window.addEventListener("scroll", setState);
+    return () => window.removeEventListener("scroll", setState);
+  }, []);
+
+  return checkHeight;
+};
