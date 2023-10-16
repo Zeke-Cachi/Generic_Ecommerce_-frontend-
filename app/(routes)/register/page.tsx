@@ -4,8 +4,12 @@ import React, { useState } from "react";
 import { RegisterData } from "@/typesAndInterfaces";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
+import Button from "@/app/Components/Button";
+import { useGlobal } from "@/app/Contexts/CartContext";
 
 const Register = () => {
+  const { handleInput } = useGlobal();
+
   const [registerData, setRegisterData] = useState<RegisterData>({
     name: "",
     lastname: "",
@@ -13,11 +17,6 @@ const Register = () => {
     password: "",
     repeatedPassword: "",
   });
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setRegisterData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,7 +59,7 @@ const Register = () => {
                   <span className="label-text">Name</span>
                 </label>
                 <input
-                  onChange={handleInput}
+                  onChange={(e) => handleInput(e, setRegisterData)}
                   name="name"
                   type="text"
                   placeholder="name"
@@ -72,7 +71,7 @@ const Register = () => {
                   <span className="label-text">Lastname</span>
                 </label>
                 <input
-                  onChange={handleInput}
+                  onChange={(e) => handleInput(e, setRegisterData)}
                   type="text"
                   placeholder="lastname"
                   name="lastname"
@@ -84,7 +83,7 @@ const Register = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  onChange={handleInput}
+                  onChange={(e) => handleInput(e, setRegisterData)}
                   type="email"
                   placeholder="email"
                   name="email"
@@ -96,7 +95,7 @@ const Register = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  onChange={handleInput}
+                  onChange={(e) => handleInput(e, setRegisterData)}
                   type="password"
                   placeholder="password"
                   name="password"
@@ -108,7 +107,7 @@ const Register = () => {
                   <span className="label-text">Repeat password</span>
                 </label>
                 <input
-                  onChange={handleInput}
+                  onChange={(e) => handleInput(e, setRegisterData)}
                   type="password"
                   placeholder="repeat password"
                   name="repeatPassword"
@@ -124,12 +123,7 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button
-                  type="submit"
-                  className={`btn btn-primary bg-purple-800 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800`}
-                >
-                  Register
-                </button>
+                <Button title={"Register"} />
               </div>
             </div>
           </form>

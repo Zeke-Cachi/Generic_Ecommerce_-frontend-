@@ -1,8 +1,34 @@
 "use client";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
+import { auth } from "@/firebase";
+import { useState } from "react";
+import { LoginData } from "@/typesAndInterfaces";
+import { useGlobal } from "@/app/Contexts/CartContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  const { handleInput } = useGlobal();
+
+  const [loginData, setLoginData] = useState<LoginData>({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const signIn = await signInWithEmailAndPassword(
+        auth,
+        loginData.email,
+        loginData.password
+      );
+      console.log(signIn);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div
       className="hero h-[90vh]"
@@ -21,14 +47,16 @@ const Login = () => {
             </p>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100">
-            <div className="card-body">
+            <form className="card-body" onSubmit={(e) => handleLogin(e)}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
+                  onChange={(e) => handleInput(e, setLoginData)}
                   type="text"
                   placeholder="email"
+                  name="email"
                   className="input input-bordered"
                 />
               </div>
@@ -37,8 +65,10 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="text"
+                  onChange={(e) => handleInput(e, setLoginData)}
+                  type="password"
                   placeholder="password"
+                  name="password"
                   className="input input-bordered"
                 />
                 <label className="label">
@@ -53,7 +83,7 @@ const Login = () => {
               <div className="form-control mt-6">
                 <Button title={"Login"} />
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

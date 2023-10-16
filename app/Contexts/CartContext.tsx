@@ -10,6 +10,7 @@ import { CartContextType, Product } from "../../typesAndInterfaces";
 import axios from "axios";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
+import { UserData, RegisterData } from "../../typesAndInterfaces";
 
 export const CartContext = createContext<CartContextType>({
   product: [],
@@ -23,9 +24,16 @@ export const CartContext = createContext<CartContextType>({
     cart: [],
   },
   totalAmount: 0,
+  userData: {
+    name: "",
+    lastname: "",
+    email: "",
+  },
+  setUserData: () => {},
+  handleInput: () => {},
 });
 
-//-----------------------------------------------------------------------------------------------------------------
+//------------------------------------- / STATES / -----------------------------------------------------------------------------
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [product, setProduct] = useState<Product[]>([]);
@@ -34,7 +42,13 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [totalAmount, setTotalAmount] = useState(0);
 
-  //------------------------------------------------------------------------------------------------------------------
+  const [userData, setUserData] = useState<UserData>({
+    name: "",
+    lastname: "",
+    email: "",
+  });
+
+  //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
   const initializeState = (product: Product[]) => {
     dispatch({ type: TYPES.INITIALIZE_STATE, payload: product });
@@ -56,7 +70,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: TYPES.CLEAR_CART });
   };
 
-  //------------------------------------------------------------------------------------------------------------------
+  //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
 
   useEffect(() => {
     const getProducts = async () => {
@@ -76,7 +90,17 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setTotalAmount(() => totalValue);
   }, [state]);
 
-  //------------------------------------------------------------------------------------------------------------------
+  //----------------------------------- / FUNCTIONS / -------------------------------------------------------------------------------
+
+  function handleInput<T>(
+    e: React.ChangeEvent<HTMLInputElement>,
+    setterFunction: React.Dispatch<React.SetStateAction<T>>
+  ) {
+    const { name, value } = e.target;
+    setterFunction((prev) => ({ ...prev, [name]: value }));
+  }
+
+  //---------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <CartContext.Provider
@@ -89,6 +113,9 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         clearCart,
         state,
         totalAmount,
+        userData,
+        setUserData,
+        handleInput,
       }}
     >
       {children}
@@ -98,13 +125,13 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default CartProvider;
 
-//-------------------------------------------------------------------------------
+//--------------------------------------- / USEGLOBAL CUSTOM HOOK / ---------------------------------------------------------------------------
 
 export const useGlobal = () => {
   return useContext(CartContext);
 };
 
-//-------------------------------------------------------------------------------
+//-------------------------------------- / USEWINDOWHEIGHT CUSTOM HOOK / ----------------------------------------------------------------------------
 
 export const useWindowHeight = () => {
   const [checkHeight, setCheckHeight] = useState<number>(0);
@@ -112,7 +139,6 @@ export const useWindowHeight = () => {
   useEffect(() => {
     const setState = () => {
       setCheckHeight(window.scrollY);
-      console.log(window.scrollY);
     };
 
     window.addEventListener("scroll", setState);

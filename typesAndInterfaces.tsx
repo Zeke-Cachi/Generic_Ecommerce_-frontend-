@@ -16,11 +16,22 @@ export type CartContextType = {
   clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
+  userData: UserData;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  handleInput: <T>(
+    e: React.ChangeEvent<HTMLInputElement>,
+    setterFunction: React.Dispatch<React.SetStateAction<T>>
+  ) => void;
 };
 
 export interface CartInitialState {
   products: Product[];
   cart: Product[];
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
 }
 
 export interface Product {
@@ -37,10 +48,7 @@ export interface Product {
   quantity?: number;
 }
 
-export interface RegisterData {
-  name: string;
-  lastname: string;
-  email: string;
+export interface RegisterData extends UserData {
   password: string;
   repeatedPassword: string;
 }
@@ -49,3 +57,9 @@ export type Slides = {
   id: number;
   image: string;
 };
+
+export interface UserData {
+  name: string;
+  lastname: string;
+  email: string;
+}
