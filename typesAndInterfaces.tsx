@@ -16,17 +16,20 @@ export type CartContextType = {
   clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
+};
+
+export interface CartInitialState {
+  products: Product[];
+  cart: Product[];
+}
+
+export interface IUserContext {
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   handleInput: <T>(
     e: React.ChangeEvent<HTMLInputElement>,
     setterFunction: React.Dispatch<React.SetStateAction<T>>
   ) => void;
-};
-
-export interface CartInitialState {
-  products: Product[];
-  cart: Product[];
 }
 
 export interface LoginData {
@@ -59,7 +62,7 @@ export type Slides = {
 };
 
 export interface UserData {
-  name: string;
+  displayName: string;
   lastname: string;
   email: string;
 }

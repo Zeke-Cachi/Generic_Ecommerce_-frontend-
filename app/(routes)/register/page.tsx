@@ -5,13 +5,13 @@ import { RegisterData } from "@/typesAndInterfaces";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import Button from "@/app/Components/Button";
-import { useGlobal } from "@/app/Contexts/CartContext";
+import { useGlobalUser } from "@/app/Contexts/UserContext";
 
 const Register = () => {
-  const { handleInput } = useGlobal();
+  const { handleInput } = useGlobalUser();
 
   const [registerData, setRegisterData] = useState<RegisterData>({
-    name: "",
+    displayName: "",
     lastname: "",
     email: "",
     password: "",
@@ -60,7 +60,7 @@ const Register = () => {
                 </label>
                 <input
                   onChange={(e) => handleInput(e, setRegisterData)}
-                  name="name"
+                  name="displayName"
                   type="text"
                   placeholder="name"
                   className="input input-bordered"

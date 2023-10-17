@@ -10,7 +10,6 @@ import { CartContextType, Product } from "../../typesAndInterfaces";
 import axios from "axios";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
-import { UserData, RegisterData } from "../../typesAndInterfaces";
 
 export const CartContext = createContext<CartContextType>({
   product: [],
@@ -24,13 +23,6 @@ export const CartContext = createContext<CartContextType>({
     cart: [],
   },
   totalAmount: 0,
-  userData: {
-    name: "",
-    lastname: "",
-    email: "",
-  },
-  setUserData: () => {},
-  handleInput: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
@@ -41,12 +33,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(CartReducer, cartInitialState);
 
   const [totalAmount, setTotalAmount] = useState(0);
-
-  const [userData, setUserData] = useState<UserData>({
-    name: "",
-    lastname: "",
-    email: "",
-  });
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -90,16 +76,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setTotalAmount(() => totalValue);
   }, [state]);
 
-  //----------------------------------- / FUNCTIONS / -------------------------------------------------------------------------------
-
-  function handleInput<T>(
-    e: React.ChangeEvent<HTMLInputElement>,
-    setterFunction: React.Dispatch<React.SetStateAction<T>>
-  ) {
-    const { name, value } = e.target;
-    setterFunction((prev) => ({ ...prev, [name]: value }));
-  }
-
   //---------------------------------------------------------------------------------------------------------------------------------
 
   return (
@@ -113,9 +89,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         clearCart,
         state,
         totalAmount,
-        userData,
-        setUserData,
-        handleInput,
       }}
     >
       {children}
@@ -127,7 +100,7 @@ export default CartProvider;
 
 //--------------------------------------- / USEGLOBAL CUSTOM HOOK / ---------------------------------------------------------------------------
 
-export const useGlobal = () => {
+export const useGlobalCart = () => {
   return useContext(CartContext);
 };
 

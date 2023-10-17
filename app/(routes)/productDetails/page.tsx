@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { useGlobal } from "@/app/Contexts/CartContext";
+import { useGlobalCart } from "@/app/Contexts/CartContext";
 import Button from "@/app/Components/Button";
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ import Button from "@/app/Components/Button";
 const ProductDetails = () => {
   const searchParams = useSearchParams();
   const [productInfo, setProductInfo] = useState<Product>();
-  const { addToCart } = useGlobal();
+  const { addToCart } = useGlobalCart();
 
   //--------------------------------------------------------------------------------------------------------------------------
 

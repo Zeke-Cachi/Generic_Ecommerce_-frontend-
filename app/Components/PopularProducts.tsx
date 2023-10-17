@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect, forwardRef } from "react";
 import { Product } from "@/typesAndInterfaces";
-import { useGlobal } from "../Contexts/CartContext";
+import { useGlobalCart } from "../Contexts/CartContext";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
@@ -14,7 +14,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement, ChildProps>(
     const [secondSlide, setSecondSlide] = useState<Product[]>([]);
     const [slideProduct, setSlideProducts] = useState<string>("");
 
-    const { product } = useGlobal();
+    const { product } = useGlobalCart();
 
     useEffect(() => {
       const sortedProductArray = product

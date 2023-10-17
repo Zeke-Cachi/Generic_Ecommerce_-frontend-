@@ -1,14 +1,14 @@
 "use client";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import { useGlobal } from "../Contexts/CartContext";
+import { useGlobalCart } from "../Contexts/CartContext";
 import { useWindowHeight } from "../Contexts/CartContext";
 import Link from "next/link";
 import Button from "./Button";
 import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
-  const { state, totalAmount } = useGlobal();
+  const { state, totalAmount } = useGlobalCart();
   const checkHeight = useWindowHeight();
 
   return (

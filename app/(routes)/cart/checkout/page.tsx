@@ -1,11 +1,11 @@
 "use client";
-import { useGlobal } from "@/app/Contexts/CartContext";
+import { useGlobalCart } from "@/app/Contexts/CartContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Button from "@/app/Components/Button";
 
 const Checkout = () => {
-  const { state, totalAmount, clearCart } = useGlobal();
+  const { state, totalAmount, clearCart } = useGlobalCart();
   const router = useRouter();
 
   const handlePurchase = () => {

@@ -4,11 +4,11 @@ import Button from "@/app/Components/Button";
 import { auth } from "@/firebase";
 import { useState } from "react";
 import { LoginData } from "@/typesAndInterfaces";
-import { useGlobal } from "@/app/Contexts/CartContext";
+import { useGlobalUser } from "@/app/Contexts/UserContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  const { handleInput } = useGlobal();
+  const { handleInput } = useGlobalUser();
 
   const [loginData, setLoginData] = useState<LoginData>({
     email: "",
