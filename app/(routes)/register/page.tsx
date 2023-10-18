@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { RegisterData } from "@/typesAndInterfaces";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../firebase";
 import Button from "@/app/Components/Button";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
@@ -26,7 +26,12 @@ const Register = () => {
         registerData.email,
         registerData.password
       );
-      console.log(userCreationRequest);
+      auth.currentUser
+        ? await updateProfile(auth.currentUser, {
+            displayName: registerData.displayName,
+          })
+        : console.log("there was no user!");
+      console.log(userCreationRequest.user.displayName);
     } catch (error) {
       console.error(error);
     }

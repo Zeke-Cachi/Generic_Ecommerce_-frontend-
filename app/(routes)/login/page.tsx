@@ -5,7 +5,7 @@ import { auth } from "@/firebase";
 import { useState } from "react";
 import { LoginData } from "@/typesAndInterfaces";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Login = () => {
   const { handleInput } = useGlobalUser();
