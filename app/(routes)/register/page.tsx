@@ -6,8 +6,12 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../firebase";
 import Button from "@/app/Components/Button";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const router = useRouter();
+
   const { handleInput } = useGlobalUser();
 
   const [registerData, setRegisterData] = useState<RegisterData>({
@@ -31,7 +35,9 @@ const Register = () => {
             displayName: registerData.displayName,
           })
         : console.log("there was no user!");
-      console.log(userCreationRequest.user.displayName);
+      toast.success("Successfully registered!", { position: "bottom-center" });
+      console.log(auth.currentUser);
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -134,6 +140,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

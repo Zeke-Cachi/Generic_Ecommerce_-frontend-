@@ -6,10 +6,23 @@ import { useWindowHeight } from "../Contexts/CartContext";
 import Link from "next/link";
 import Button from "./Button";
 import { FaSearch } from "react-icons/fa";
+import { auth } from "@/firebase";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const { state, totalAmount } = useGlobalCart();
   const checkHeight = useWindowHeight();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const logOut = async () => {
+    try {
+      await auth.signOut();
+      setIsLoggedIn(false);
+      toast.success("Succesfully logged out", { position: "bottom-center" });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div
@@ -101,14 +114,24 @@ const Header = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <Link href={"/login"}>Login</Link>
+              {auth.currentUser ? (
+                <>
+                  <Link href={"/profile"}>
+                    <span>{auth.currentUser.displayName}`s</span>Profile
+                  </Link>
+                  <button onClick={logOut}>Log Out</button>
+                </>
+              ) : (
+                <>
+                  <Link href={"/login"}>Login</Link>
+                  <Link href={"/register"}>Register</Link>
+                </>
+              )}
             </li>
           </ul>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

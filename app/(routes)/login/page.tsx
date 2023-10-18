@@ -5,9 +5,13 @@ import { auth } from "@/firebase";
 import { useState } from "react";
 import { LoginData } from "@/typesAndInterfaces";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
+
   const { handleInput } = useGlobalUser();
 
   const [loginData, setLoginData] = useState<LoginData>({
@@ -23,7 +27,8 @@ const Login = () => {
         loginData.email,
         loginData.password
       );
-      console.log(signIn);
+      toast.success("Successfully logged in!", { position: "bottom-center" });
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -87,6 +92,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

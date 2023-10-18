@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUserAlt } from "react-icons/fa";
+import { FaUserAlt, FaCamera } from "react-icons/fa";
 
 const Profile = () => {
   return (
@@ -7,8 +7,9 @@ const Profile = () => {
       <h2 className="text-[2.5rem] mb-8">My account</h2>
       <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 mx-auto bg-purple-50 border border-purple-100">
         <div className="flex justify-between w-full p-8">
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center relative">
             <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
+            <FaCamera className="absolute" />
             <div>
               <h3 className="text-[2rem]">Pepito Perez</h3>
               <h6>pepitoperez@gmail.com</h6>
@@ -29,8 +30,6 @@ const Profile = () => {
           Edit personal information
         </button>
       </div>
-
-      
     </div>
   );
 };
