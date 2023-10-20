@@ -7,6 +7,7 @@ export const UserContext = createContext<IUserContext>({
     displayName: "",
     lastname: "",
     email: "",
+    profileImg: "",
   },
   setUserData: () => {},
   handleInput: () => {},
@@ -17,6 +18,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     displayName: "",
     lastname: "",
     email: "",
+    profileImg: "",
   });
 
   function handleInput<T>(

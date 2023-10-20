@@ -65,4 +65,5 @@ export interface UserData {
   displayName: string;
   lastname: string;
   email: string;
+  profileImg: string;
 }

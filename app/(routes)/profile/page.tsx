@@ -1,15 +1,58 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
+import { storage } from "@/firebase";
+import { useGlobalUser } from "@/app/Contexts/UserContext";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uuid } from "uuidv4";
+import Image from "next/image";
 
 const Profile = () => {
+  const { userData, setUserData } = useGlobalUser();
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    const uploadImage = async () => {
+      if (profileImage === null) return console.log("didn´t work");
+      const imageRef = ref(storage, `profileImg/${profileImage.name}${uuid()}`);
+      await uploadBytes(imageRef, profileImage);
+      const uploadURL = await getDownloadURL(imageRef);
+      setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
+      alert("Image uploaded!");
+    };
+    uploadImage();
+  }, [profileImage]);
+
+  const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileImage(() => e.target.files![0]);
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-[2.5rem] mb-8">My account</h2>
       <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 mx-auto bg-purple-50 border border-purple-100">
         <div className="flex justify-between w-full p-8">
           <div className="flex gap-4 items-center relative">
-            <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
-            <FaCamera className="absolute" />
+            {userData.profileImg !== "" ? (
+              <Image
+                src={userData.profileImg}
+                height={50}
+                width={50}
+                alt="Profile Picture"
+                className="rounded-full border border-purple-200 h-24 w-24"
+              />
+            ) : (
+              <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
+            )}
+
+            <label className="bg-purple-400 h-8 w-8 p-2 absolute top-[4.3rem] left-[4.3rem] z-50 cursor-pointer rounded-full">
+              <input
+                type="file"
+                className="hidden"
+                onChange={(e) => updateProfileImg(e)}
+              />
+              <FaCamera className="text-white" />
+            </label>
             <div>
               <h3 className="text-[2rem]">Pepito Perez</h3>
               <h6>pepitoperez@gmail.com</h6>
