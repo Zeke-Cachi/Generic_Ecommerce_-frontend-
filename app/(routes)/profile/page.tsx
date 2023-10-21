@@ -21,6 +21,7 @@ const Profile = () => {
       alert("Image uploaded!");
     };
     uploadImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileImage]);
 
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +37,8 @@ const Profile = () => {
             {userData.profileImg !== "" ? (
               <Image
                 src={userData.profileImg}
-                height={50}
-                width={50}
+                height={200}
+                width={200}
                 alt="Profile Picture"
                 className="rounded-full border border-purple-200 h-24 w-24"
               />
@@ -54,8 +55,10 @@ const Profile = () => {
               <FaCamera className="text-white" />
             </label>
             <div>
-              <h3 className="text-[2rem]">Pepito Perez</h3>
-              <h6>pepitoperez@gmail.com</h6>
+              <h3 className="text-[2rem]">
+                {userData.displayName + " " + userData.lastname}
+              </h3>
+              <h6>{userData.email}</h6>
             </div>
           </div>
           <div className="flex flex-col gap-4 pt-5 justify-between items-start h-1/4">
