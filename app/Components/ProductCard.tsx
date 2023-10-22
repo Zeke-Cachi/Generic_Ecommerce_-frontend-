@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaShoppingCart } from "react-icons/fa";
 import Button from "./Button";
+import { auth } from "@/firebase";
 
 const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const [shortenedTitle, setShortenedTitle] = useState<string>("");
@@ -22,6 +23,9 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   }, [item]);
 
   const handleShoppingCartClick = (item: number) => {
+    if (!auth.currentUser) {
+      return router.push("/login");
+    }
     setIsClicked(() => true);
     addToCart(item);
     setTimeout(() => {
