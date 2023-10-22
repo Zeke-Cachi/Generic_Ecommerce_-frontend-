@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { RegisterData } from "@/typesAndInterfaces";
+import { UserData } from "@/typesAndInterfaces";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../firebase";
 import Button from "@/app/Components/Button";
@@ -12,31 +12,25 @@ import toast, { Toaster } from "react-hot-toast";
 const Register = () => {
   const router = useRouter();
 
-  const { handleInput } = useGlobalUser();
-
-  const [registerData, setRegisterData] = useState<RegisterData>({
-    displayName: "",
-    lastname: "",
-    email: "",
-    password: "",
-    repeatedPassword: "",
-  });
+  const { handleInput, userData, setUserData } = useGlobalUser();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const userCreationRequest = await createUserWithEmailAndPassword(
-        auth,
-        registerData.email,
-        registerData.password
-      );
+      if (userData.password) {
+        const userCreationRequest = await createUserWithEmailAndPassword(
+          auth,
+          userData.email,
+          userData.password
+        );
+      }
       auth.currentUser
         ? await updateProfile(auth.currentUser, {
-            displayName: registerData.displayName,
+            displayName: userData.displayName,
           })
         : console.log("there was no user!");
       toast.success("Successfully registered!", { position: "bottom-center" });
-      console.log(auth.currentUser);
+      setUserData((prev) => ({ ...prev, password: "" }));
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -70,7 +64,7 @@ const Register = () => {
                   <span className="label-text">Name</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setRegisterData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   name="displayName"
                   type="text"
                   placeholder="name"
@@ -82,7 +76,7 @@ const Register = () => {
                   <span className="label-text">Lastname</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setRegisterData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="text"
                   placeholder="lastname"
                   name="lastname"
@@ -94,7 +88,7 @@ const Register = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setRegisterData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="email"
                   placeholder="email"
                   name="email"
@@ -106,7 +100,7 @@ const Register = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setRegisterData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="password"
                   name="password"
@@ -118,7 +112,7 @@ const Register = () => {
                   <span className="label-text">Repeat password</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setRegisterData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="repeat password"
                   name="repeatPassword"

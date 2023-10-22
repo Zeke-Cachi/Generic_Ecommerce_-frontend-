@@ -19,6 +19,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     lastname: "",
     email: "",
     profileImg: "",
+    password: "",
   });
 
   function handleInput<T>(

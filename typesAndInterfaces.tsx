@@ -51,11 +51,6 @@ export interface Product {
   quantity?: number;
 }
 
-export interface RegisterData extends UserData {
-  password: string;
-  repeatedPassword: string;
-}
-
 export type Slides = {
   id: number;
   image: string;
@@ -66,4 +61,5 @@ export interface UserData {
   lastname: string;
   email: string;
   profileImg: string;
+  password?: string;
 }
