@@ -57,7 +57,7 @@ export type Slides = {
 };
 
 export interface UserData {
-  displayName: string;
+  name: string;
   lastname: string;
   email: string;
   profileImg: string;

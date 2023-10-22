@@ -4,7 +4,7 @@ import { IUserContext, UserData } from "@/typesAndInterfaces";
 
 export const UserContext = createContext<IUserContext>({
   userData: {
-    displayName: "",
+    name: "",
     lastname: "",
     email: "",
     profileImg: "",
@@ -15,7 +15,7 @@ export const UserContext = createContext<IUserContext>({
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [userData, setUserData] = useState<UserData>({
-    displayName: "",
+    name: "",
     lastname: "",
     email: "",
     profileImg: "",

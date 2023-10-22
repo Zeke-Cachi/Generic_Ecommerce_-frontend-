@@ -6,6 +6,7 @@ import { useGlobalUser } from "@/app/Contexts/UserContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import Image from "next/image";
+import axios from "axios";
 
 const Profile = () => {
   const { userData, setUserData } = useGlobalUser();
@@ -56,7 +57,7 @@ const Profile = () => {
             </label>
             <div>
               <h3 className="text-[2rem]">
-                {userData.displayName + " " + userData.lastname}
+                {userData.name + " " + userData.lastname}
               </h3>
               <h6>{userData.email}</h6>
             </div>

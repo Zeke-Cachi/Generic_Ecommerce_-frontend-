@@ -8,6 +8,7 @@ import Button from "@/app/Components/Button";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 const Register = () => {
   const router = useRouter();
@@ -26,9 +27,17 @@ const Register = () => {
       }
       auth.currentUser
         ? await updateProfile(auth.currentUser, {
-            displayName: userData.displayName,
+            displayName: userData.name,
           })
         : console.log("there was no user!");
+      const postData: UserData = { ...userData };
+      delete postData.password;
+      const createUser = await axios.post(
+        "http://localhost:5500/users/create",
+        postData
+      );
+      createUser && console.log(createUser);
+
       toast.success("Successfully registered!", { position: "bottom-center" });
       setUserData((prev) => ({ ...prev, password: "" }));
       router.push("/");
@@ -65,7 +74,7 @@ const Register = () => {
                 </label>
                 <input
                   onChange={(e) => handleInput(e, setUserData)}
-                  name="displayName"
+                  name="name"
                   type="text"
                   placeholder="name"
                   className="input input-bordered"
