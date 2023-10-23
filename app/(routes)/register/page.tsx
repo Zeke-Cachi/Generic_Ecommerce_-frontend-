@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
 import { UserData } from "@/typesAndInterfaces";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../firebase";
@@ -30,14 +29,14 @@ const Register = () => {
             displayName: userData.name,
           })
         : console.log("there was no user!");
-      const postData: UserData = { ...userData };
+      const postData = { ...userData };
       delete postData.password;
+      delete postData._id;
       const createUser = await axios.post(
         "http://localhost:5500/users/create",
         postData
       );
-      createUser && console.log(createUser);
-
+      setUserData(() => createUser.data);
       toast.success("Successfully registered!", { position: "bottom-center" });
       setUserData((prev) => ({ ...prev, password: "" }));
       router.push("/");
@@ -121,7 +120,6 @@ const Register = () => {
                   <span className="label-text">Repeat password</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="repeat password"
                   name="repeatPassword"

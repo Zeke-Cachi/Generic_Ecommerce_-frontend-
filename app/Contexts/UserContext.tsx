@@ -1,9 +1,10 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { IUserContext, UserData } from "@/typesAndInterfaces";
 
 export const UserContext = createContext<IUserContext>({
   userData: {
+    _id: "",
     name: "",
     lastname: "",
     email: "",
@@ -15,6 +16,7 @@ export const UserContext = createContext<IUserContext>({
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [userData, setUserData] = useState<UserData>({
+    _id: "",
     name: "",
     lastname: "",
     email: "",
@@ -29,6 +31,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const { name, value } = e.target;
     setterFunction((prev) => ({ ...prev, [name]: value }));
   }
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   return (
     <UserContext.Provider value={{ userData, setUserData, handleInput }}>

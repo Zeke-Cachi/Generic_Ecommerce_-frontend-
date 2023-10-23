@@ -8,18 +8,22 @@ import Link from "next/link";
 import Button from "./Button";
 import { FaSearch } from "react-icons/fa";
 import { auth } from "@/firebase";
-import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const { state, totalAmount } = useGlobalCart();
-  const { userData } = useGlobalUser();
+  const { userData, setUserData } = useGlobalUser();
   const checkHeight = useWindowHeight();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const logOut = async () => {
     try {
       await auth.signOut();
-      setIsLoggedIn(false);
+      setUserData({
+        name: "",
+        lastname: "",
+        email: "",
+        profileImg: "",
+        password: "",
+      });
       toast.success("Succesfully logged out", { position: "bottom-center" });
     } catch (error) {
       console.error(error);
@@ -108,7 +112,9 @@ const Header = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost avatar text-center">
             <div className="w-10 rounded-full">
-              {userData.profileImg !== "" ? (
+              {userData.profileImg === "" ? (
+                <FaUserAlt className="h-[1.5rem] w-[1.5rem]" />
+              ) : (
                 <Image
                   src={userData.profileImg}
                   height={200}
@@ -116,8 +122,6 @@ const Header = () => {
                   alt="header profile picture"
                   className="h-[1.5rem] w-[1.5rem]"
                 />
-              ) : (
-                <FaUserAlt className="h-[1.5rem] w-[1.5rem]" />
               )}
             </div>
           </label>

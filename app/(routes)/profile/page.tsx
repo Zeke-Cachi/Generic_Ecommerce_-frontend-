@@ -19,6 +19,10 @@ const Profile = () => {
       await uploadBytes(imageRef, profileImage);
       const uploadURL = await getDownloadURL(imageRef);
       setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
+      const sendProfileImage = await axios.put(
+        `http://localhost:5500/users/updateprofileimage/${userData._id}`,
+        userData
+      );
       alert("Image uploaded!");
     };
     uploadImage();
@@ -41,7 +45,7 @@ const Profile = () => {
                 height={200}
                 width={200}
                 alt="Profile Picture"
-                className="rounded-full border border-purple-200 h-24 w-24"
+                className="rounded-full border border-purple-200 h-24 w-24 object-cover"
               />
             ) : (
               <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
