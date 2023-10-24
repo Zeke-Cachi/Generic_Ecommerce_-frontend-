@@ -8,27 +8,12 @@ import Link from "next/link";
 import Button from "./Button";
 import { FaSearch } from "react-icons/fa";
 import { auth } from "@/firebase";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const { state, totalAmount } = useGlobalCart();
-  const { userData, setUserData } = useGlobalUser();
+  const { userData, setUserData, logOut } = useGlobalUser();
   const checkHeight = useWindowHeight();
-  const logOut = async () => {
-    try {
-      await auth.signOut();
-      setUserData({
-        name: "",
-        lastname: "",
-        email: "",
-        profileImg: "",
-        password: "",
-      });
-      toast.success("Succesfully logged out", { position: "bottom-center" });
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div

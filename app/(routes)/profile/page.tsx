@@ -1,37 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
-import { storage } from "@/firebase";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { uuid } from "uuidv4";
 import Image from "next/image";
-import axios from "axios";
 
 const Profile = () => {
-  const { userData, setUserData } = useGlobalUser();
-  const [profileImage, setProfileImage] = useState<File | null>(null);
-
-  useEffect(() => {
-    const uploadImage = async () => {
-      if (profileImage === null) return console.log("didn´t work");
-      const imageRef = ref(storage, `profileImg/${profileImage.name}${uuid()}`);
-      await uploadBytes(imageRef, profileImage);
-      const uploadURL = await getDownloadURL(imageRef);
-      setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
-      const sendProfileImage = await axios.put(
-        `http://localhost:5500/users/updateprofileimage/${userData._id}`,
-        userData
-      );
-      alert("Image uploaded!");
-    };
-    uploadImage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileImage]);
-
-  const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfileImage(() => e.target.files![0]);
-  };
+  const { userData, updateProfileImg } = useGlobalUser();
 
   return (
     <div className="p-4">

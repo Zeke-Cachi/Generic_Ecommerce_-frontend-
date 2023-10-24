@@ -33,6 +33,8 @@ export interface IUserContext {
   handleRegisterSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleLogin: (e: React.FormEvent<HTMLFormElement>) => void;
   handlePasswordReset: (e: React.FormEvent<HTMLFormElement>) => void;
+  updateProfileImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  logOut: () => void;
 }
 
 export interface LoginData {

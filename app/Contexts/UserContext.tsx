@@ -11,6 +11,9 @@ import { auth } from "@/firebase";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uuid } from "uuidv4";
+import { storage } from "@/firebase";
 
 //--------------------------------- CREATE CONTEXT -------------------------------------------------------------//
 export const UserContext = createContext<IUserContext>({
@@ -26,6 +29,8 @@ export const UserContext = createContext<IUserContext>({
   handleRegisterSubmit: () => {},
   handleLogin: () => {},
   handlePasswordReset: () => {},
+  updateProfileImg: () => {},
+  logOut: () => {},
 });
 
 //--------------------------------- PROVIDER ------------------------------------------------------------------//
@@ -40,6 +45,38 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     profileImg: "",
     password: "",
   });
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    const uploadImage = async () => {
+      if (profileImage === null) return console.log("didn´t work");
+      const imageRef = ref(storage, `profileImg/${profileImage.name}${uuid()}`);
+      await uploadBytes(imageRef, profileImage);
+      const uploadURL = await getDownloadURL(imageRef);
+      setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
+    };
+    uploadImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileImage]);
+
+  useEffect(() => {
+    const updateProfileImg = async () => {
+      if (userData.profileImg !== "") {
+        const sendProfileImage = await axios.put(
+          `http://localhost:5500/users/updateprofileimage/${userData._id}`,
+          userData
+        );
+        console.log(sendProfileImage);
+      }
+    };
+    updateProfileImg();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
+
+  //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
+  const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileImage(() => e.target.files![0]);
+  };
 
   function handleInput<T>(
     e: React.ChangeEvent<HTMLInputElement>,
@@ -49,9 +86,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setterFunction((prev) => ({ ...prev, [name]: value }));
   }
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
   //--------------------------------- REGISTER FORM ------------------------------------//
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -104,6 +138,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  //--------------------------------- RESET PASSWORD --------------------------------------------//
   const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -112,6 +147,23 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong... Try again");
+    }
+  };
+
+  //--------------------------------- LOGOUT --------------------------------------------//
+  const logOut = async () => {
+    try {
+      await auth.signOut();
+      setUserData({
+        name: "",
+        lastname: "",
+        email: "",
+        profileImg: "",
+        password: "",
+      });
+      toast.success("Succesfully logged out", { position: "bottom-center" });
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -125,6 +177,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         handleRegisterSubmit,
         handleLogin,
         handlePasswordReset,
+        updateProfileImg,
+        logOut,
       }}
     >
       {children}
