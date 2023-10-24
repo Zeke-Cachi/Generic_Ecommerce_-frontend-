@@ -1,49 +1,11 @@
 "use client";
 import Link from "next/link";
-import { UserData } from "@/typesAndInterfaces";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../../firebase";
 import Button from "@/app/Components/Button";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const router = useRouter();
-
-  const { handleInput, userData, setUserData } = useGlobalUser();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      if (userData.password) {
-        const userCreationRequest = await createUserWithEmailAndPassword(
-          auth,
-          userData.email,
-          userData.password
-        );
-      }
-      auth.currentUser
-        ? await updateProfile(auth.currentUser, {
-            displayName: userData.name,
-          })
-        : console.log("there was no user!");
-      const postData = { ...userData };
-      delete postData.password;
-      delete postData._id;
-      const createUser = await axios.post(
-        "http://localhost:5500/users/create",
-        postData
-      );
-      setUserData(() => createUser.data);
-      toast.success("Successfully registered!", { position: "bottom-center" });
-      setUserData((prev) => ({ ...prev, password: "" }));
-      router.push("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { handleInput, handleRegisterSubmit, setUserData } = useGlobalUser();
 
   return (
     <div
@@ -64,7 +26,9 @@ const Register = () => {
           </div>
           <form
             className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100"
-            onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+              handleRegisterSubmit(e)
+            }
           >
             <div className="card-body">
               <div className="form-control">

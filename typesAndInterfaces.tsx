@@ -30,6 +30,9 @@ export interface IUserContext {
     e: React.ChangeEvent<HTMLInputElement>,
     setterFunction: React.Dispatch<React.SetStateAction<T>>
   ) => void;
+  handleRegisterSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleLogin: (e: React.FormEvent<HTMLFormElement>) => void;
+  handlePasswordReset: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export interface LoginData {

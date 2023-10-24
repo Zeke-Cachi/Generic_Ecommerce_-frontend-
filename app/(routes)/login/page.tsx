@@ -1,38 +1,11 @@
 "use client";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
-import { auth } from "@/firebase";
-import { useState } from "react";
-import { LoginData } from "@/typesAndInterfaces";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  const router = useRouter();
-
-  const { handleInput } = useGlobalUser();
-
-  const [loginData, setLoginData] = useState<LoginData>({
-    email: "",
-    password: "",
-  });
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const signIn = await signInWithEmailAndPassword(
-        auth,
-        loginData.email,
-        loginData.password
-      );
-      toast.success("Successfully logged in!", { position: "bottom-center" });
-      router.push("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { handleInput, setUserData, handleLogin } = useGlobalUser();
 
   return (
     <div
@@ -58,7 +31,7 @@ const Login = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setLoginData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="text"
                   placeholder="email"
                   name="email"
@@ -70,13 +43,19 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  onChange={(e) => handleInput(e, setLoginData)}
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="password"
                   name="password"
                   className="input input-bordered"
                 />
                 <label className="label">
+                  <Link
+                    href="/resetpassword"
+                    className="label-text-alt link link-hover"
+                  >
+                    Forgot Password?
+                  </Link>
                   <Link
                     href="/register"
                     className="label-text-alt link link-hover"
