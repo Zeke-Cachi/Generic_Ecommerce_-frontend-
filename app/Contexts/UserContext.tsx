@@ -48,14 +48,14 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [profileImage, setProfileImage] = useState<File | null>(null);
 
   useEffect(() => {
-    const uploadImage = async () => {
+    const uploadImageToFirebase = async () => {
       if (profileImage === null) return console.log("didn´t work");
       const imageRef = ref(storage, `profileImg/${profileImage.name}${uuid()}`);
       await uploadBytes(imageRef, profileImage);
       const uploadURL = await getDownloadURL(imageRef);
       setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
     };
-    uploadImage();
+    uploadImageToFirebase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileImage]);
 
@@ -72,6 +72,17 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     updateProfileImg();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      if (auth.currentUser) {
+        const fetchUserAtPageLoad = await axios.get(
+          `http://localhost:5500/users/getbyemail/${auth.currentUser.email}`
+        );
+        setUserData(() => fetchUserAtPageLoad.data[0]);
+      }
+    }, 1000);
+  }, []);
 
   //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
