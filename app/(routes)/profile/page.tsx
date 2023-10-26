@@ -2,14 +2,19 @@
 import { FaUserAlt, FaCamera } from "react-icons/fa";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
 import Image from "next/image";
+import { BsFillBagXFill } from "react-icons/bs";
+import Button from "@/app/Components/Button";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const { userData, updateProfileImg } = useGlobalUser();
+  const router = useRouter();
+  const goToPostProduct = () => router.push("/products/post");
 
   return (
     <div className="p-4">
       <h2 className="text-[2.5rem] mb-8">My account</h2>
-      <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 mx-auto bg-purple-50 border border-purple-100">
+      <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
         <div className="flex justify-between w-full p-8">
           <div className="flex gap-4 items-center relative">
             {userData.profileImg !== "" ? (
@@ -50,9 +55,19 @@ const Profile = () => {
             </h6>
           </div>
         </div>
-        <button className="btn btn-primary bg-purple-800 mx-auto text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800 mb-8">
-          Edit personal information
-        </button>
+        <Button title="Edit personal info" />
+      </div>
+      <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
+      <div className="flex flex-col items-center mb-8">
+        <h3 className="text-[1.5rem] mb-8 text-center">
+          You don´t have any products for sale
+        </h3>
+        <BsFillBagXFill className="mx-auto lg:w-36 lg:h-36 mb-8 text-purple-800" />
+        <Button
+          title="Post a product for sale"
+          optionalStyle="mx-auto"
+          passedFunction={goToPostProduct}
+        />
       </div>
     </div>
   );

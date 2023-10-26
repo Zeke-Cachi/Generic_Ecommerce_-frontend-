@@ -98,7 +98,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default CartProvider;
 
-//--------------------------------------- / USEGLOBAL CUSTOM HOOK / ---------------------------------------------------------------------------
+//--------------------------------------- / USEGLOBALCART CUSTOM HOOK / ---------------------------------------------------------------------------
 
 export const useGlobalCart = () => {
   return useContext(CartContext);
