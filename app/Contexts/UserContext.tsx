@@ -49,7 +49,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const uploadImageToFirebase = async () => {
-      if (profileImage === null) return console.log("didn´t work");
+      if (profileImage === null) return null;
       const imageRef = ref(storage, `profileImg/${profileImage.name}${uuid()}`);
       await uploadBytes(imageRef, profileImage);
       const uploadURL = await getDownloadURL(imageRef);
@@ -60,16 +60,15 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, [profileImage]);
 
   useEffect(() => {
-    const updateProfileImg = async () => {
+    const triggerUpdateProfilePic = async () => {
       if (userData.profileImg !== "") {
         const sendProfileImage = await axios.put(
           `http://localhost:5500/users/updateprofileimage/${userData._id}`,
           userData
         );
-        console.log(sendProfileImage);
       }
     };
-    updateProfileImg();
+    triggerUpdateProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
@@ -90,7 +89,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   function handleInput<T>(
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setterFunction: React.Dispatch<React.SetStateAction<T>>
   ) {
     const { name, value } = e.target;

@@ -6,12 +6,16 @@ import React, {
   useReducer,
   useContext,
 } from "react";
-import { CartContextType, Product } from "../../typesAndInterfaces";
+import { ICartContext, Product } from "../../typesAndInterfaces";
 import axios from "axios";
+import { storage } from "@/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { uuid } from "uuidv4";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
+import { useGlobalUser } from "./UserContext";
 
-export const CartContext = createContext<CartContextType>({
+export const CartContext = createContext<ICartContext>({
   product: [],
   setProduct: () => {},
   addToCart: () => {},
@@ -23,16 +27,22 @@ export const CartContext = createContext<CartContextType>({
     cart: [],
   },
   totalAmount: 0,
+  updateProductImg: () => {},
+  handleProductCreation: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
+  const { userData } = useGlobalUser();
+
   const [product, setProduct] = useState<Product[]>([]);
 
   const [state, dispatch] = useReducer(CartReducer, cartInitialState);
 
   const [totalAmount, setTotalAmount] = useState(0);
+
+  const [productImage, setProductImage] = useState<File | null>(null);
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -58,15 +68,15 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      response
-        ? (setProduct(response.data), initializeState(response.data))
-        : null;
-    };
-    getProducts();
-  }, []);
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     const response = await axios.get("https://fakestoreapi.com/products");
+  //     response
+  //       ? (setProduct(response.data), initializeState(response.data))
+  //       : null;
+  //   };
+  //   getProducts();
+  // }, []);
 
   useEffect(() => {
     const totalValue = state.cart.reduce(
@@ -76,7 +86,43 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setTotalAmount(() => totalValue);
   }, [state]);
 
-  //---------------------------------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    const uploadProductImageToFirebase = async () => {
+      if (productImage === null) return null;
+      const imageRef = ref(
+        storage,
+        `productImage/${productImage.name}${uuid()}`
+      );
+      await uploadBytes(imageRef, productImage);
+      const uploadURL = await getDownloadURL(imageRef);
+      setProduct((prev) => ({ ...prev, image: uploadURL }));
+    };
+    uploadProductImageToFirebase();
+  }, [productImage]);
+
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
+
+  //------------------------------------- / FUNCTIONS / -----------------------------------------------------------------------------
+
+  const updateProductImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProductImage(() => e.target.files![0]);
+  };
+
+  const handleProductCreation = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const productPayload = { ...product, userId: userData._id };
+    try {
+      const response = await axios.post(
+        "http://localhost:5500/products/create",
+        productPayload
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <CartContext.Provider
@@ -89,6 +135,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         clearCart,
         state,
         totalAmount,
+        updateProductImg,
+        handleProductCreation,
       }}
     >
       {children}

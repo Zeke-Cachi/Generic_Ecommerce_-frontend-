@@ -7,7 +7,7 @@ export interface ButtonProps {
   optionalStyle?: string;
 }
 
-export type CartContextType = {
+export type ICartContext = {
   product: Product[];
   setProduct: React.Dispatch<React.SetStateAction<Product[]>>;
   addToCart: (id?: number) => void;
@@ -16,6 +16,8 @@ export type CartContextType = {
   clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
+  updateProductImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export interface CartInitialState {
@@ -27,7 +29,7 @@ export interface IUserContext {
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   handleInput: <T>(
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setterFunction: React.Dispatch<React.SetStateAction<T>>
   ) => void;
   handleRegisterSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -43,7 +45,7 @@ export interface LoginData {
 }
 
 export interface Product {
-  _id: string;
+  _id?: string;
   title: string;
   price: number;
   description: string;
