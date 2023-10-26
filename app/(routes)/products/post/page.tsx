@@ -1,64 +1,75 @@
-import React from "react";
+import Link from "next/link";
+import Button from "@/app/Components/Button";
+import { Toaster } from "react-hot-toast";
 
 const PostProduct = () => {
   return (
-    <div className="px-4 h-[80vh]">
-      <h2 className="text-[2.5rem] mb-8">Upload your product</h2>
-      <form className="mx-auto w-1/3 bg-gray-100 border border-purple-300 p-4 rounded-lg">
-        <div className="flex flex-col mb-8">
-          <label className="text-xl" htmlFor="title">
-            Product title
-          </label>
-          <input
-            type="text"
-            name="title"
-            placeholder="title"
-            className="p-2 border border-gray-200"
-          />
+    <div
+      className="hero h-[90vh]"
+      style={{ backgroundImage: "url(/upload-product-bg-img.  jpeg" }}
+    >
+      <div className="hero-overlay bg-opacity-60 grid place-items-center">
+        <div className="hero-content flex flex-col w-1/4">
+          <h2 className="text-5xl text-white text-start">Upload a product</h2>
+          <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100">
+            <div className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Product title</span>
+                </label>
+                <input
+                  name="title"
+                  type="text"
+                  placeholder="product title"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Price</span>
+                </label>
+                <input
+                  type="number"
+                  placeholder="price"
+                  name="price"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Stock</span>
+                </label>
+                <input
+                  type="number"
+                  placeholder="stock"
+                  name="stock"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Upload image</span>
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  className="file:btn file:btn-primary file:bg-purple-800 file:text-white file:hover:bg-white file:hover:text-purple-800 file:hover:border-2 file:hover:border-purple-800"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Product description</span>
+                </label>
+                <textarea className="h-32 input input-bordered"></textarea>
+              </div>
+              <div className="form-control mt-6">
+                <Button title={"Register"} />
+              </div>
+            </div>
+          </form>
         </div>
-        <div className="flex flex-col mb-8">
-          <label className="text-xl" htmlFor="price">
-            Price
-          </label>
-          <input
-            type="number"
-            name="price"
-            placeholder="price"
-            className="p-2 border border-gray-200"
-          />
-        </div>
-        <div className="flex flex-col mb-8">
-          <label className="text-xl" htmlFor="stock">
-            Stock
-          </label>
-          <input
-            type="number"
-            name="stock"
-            placeholder="stock"
-            className="p-2 border border-gray-200"
-          />
-        </div>
-        <div className="flex flex-col mb-8">
-          <label className="text-xl" htmlFor="image">
-            Upload Product image
-          </label>
-          <input
-            type="file"
-            name="image"
-            className="pt-2 file:btn file:btn-primary file:bg-purple-800 file:text-white file:hover:bg-white file:hover:text-purple-800 file:hover:border-2 file:hover:border-purple-800"
-          />
-        </div>
-        <div className="flex flex-col mb-8">
-          <label className="text-xl" htmlFor="description">
-            Description
-          </label>
-          <textarea
-            name="description"
-            placeholder="describe your product"
-            className="p-2 border border-gray-200 rounded-lg h-32"
-          ></textarea>
-        </div>
-      </form>
+      </div>
+      <Toaster />
     </div>
   );
 };

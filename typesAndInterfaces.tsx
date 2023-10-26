@@ -43,16 +43,11 @@ export interface LoginData {
 }
 
 export interface Product {
-  id: number;
+  _id: string;
   title: string;
   price: number;
   description: string;
-  category: string;
   image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
   quantity?: number;
 }
 
