@@ -45,7 +45,17 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     profileImg: "",
     password: "",
     cart: [{ product: "", quantity: 0 }],
-    uploadedProducts: [{ _id: "" }],
+    uploadedProducts: [
+      {
+        _id: "",
+        title: "",
+        price: 0,
+        description: "",
+        image: "",
+        quantity: 0,
+        stock: 0,
+      },
+    ],
   });
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [checkProfilePicInUserData, setCheckProfilePicInUserData] =

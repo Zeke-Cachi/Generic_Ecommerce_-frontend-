@@ -15,7 +15,7 @@ import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
 import { useGlobalUser } from "./UserContext";
 import toast from "react-hot-toast";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 export const CartContext = createContext<ICartContext>({
   product: [],
@@ -36,7 +36,9 @@ export const CartContext = createContext<ICartContext>({
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const { userData } = useGlobalUser();
+  const router = useRouter();
+
+  const { userData, setUserData } = useGlobalUser();
 
   const [product, setProduct] = useState<Product[]>([]);
 
@@ -45,8 +47,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [productImage, setProductImage] = useState<File | null>(null);
-
-  const [userProducts, setUserProducts] = useState<Product[]>([]);
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -109,9 +109,12 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
           "http://localhost:5500/products/create",
           productPayload
         );
-        console.log(response);
+        setUserData((prev) => ({
+          ...prev,
+          uploadedProducts: [...response.data[1].uploadedProducts],
+        }));
         toast.success("Product successfully uploaded!");
-        Router.push("/profile");
+        router.push("/profile");
       } catch (error) {
         console.error(error);
       }

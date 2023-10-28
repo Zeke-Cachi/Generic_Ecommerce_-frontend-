@@ -63,7 +63,7 @@ const Profile = () => {
       </div>
       <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
       <div className="flex flex-col items-center mb-8">
-        {product.length === 0 ? (
+        {userData.uploadedProducts === undefined ? (
           <div>
             <h3 className="text-[1.5rem] mb-8 text-center">
               You don´t have any products for sale
@@ -71,7 +71,9 @@ const Profile = () => {
             <BsFillBagXFill className="mx-auto lg:w-36 lg:h-36 mb-8 text-purple-800" />
           </div>
         ) : (
-          product.map((item, i) => <CartCard item={item} key={item._id} />)
+          userData.uploadedProducts!.map((item) => (
+            <CartCard item={item} key={item._id} />
+          ))
         )}
         <Button
           title="Post a product for sale"

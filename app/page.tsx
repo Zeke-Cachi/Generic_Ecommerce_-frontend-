@@ -24,7 +24,7 @@ export default function Home() {
       <Hero />
       <PopularProducts ref={goToRef} />
       <h2 className="px-4 my-4 text-[2.5rem]">Browse</h2>
-      {product.length === 0 ? (
+      {/* {product.length === 0 ? (
         <div className="w-full text-center">
           <div className="loading loading-spinner w-40 text-gray-300"></div>
         </div>
@@ -34,7 +34,7 @@ export default function Home() {
             return <ProductCard key={i} item={item} />;
           })}
         </div>
-      )}
+      )} */}
     </>
   );
 }

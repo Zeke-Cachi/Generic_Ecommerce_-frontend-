@@ -51,6 +51,7 @@ export interface Product {
   description: string;
   image: string;
   quantity?: number;
+  stock: number;
 }
 
 export type Slides = {
@@ -66,5 +67,5 @@ export interface UserData {
   profileImg: string;
   password?: string;
   cart?: [{ product: string; quantity: number }];
-  uploadedProducts?: [{ _id: string }];
+  uploadedProducts?: Product[];
 }
