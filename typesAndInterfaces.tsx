@@ -1,18 +1,18 @@
 //ALPHABETICALLY ORDERED
 
 export interface ButtonProps {
-  passedFunction?: (id?: number) => void;
+  passedFunction?: (id?: string) => void;
   title: string;
-  id?: number;
+  _id?: string;
   optionalStyle?: string;
 }
 
 export type ICartContext = {
   product: Product[];
   setProduct: React.Dispatch<React.SetStateAction<Product[]>>;
-  addToCart: (id?: number) => void;
-  removeFromCart: (id: number) => void;
-  completelyRemoveItem: (id?: number) => void;
+  addToCart: (_id?: string) => void;
+  removeFromCart: (_id: string) => void;
+  completelyRemoveItem: (_id?: string) => void;
   clearCart: () => void;
   state: CartInitialState;
   totalAmount: number;
@@ -65,4 +65,6 @@ export interface UserData {
   email: string;
   profileImg: string;
   password?: string;
+  cart?: [{ product: string; quantity: number }];
+  uploadedProducts?: [{ _id: string }];
 }

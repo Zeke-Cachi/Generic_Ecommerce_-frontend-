@@ -1,13 +1,17 @@
 "use client";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
 import { useGlobalUser } from "@/app/Contexts/UserContext";
+import { useGlobalCart } from "@/app/Contexts/CartContext";
 import Image from "next/image";
 import { BsFillBagXFill } from "react-icons/bs";
 import Button from "@/app/Components/Button";
+import CartCard from "@/app/Components/CartCard";
 import { useRouter } from "next/navigation";
+import Cart from "../cart/page";
 
 const Profile = () => {
   const { userData, updateProfileImg } = useGlobalUser();
+  const { product } = useGlobalCart();
   const router = useRouter();
   const goToPostProduct = () => router.push("/products/post");
 
@@ -59,10 +63,16 @@ const Profile = () => {
       </div>
       <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
       <div className="flex flex-col items-center mb-8">
-        <h3 className="text-[1.5rem] mb-8 text-center">
-          You don´t have any products for sale
-        </h3>
-        <BsFillBagXFill className="mx-auto lg:w-36 lg:h-36 mb-8 text-purple-800" />
+        {product.length === 0 ? (
+          <div>
+            <h3 className="text-[1.5rem] mb-8 text-center">
+              You don´t have any products for sale
+            </h3>
+            <BsFillBagXFill className="mx-auto lg:w-36 lg:h-36 mb-8 text-purple-800" />
+          </div>
+        ) : (
+          product.map((item, i) => <CartCard item={item} key={item._id} />)
+        )}
         <Button
           title="Post a product for sale"
           optionalStyle="mx-auto"

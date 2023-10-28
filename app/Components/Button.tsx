@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const Button: React.FC<ButtonProps> = ({
   passedFunction,
   title,
-  id,
+  _id,
   optionalStyle,
 }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     if (!auth.currentUser) return router.push("/login");
-    passedFunction && passedFunction(id);
+    passedFunction && passedFunction(_id);
   };
   return (
     <button

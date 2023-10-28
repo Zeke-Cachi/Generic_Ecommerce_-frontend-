@@ -44,8 +44,12 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     email: "",
     profileImg: "",
     password: "",
+    cart: [{ product: "", quantity: 0 }],
+    uploadedProducts: [{ _id: "" }],
   });
   const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [checkProfilePicInUserData, setCheckProfilePicInUserData] =
+    useState(false);
 
   useEffect(() => {
     const uploadImageToFirebase = async () => {
@@ -54,6 +58,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       await uploadBytes(imageRef, profileImage);
       const uploadURL = await getDownloadURL(imageRef);
       setUserData((prev) => ({ ...prev, profileImg: uploadURL }));
+      setCheckProfilePicInUserData(true);
     };
     uploadImageToFirebase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +75,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     };
     triggerUpdateProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
+  }, [checkProfilePicInUserData]);
 
   useEffect(() => {
     setTimeout(async () => {

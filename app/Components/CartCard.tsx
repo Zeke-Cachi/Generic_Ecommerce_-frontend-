@@ -28,14 +28,14 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
       <div className="flex justify-end items-center w-full pe-16">
         <button
           className="bg-purple-100 rounded-full h-12 w-12 me-4 text-xl font-bold transition-all  active:bg-purple-300"
-          onClick={() => removeFromCart(item.id)}
+          onClick={() => item._id && removeFromCart(item._id)}
         >
           -
         </button>
         <p className="text-center text-xl">{item.quantity}</p>
         <button
           className="bg-purple-100 rounded-full h-12 w-12 ms-4 text-xl font-bold transition-all active:bg-purple-300"
-          onClick={() => addToCart(item.id)}
+          onClick={() => addToCart(item._id)}
         >
           +
         </button>
@@ -43,7 +43,7 @@ const CartCard: React.FC<{ item: Product }> = ({ item }) => {
 
       <Button
         passedFunction={completelyRemoveItem}
-        id={item.id}
+        _id={item._id}
         title={"remove Item"}
         optionalStyle="mx-auto"
       />

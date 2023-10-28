@@ -14,6 +14,8 @@ import { uuid } from "uuidv4";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
 import { useGlobalUser } from "./UserContext";
+import toast from "react-hot-toast";
+import Router from "next/router";
 
 export const CartContext = createContext<ICartContext>({
   product: [],
@@ -44,21 +46,23 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [productImage, setProductImage] = useState<File | null>(null);
 
+  const [userProducts, setUserProducts] = useState<Product[]>([]);
+
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
   const initializeState = (product: Product[]) => {
     dispatch({ type: TYPES.INITIALIZE_STATE, payload: product });
   };
 
-  const addToCart = (id?: number) => {
+  const addToCart = (id?: string) => {
     dispatch({ type: TYPES.ADD_TO_CART, payload: id });
   };
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     dispatch({ type: TYPES.REMOVE_ITEM, payload: id });
   };
 
-  const completelyRemoveItem = (id?: number) => {
+  const completelyRemoveItem = (id?: string) => {
     dispatch({ type: TYPES.REMOVE_ALL_ITEMS, payload: id });
   };
 
@@ -67,16 +71,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/products");
-  //     response
-  //       ? (setProduct(response.data), initializeState(response.data))
-  //       : null;
-  //   };
-  //   getProducts();
-  // }, []);
 
   useEffect(() => {
     const totalValue = state.cart.reduce(
@@ -100,10 +94,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     uploadProductImageToFirebase();
   }, [productImage]);
 
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
-
   //------------------------------------- / FUNCTIONS / -----------------------------------------------------------------------------
 
   const updateProductImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,15 +102,19 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleProductCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const productPayload = { ...product, userId: userData._id };
-    try {
-      const response = await axios.post(
-        "http://localhost:5500/products/create",
-        productPayload
-      );
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+    if (userData._id) {
+      const productPayload = { ...product, userId: userData._id };
+      try {
+        const response = await axios.post(
+          "http://localhost:5500/products/create",
+          productPayload
+        );
+        console.log(response);
+        toast.success("Product successfully uploaded!");
+        Router.push("/profile");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
