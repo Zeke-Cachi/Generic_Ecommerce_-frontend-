@@ -52,7 +52,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement, ChildProps>(
             }`}
           >
             {firstSlide.map((product) => (
-              <ProductCard key={product.id} item={product} />
+              <ProductCard key={product._id} item={product} />
             ))}
           </div>
           <div
@@ -63,7 +63,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement, ChildProps>(
             }`}
           >
             {secondSlide.map((product) => (
-              <ProductCard key={product.id} item={product} />
+              <ProductCard key={product._id} item={product} />
             ))}
           </div>
           <GrFormNext

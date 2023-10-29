@@ -22,7 +22,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
     }
   }, [item]);
 
-  const handleShoppingCartClick = (item: number) => {
+  const handleShoppingCartClick = (item: string) => {
     if (!auth.currentUser) {
       return router.push("/login");
     }
@@ -34,14 +34,14 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   };
 
   const setParams = () => {
-    const queryParams = `product=${item.id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.category}&product=${item.image}&product=${item.rating.rate}&product=${item.rating.count}`;
+    const queryParams = `product=${item._id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.image}`;
     router.push(`/productDetails?${queryParams}`);
   };
 
   return (
-    <div className="group card w-64 max-h-[40rem] p-2 shadow-2xl relative border border-gray-200 text-center bg-gray-100">
+    <div className="group card w-64 max-h-[40rem] shadow-2xl relative border border-gray-200 text-center bg-gray-100">
       <FaShoppingCart
-        onClick={() => handleShoppingCartClick(item.id)}
+        onClick={() => item._id && handleShoppingCartClick(item._id)}
         className={`absolute top-4 right-4 w-8 h-8 text-purple-400 transition-all opacity-0 group-hover:opacity-100 cursor-pointer ${
           isClicked ? "animate-clickedCart" : ""
         }`}
@@ -51,9 +51,9 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
         width={300}
         height={300}
         alt="Product image"
-        className="h-full object-contain"
+        className="h-1/2 object-cover"
       />
-      <div className="card-body">
+      <div className="card-body min-h-1/2">
         <h2 className={`card-title text-purple-700 text-[1rem]`}>
           {shortenedTitle}
         </h2>

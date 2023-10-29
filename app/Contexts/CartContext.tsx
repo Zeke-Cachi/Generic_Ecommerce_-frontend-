@@ -73,6 +73,18 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5500/products");
+        setProduct(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
     const totalValue = state.cart.reduce(
       (acc, item) => (acc = acc + item.quantity! * item.price),
       0
@@ -106,7 +118,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const productPayload = { ...product, userId: userData._id };
       try {
         const response = await axios.post(
-          "http://localhost:5500/products/create",
+          "http://localhost:5500/products",
           productPayload
         );
         setUserData((prev) => ({
