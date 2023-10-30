@@ -1,12 +1,11 @@
 "use client";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import { useGlobalCart } from "../Contexts/CartContext";
 import { useGlobalUser } from "../Contexts/UserContext";
-import { useWindowHeight } from "../Contexts/CartContext";
+import { useWindowHeight, useGlobalCart } from "../Contexts/CartContext";
 import Link from "next/link";
 import Button from "./Button";
-import { FaSearch } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 import { auth } from "@/firebase";
 import { Toaster } from "react-hot-toast";
 
@@ -42,14 +41,8 @@ const Header = () => {
         </Link>
       </div>
 
-      <div className="flex justify-center gap-4 items-center">
-        <input
-          type="text"
-          placeholder="search"
-          className="ps-4 w-[20rem] h-12 border-2 border-gray-200 rounded-lg"
-        />
-        <FaSearch className="text-gray-400" />
-      </div>
+      <SearchBar />
+
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost">

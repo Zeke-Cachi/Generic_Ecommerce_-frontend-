@@ -39,7 +39,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   };
 
   return (
-    <div className="group card w-64 max-h-[40rem] shadow-2xl relative border border-gray-200 text-center bg-gray-100">
+    <div className="group card w-64 max-h-[40rem] shadow-2xl relative border border-gray-200 text-center bg-gray-100 overflow-hidden">
       <FaShoppingCart
         onClick={() => item._id && handleShoppingCartClick(item._id)}
         className={`absolute top-4 right-4 w-8 h-8 text-purple-400 transition-all opacity-0 group-hover:opacity-100 cursor-pointer ${
@@ -53,12 +53,12 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
         alt="Product image"
         className="h-1/2 object-cover"
       />
-      <div className="card-body min-h-1/2">
-        <h2 className={`card-title text-purple-700 text-[1rem]`}>
+      <div className="card-body min-h-1/2 text-center">
+        <h2 className={`card-title text-purple-700 text-[1rem] mx-auto h-1/3`}>
           {shortenedTitle}
         </h2>
-        <p className="text-[1.5rem] font-bold mt-2">${item.price}</p>
-        <div className="card-actions justify-end">
+        <p className="text-[1.5rem] font-bold mt-2 h-1/3">${item.price}</p>
+        <div className="card-actions justify-end h-1/3">
           <Button
             passedFunction={setParams}
             title={"BUY NOW"}
