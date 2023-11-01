@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { useGlobalCart } from "@/app/Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import Button from "@/app/Components/Button";
 
 //--------------------------------------------------------------------------------------------------------------------------

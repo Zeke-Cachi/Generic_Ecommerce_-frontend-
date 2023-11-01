@@ -1,5 +1,5 @@
 "use client";
-import { useGlobalCart } from "@/app/Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Button from "@/app/Components/Button";

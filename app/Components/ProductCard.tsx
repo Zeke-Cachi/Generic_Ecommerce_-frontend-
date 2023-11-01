@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalCart } from "../Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

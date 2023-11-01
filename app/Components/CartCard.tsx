@@ -1,7 +1,7 @@
 "use client";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { useGlobalCart } from "../Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import Button from "./Button";
 
 const CartCard: React.FC<{ item: Product }> = ({ item }) => {

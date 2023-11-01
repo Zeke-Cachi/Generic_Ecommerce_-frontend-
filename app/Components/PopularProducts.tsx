@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect, forwardRef } from "react";
 import { Product } from "@/typesAndInterfaces";
-import { useGlobalCart } from "../Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 

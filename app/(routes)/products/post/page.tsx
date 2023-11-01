@@ -1,8 +1,7 @@
 "use client";
 import Button from "@/app/Components/Button";
 import { Toaster } from "react-hot-toast";
-import { useGlobalCart } from "@/app/Contexts/CartContext";
-import { useGlobalUser } from "@/app/Contexts/UserContext";
+import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
 
 const PostProduct = () => {
   const { product, setProduct, handleProductCreation, updateProductImg } =

@@ -1,13 +1,11 @@
 "use client";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
-import { useGlobalUser } from "@/app/Contexts/UserContext";
-import { useGlobalCart } from "@/app/Contexts/CartContext";
+import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
 import Image from "next/image";
 import { BsFillBagXFill } from "react-icons/bs";
 import Button from "@/app/Components/Button";
 import CartCard from "@/app/Components/CartCard";
 import { useRouter } from "next/navigation";
-import Cart from "../cart/page";
 
 const Profile = () => {
   const { userData, updateProfileImg } = useGlobalUser();

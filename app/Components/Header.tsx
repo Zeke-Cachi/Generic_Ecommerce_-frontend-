@@ -1,8 +1,8 @@
 "use client";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import { useGlobalUser } from "../Contexts/UserContext";
-import { useWindowHeight, useGlobalCart } from "../Contexts/CartContext";
+import { useGlobalUser } from "../CustomHooks";
+import { useGlobalCart, useWindowHeight } from "@/app/CustomHooks";
 import Link from "next/link";
 import Button from "./Button";
 import SearchBar from "./SearchBar";

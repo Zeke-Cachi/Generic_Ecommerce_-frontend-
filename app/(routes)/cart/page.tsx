@@ -1,5 +1,5 @@
 "use client";
-import { useGlobalCart } from "@/app/Contexts/CartContext";
+import { useGlobalCart } from "@/app/CustomHooks";
 import CartCard from "@/app/Components/CartCard";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";

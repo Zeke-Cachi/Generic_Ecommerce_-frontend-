@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
-import { useGlobalUser } from "@/app/Contexts/UserContext";
+import { useGlobalUser } from "@/app/CustomHooks";
 import { Toaster } from "react-hot-toast";
 
 const Register = () => {

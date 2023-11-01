@@ -1,19 +1,13 @@
 "use client";
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useReducer,
-  useContext,
-} from "react";
+import React, { createContext, useState, useEffect, useReducer } from "react";
 import { ICartContext, Product } from "../../typesAndInterfaces";
 import axios from "axios";
-import { storage } from "@/firebase";
+import { auth, storage } from "@/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
-import { useGlobalUser } from "./UserContext";
+import { useGlobalUser } from "../CustomHooks";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -94,20 +88,20 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const uploadCartItems = async () => {
-      if (userData._id && state.cart.length > 0) {
-        const postData = { id: userData._id, cart: state.cart };
-        try {
-          const response = await axios.post(
-            "http://localhost:5500/users/savecart",
-            postData
-          );
-        } catch (error) {
-          console.log(error);
-        }
+      const postData = { email: auth.currentUser?.email, cart: state.cart };
+      try {
+        const response = await axios.post(
+          "http://localhost:5500/users/savecart",
+          postData
+        );
+      } catch (error) {
+        console.log(error);
       }
     };
-    uploadCartItems();
-  }, [state.cart]);
+    if (state.cart.length > 0 && auth.currentUser?.email) {
+      uploadCartItems();
+    }
+  }, [state.cart, userData._id]);
 
   useEffect(() => {
     const totalValue = state.cart.reduce(
@@ -180,26 +174,3 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default CartProvider;
-
-//--------------------------------------- / USEGLOBALCART CUSTOM HOOK / ---------------------------------------------------------------------------
-
-export const useGlobalCart = () => {
-  return useContext(CartContext);
-};
-
-//-------------------------------------- / USEWINDOWHEIGHT CUSTOM HOOK / ----------------------------------------------------------------------------
-
-export const useWindowHeight = () => {
-  const [checkHeight, setCheckHeight] = useState<number>(0);
-
-  useEffect(() => {
-    const setState = () => {
-      setCheckHeight(window.scrollY);
-    };
-
-    window.addEventListener("scroll", setState);
-    return () => window.removeEventListener("scroll", setState);
-  }, []);
-
-  return checkHeight;
-};
