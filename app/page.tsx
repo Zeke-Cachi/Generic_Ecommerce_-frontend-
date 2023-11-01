@@ -3,11 +3,13 @@ import Hero from "./Components/Hero";
 import ProductCard from "./Components/ProductCard";
 import { useEffect, useRef } from "react";
 import { useGlobalCart } from "./Contexts/CartContext";
+import { useGlobalUser } from "./Contexts/UserContext";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
 
 export default function Home() {
   const { product } = useGlobalCart();
+  const { userData } = useGlobalUser();
   const goToRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {

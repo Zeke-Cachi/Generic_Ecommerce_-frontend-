@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 export const CartContext = createContext<ICartContext>({
   product: [],
   setProduct: () => {},
+  initializeState: () => {},
   addToCart: () => {},
   removeFromCart: () => {},
   completelyRemoveItem: () => {},
@@ -50,8 +51,10 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
-  const initializeState = (product: Product[]) => {
-    dispatch({ type: TYPES.INITIALIZE_STATE, payload: product });
+  const initializeState = (item: Product[], option: string) => {
+    option === "cart"
+      ? dispatch({ type: TYPES.INITIALIZE_CART, payload: item })
+      : dispatch({ type: TYPES.INITIALIZE_PRODUCTS, payload: item });
   };
 
   const addToCart = (id?: string) => {
@@ -76,6 +79,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5500/products");
+        response.data.length > 0 && initializeState(response.data, "products");
         setProduct(response.data);
       } catch (error) {
         console.log(error);
@@ -85,8 +89,29 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    console.log(state);
+  }, [state]);
+
+  useEffect(() => {
+    const uploadCartItems = async () => {
+      if (userData._id && state.cart.length > 0) {
+        const postData = { id: userData._id, cart: state.cart };
+        try {
+          const response = await axios.post(
+            "http://localhost:5500/users/savecart",
+            postData
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    uploadCartItems();
+  }, [state.cart]);
+
+  useEffect(() => {
     const totalValue = state.cart.reduce(
-      (acc, item) => (acc = acc + item.quantity! * item.price),
+      (acc: number, item: Product) => (acc = acc + item.quantity! * item.price),
       0
     );
     setTotalAmount(() => totalValue);
@@ -138,6 +163,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         product,
         setProduct,
+        initializeState,
         addToCart,
         removeFromCart,
         completelyRemoveItem,

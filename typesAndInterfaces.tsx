@@ -10,6 +10,7 @@ export interface ButtonProps {
 export type ICartContext = {
   product: Product[];
   setProduct: React.Dispatch<React.SetStateAction<Product[]>>;
+  initializeState: (item: Product[], option: string) => void;
   addToCart: (_id?: string) => void;
   removeFromCart: (_id: string) => void;
   completelyRemoveItem: (_id?: string) => void;
@@ -45,12 +46,13 @@ export interface LoginData {
 }
 
 export interface Product {
+  userId?: string;
   _id?: string;
   title: string;
   price: number;
   description: string;
   image: string;
-  quantity?: number;
+  quantity: number;
   stock: number;
 }
 
@@ -66,6 +68,6 @@ export interface UserData {
   email: string;
   profileImg: string;
   password?: string;
-  cart?: [{ product: string; quantity: number }];
-  uploadedProducts?: Product[];
+  cart: Product[];
+  uploadedProducts: Product[];
 }

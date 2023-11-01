@@ -8,8 +8,12 @@ export const cartInitialState: CartInitialState = {
 
 export function CartReducer(state: CartInitialState, action: any) {
   switch (action.type) {
-    case TYPES.INITIALIZE_STATE: {
+    case TYPES.INITIALIZE_PRODUCTS: {
       return { ...state, products: action.payload };
+    }
+
+    case TYPES.INITIALIZE_CART: {
+      return { ...state, cart: action.payload };
     }
 
     //--------------------------------------------------------------------------

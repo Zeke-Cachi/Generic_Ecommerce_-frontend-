@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { storage } from "@/firebase";
+import { useGlobalCart } from "./CartContext";
 
 //--------------------------------- CREATE CONTEXT -------------------------------------------------------------//
 export const UserContext = createContext<IUserContext>({
@@ -23,6 +24,8 @@ export const UserContext = createContext<IUserContext>({
     lastname: "",
     email: "",
     profileImg: "",
+    cart: [],
+    uploadedProducts: [],
   },
   setUserData: () => {},
   handleInput: () => {},
@@ -37,6 +40,7 @@ export const UserContext = createContext<IUserContext>({
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- HOOKS -------------------------------------------//
   const router = useRouter();
+  const { initializeState } = useGlobalCart();
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     name: "",
@@ -44,22 +48,30 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     email: "",
     profileImg: "",
     password: "",
-    cart: [{ product: "", quantity: 0 }],
-    uploadedProducts: [
-      {
-        _id: "",
-        title: "",
-        price: 0,
-        description: "",
-        image: "",
-        quantity: 0,
-        stock: 0,
-      },
-    ],
+    cart: [],
+    uploadedProducts: [],
   });
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [checkProfilePicInUserData, setCheckProfilePicInUserData] =
     useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const fetchUserAtPageLoad = await axios.get(
+            `http://localhost:5500/users/getbyemail/${user.email}`
+          );
+          fetchUserAtPageLoad.data[0].cart.length > 0 &&
+            (setUserData(() => fetchUserAtPageLoad.data[0]),
+            initializeState(fetchUserAtPageLoad.data[0].cart, "cart"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const uploadImageToFirebase = async () => {
@@ -86,17 +98,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     triggerUpdateProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkProfilePicInUserData]);
-
-  useEffect(() => {
-    setTimeout(async () => {
-      if (auth.currentUser) {
-        const fetchUserAtPageLoad = await axios.get(
-          `http://localhost:5500/users/getbyemail/${auth.currentUser.email}`
-        );
-        setUserData(() => fetchUserAtPageLoad.data[0]);
-      }
-    }, 1000);
-  }, []);
 
   //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,6 +186,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         email: "",
         profileImg: "",
         password: "",
+        cart: [],
+        uploadedProducts: [],
       });
       toast.success("Succesfully logged out", { position: "bottom-center" });
     } catch (error) {
