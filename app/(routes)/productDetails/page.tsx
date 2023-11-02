@@ -11,6 +11,7 @@ import Button from "@/app/Components/Button";
 const ProductDetails = () => {
   const searchParams = useSearchParams();
   const [productInfo, setProductInfo] = useState<Product>();
+  const [rating] = useState(Math.floor(Math.random() * 10) + 1);
   const { addToCart } = useGlobalCart();
 
   //--------------------------------------------------------------------------------------------------------------------------
@@ -18,33 +19,30 @@ const ProductDetails = () => {
   useEffect(() => {
     const keyArray = searchParams.getAll("product");
     setProductInfo({
-      id: Number(keyArray[0]),
+      _id: keyArray[0],
       title: keyArray[1],
       price: Number(keyArray[2]),
       description: keyArray[3],
-      category: keyArray[4],
-      image: keyArray[5],
-      rating: {
-        rate: Number(keyArray[6]),
-        count: Number(keyArray[7]),
-      },
+      image: keyArray[4],
+      quantity: Number(keyArray[5]),
+      stock: Number(keyArray[6]),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //--------------------------------------------------------------------------------------------------------------------------
 
-  return productInfo?.id === undefined ? (
+  return productInfo?._id === undefined ? (
     <div className="w-full pt-[10rem] text-center h-[50vw]">
       <span className="loading loading-spinner mx-auto w-[10rem]"></span>
     </div>
   ) : (
-    <div>
+    <div className="mt-12">
       <div className="flex w-[80vw] h-[70vh] border mx-auto mb-8 shadow-xl bg-gray-100 rounded-xl">
         <div className="w-full p-4 flex flex-col justify-between">
           <div className="relative w-full h-full">
             <Image
-              src={productInfo?.image}
+              src={productInfo.image}
               fill={true}
               alt="Product image"
               className="object-contain"
@@ -55,18 +53,15 @@ const ProductDetails = () => {
               Rating:{" "}
               <span
                 className={`${
-                  productInfo.rating.rate < 2
+                  rating < 2
                     ? "text-red-500"
-                    : productInfo.rating.rate > 4
+                    : rating > 4
                     ? "text-green-500"
                     : ""
                 }`}
               >
-                {productInfo.rating.rate}
+                {rating}
               </span>
-            </h6>
-            <h6>
-              Category: <span className="italic">{productInfo.category}</span>
             </h6>
           </div>
         </div>
@@ -87,16 +82,16 @@ const ProductDetails = () => {
             Stock:{" "}
             <span
               className={`${
-                productInfo.rating.count < 10 ? "text-red-500" : ""
+                productInfo.stock < 10 ? "text-red-500" : ""
               } non-italic`}
             >
-              {productInfo.rating.count}
+              {productInfo.stock}
             </span>
           </p>
           <Button
             passedFunction={addToCart}
             title={"ADD TO CART"}
-            id={productInfo.id}
+            _id={productInfo._id}
             optionalStyle={"mx-auto"}
           />
         </div>

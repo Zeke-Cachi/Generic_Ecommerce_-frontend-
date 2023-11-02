@@ -34,7 +34,8 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   };
 
   const setParams = () => {
-    const queryParams = `product=${item._id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${item.image}`;
+    const encodedImg = encodeURIComponent(item.image);
+    const queryParams = `product=${item._id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${encodedImg}&product=${item.quantity}&product=${item.stock}`;
     router.push(`/productDetails?${queryParams}`);
   };
 
