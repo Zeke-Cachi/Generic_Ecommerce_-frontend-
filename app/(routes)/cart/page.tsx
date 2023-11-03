@@ -4,6 +4,7 @@ import CartCard from "@/app/Components/CartCard";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
+import H2Title from "@/app/Components/H2Title";
 
 const Cart = () => {
   const { state, totalAmount, clearCart } = useGlobalCart();
@@ -11,7 +12,7 @@ const Cart = () => {
   return (
     <section className="px-8">
       <div className="flex justify-between items-center w-[90vw]">
-        <h2 className="text-[2.5rem] mb-8">Your Cart</h2>
+        <H2Title title={"Your cart"} />
         <Button passedFunction={clearCart} title={"EMPTY CART"} />
       </div>
       <div>
@@ -21,7 +22,14 @@ const Cart = () => {
             <FaShoppingCart className="w-60 h-60 text-purple-800" />
           </div>
         ) : (
-          state.cart.map((item, i) => <CartCard key={i} item={item} />)
+          state.cart.map((item, i) => (
+            <CartCard
+              key={i}
+              item={item}
+              showSecondaryBtn={true}
+              extraStyling={"lg:w-[90vw] grid-cols-4"}
+            />
+          ))
         )}
       </div>
       <div className="flex items-center justify-start mb-28 mt-8">

@@ -5,17 +5,26 @@ import { auth } from "@/firebase";
 import { useRouter } from "next/navigation";
 
 const Button: React.FC<ButtonProps> = ({
-  passedFunction,
+  passedFunctionWithId,
+  passedFunctionWithItem,
   title,
   _id,
+  item,
   optionalStyle,
 }) => {
   const router = useRouter();
   const checkIfUserIsLoggedIn = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    e.preventDefault();
     if (!auth.currentUser) return router.push("/login");
-    passedFunction && passedFunction(_id);
+    if (passedFunctionWithId && _id) {
+      passedFunctionWithId(_id);
+    }
+
+    if (passedFunctionWithItem && item) {
+      passedFunctionWithItem(item);
+    }
   };
   return (
     <button

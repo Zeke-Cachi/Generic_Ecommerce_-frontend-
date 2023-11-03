@@ -3,6 +3,7 @@ import { useGlobalCart } from "@/app/CustomHooks";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Button from "@/app/Components/Button";
+import H2Title from "@/app/Components/H2Title";
 
 const Checkout = () => {
   const { state, totalAmount, clearCart } = useGlobalCart();
@@ -26,7 +27,7 @@ const Checkout = () => {
   return (
     <div className="w-full h-[90vw] flex justify-center">
       <div className="p-4 mt-12 w-[70%] h-[40%] bg-gray-100 border-gray-200 rounded-2xl flex flex-col justify-between">
-        <h2 className="text-[2.5rem]">Checkout</h2>
+        <H2Title title={"Checkout"} />
         <div>
           <div className="grid grid-cols-3 text-center mb-4 border-b-2 border-b-purple-400">
             <h6 className="font-bold text-purple-400">Item</h6>

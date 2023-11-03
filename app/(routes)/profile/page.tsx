@@ -6,16 +6,16 @@ import { BsFillBagXFill } from "react-icons/bs";
 import Button from "@/app/Components/Button";
 import CartCard from "@/app/Components/CartCard";
 import { useRouter } from "next/navigation";
+import H2Title from "@/app/Components/H2Title";
 
 const Profile = () => {
   const { userData, updateProfileImg } = useGlobalUser();
-  const { product } = useGlobalCart();
   const router = useRouter();
   const goToPostProduct = () => router.push("/products/post");
 
   return (
     <div className="p-4">
-      <h2 className="text-[2.5rem] mb-8">My account</h2>
+      <H2Title title={"My account"} />
       <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
         <div className="flex justify-between w-full p-8">
           <div className="flex gap-4 items-center relative">
@@ -64,13 +64,18 @@ const Profile = () => {
         {userData.uploadedProducts === undefined ? (
           <div>
             <h3 className="text-[1.5rem] mb-8 text-center">
-              You don´t have any products for sale
+              You don`t have any products for sale
             </h3>
             <BsFillBagXFill className="mx-auto lg:w-36 lg:h-36 mb-8 text-purple-800" />
           </div>
         ) : (
           userData.uploadedProducts!.map((item) => (
-            <CartCard item={item} key={item._id} />
+            <CartCard
+              item={item}
+              key={item._id}
+              showSecondaryBtn={false}
+              extraStyling={"lg:w-3/4 grid-cols-3"}
+            />
           ))
         )}
         <Button

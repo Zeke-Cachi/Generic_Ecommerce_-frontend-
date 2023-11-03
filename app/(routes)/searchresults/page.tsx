@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Product } from "@/typesAndInterfaces";
 import ProductCard from "@/app/Components/ProductCard";
+import H2Title from "@/app/Components/H2Title";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -19,7 +20,6 @@ const SearchResults = () => {
               decodedParams
             )}`
           );
-          console.log(response.data);
           setSearchedItem(response.data);
         } catch (error) {
           console.log(error);
@@ -30,8 +30,15 @@ const SearchResults = () => {
   }, [searchParams]);
 
   return (
-    searchedItem &&
-    searchedItem.map((item) => <ProductCard item={item} key={item._id} />)
+    <div className="px-4 my-12">
+      <H2Title title={"Your search results"} />
+      <div className="flex justify-center gap-4 flex-wrap">
+        {searchedItem &&
+          searchedItem.map((item) => (
+            <ProductCard item={item} key={item._id} />
+          ))}
+      </div>
+    </div>
   );
 };
 

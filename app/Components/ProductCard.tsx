@@ -61,7 +61,8 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
         <p className="text-[1.5rem] font-bold mt-2 h-1/3">${item.price}</p>
         <div className="card-actions justify-end h-1/3">
           <Button
-            passedFunction={setParams}
+            passedFunctionWithItem={setParams}
+            item={item}
             title={"BUY NOW"}
             optionalStyle={"mx-auto"}
           />

@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
 
 const PostProduct = () => {
-  const { product, setProduct, handleProductCreation, updateProductImg } =
+  const { setProduct, handleProductCreation, updateProductImg } =
     useGlobalCart();
   const { handleInput } = useGlobalUser();
 

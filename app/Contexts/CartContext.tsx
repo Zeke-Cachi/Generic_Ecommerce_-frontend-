@@ -26,6 +26,7 @@ export const CartContext = createContext<ICartContext>({
   totalAmount: 0,
   updateProductImg: () => {},
   handleProductCreation: () => {},
+  setParams: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
@@ -152,6 +153,12 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const setParams = (item: Product) => {
+    const encodedImg = encodeURIComponent(item.image);
+    const queryParams = `product=${item._id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${encodedImg}&product=${item.quantity}&product=${item.stock}`;
+    router.push(`/productDetails?${queryParams}`);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -166,6 +173,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         totalAmount,
         updateProductImg,
         handleProductCreation,
+        setParams,
       }}
     >
       {children}

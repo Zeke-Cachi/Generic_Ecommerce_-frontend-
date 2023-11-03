@@ -5,14 +5,17 @@ import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useGlobalCart } from "@/app/CustomHooks";
 import Button from "@/app/Components/Button";
+import H2Title from "@/app/Components/H2Title";
+import RelatedProducts from "@/app/Components/RelatedProducts";
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 const ProductDetails = () => {
   const searchParams = useSearchParams();
+  const { addToCart, product } = useGlobalCart();
   const [productInfo, setProductInfo] = useState<Product>();
+  const [relatedProductsData] = useState<Product[]>(product.slice(3, 6));
   const [rating] = useState(Math.floor(Math.random() * 10) + 1);
-  const { addToCart } = useGlobalCart();
 
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +31,11 @@ const ProductDetails = () => {
       stock: Number(keyArray[6]),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
+
+  useEffect(() => {
+    console.log(relatedProductsData);
+  }, [relatedProductsData]);
 
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -89,7 +96,7 @@ const ProductDetails = () => {
             </span>
           </p>
           <Button
-            passedFunction={addToCart}
+            passedFunctionWithId={addToCart}
             title={"ADD TO CART"}
             _id={productInfo._id}
             optionalStyle={"mx-auto"}
@@ -100,58 +107,15 @@ const ProductDetails = () => {
       {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
 
       <div>
-        <h2 className="text-[2rem] mt-4 ms-8">
-          You may also be interested in...
-        </h2>
+        <H2Title title={"You may also be interested in..."} />
 
         <div className="flex justify-around p-8">
-          <div className="transition-all scale-100 hover:scale-105 w-72 h-80 border border-gray-200 bg-gray-100 overflow-hidden rounded-xl shadow-xl flex flex-col items-center">
-            <div className="relative h-[50%] w-full mb-4">
-              <Image
-                src={"/carousel-img/carousel-2.jpg"}
-                fill={true}
-                alt="optional products"
-                className="w-[50%] h-[50%]"
-              />
-            </div>
-            <h4 className="text-xl text-center mb-4">Motorola Edge E4</h4>
-            <p className="text-center text-xl mb-4">$500 + tax</p>
-            <button className="btn bg-purple-800 w-32 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800">
-              Buy now!
-            </button>
-          </div>
-
-          <div className="transition-all scale-100 hover:scale-105 w-72 h-80 border border-gray-200 bg-gray-100 overflow-hidden rounded-xl shadow-xl0 flex flex-col items-center">
-            <div className="relative h-[50%] w-full mb-4">
-              <Image
-                src={"/carousel-img/carousel-3.jpg"}
-                fill={true}
-                alt="optional products"
-                className="w-[50%] h-[50%]"
-              />
-            </div>
-            <h4 className="text-xl text-center mb-4">Motorola Edge E4</h4>
-            <p className="text-center text-xl mb-4">$500 + tax</p>
-            <button className="btn bg-purple-800 w-32 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800">
-              Buy now!
-            </button>
-          </div>
-
-          <div className="transition-all scale-100 hover:scale-105 w-72 h-80 border border-gray-200 bg-gray-100 overflow-hidden rounded-xl shadow-xl flex flex-col items-center">
-            <div className="relative h-[50%] w-full mb-4">
-              <Image
-                src={"/carousel-img/carousel-4.jpg"}
-                fill={true}
-                alt="optional products"
-                className="w-[50%] h-[50%]"
-              />
-            </div>
-            <h4 className="text-xl text-center mb-4">Motorola Edge E4</h4>
-            <p className="text-center text-xl mb-4">$500 + tax</p>
-            <button className="btn bg-purple-800 w-32 text-white hover:bg-white hover:text-purple-800 hover:border-2 hover:border-purple-800">
-              Buy now!
-            </button>
-          </div>
+          {relatedProductsData.map((relatedProduct) => (
+            <RelatedProducts
+              relatedProduct={relatedProduct}
+              key={relatedProduct._id}
+            />
+          ))}
         </div>
       </div>
     </div>

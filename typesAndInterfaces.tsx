@@ -1,9 +1,12 @@
 //ALPHABETICALLY ORDERED
 
 export interface ButtonProps {
-  passedFunction?: (id?: string) => void;
+  passedFunction?: () => void;
+  passedFunctionWithId?: (_id: string) => void;
+  passedFunctionWithItem?: (item: Product) => void;
   title: string;
   _id?: string;
+  item?: Product;
   optionalStyle?: string;
 }
 
@@ -19,6 +22,7 @@ export type ICartContext = {
   totalAmount: number;
   updateProductImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
+  setParams: (item: Product) => void;
 };
 
 export interface CartInitialState {
