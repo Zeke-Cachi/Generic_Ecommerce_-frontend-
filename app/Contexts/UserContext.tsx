@@ -1,6 +1,6 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
-import { IUserContext, UserData } from "@/typesAndInterfaces";
+import { createContext, useState, useEffect } from "react";
+import { IUserContext, UserData, IError } from "@/typesAndInterfaces";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -8,7 +8,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "@/firebase";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -112,15 +112,45 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setterFunction((prev) => ({ ...prev, [name]: value }));
   }
 
+  const doubleCheckPw = (userData: UserData) => {
+    if (
+      userData.password !== userData.repeatPassword ||
+      /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(userData.password!)
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   //--------------------------------- REGISTER FORM ------------------------------------//
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const checkPwResult: boolean = doubleCheckPw(userData);
+    if (!checkPwResult) {
+      return toast.error(
+        "Passwords do not match or don´t contain the necessary characters. Try again"
+      );
+    }
     try {
-      if (userData.password) {
+      const postData = { ...userData };
+      delete postData.password;
+      delete postData.repeatPassword;
+      delete postData._id;
+      const createUser = await axios.post(
+        "http://localhost:5500/users/create",
+        postData
+      );
+      setUserData(() => createUser.data);
+      toast.success("Successfully registered!", {
+        position: "bottom-center",
+      });
+      setUserData((prev) => ({ ...prev, password: "" }));
+      if (createUser) {
         const userCreationRequest = await createUserWithEmailAndPassword(
           auth,
           userData.email,
-          userData.password
+          userData.password!
         );
       }
       auth.currentUser
@@ -128,19 +158,12 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
             displayName: userData.name,
           })
         : console.log("there was no user!");
-      const postData = { ...userData };
-      delete postData.password;
-      delete postData._id;
-      const createUser = await axios.post(
-        "http://localhost:5500/users/create",
-        postData
-      );
-      setUserData(() => createUser.data);
-      toast.success("Successfully registered!", { position: "bottom-center" });
-      setUserData((prev) => ({ ...prev, password: "" }));
       router.push("/");
     } catch (error) {
       console.error(error);
+      toast.error(
+        "There were errors in the data you provided. Please try again"
+      );
     }
   };
 

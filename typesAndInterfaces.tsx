@@ -30,6 +30,14 @@ export interface CartInitialState {
   cart: Product[];
 }
 
+export interface IError {
+  location: string;
+  msg: string;
+  path: string;
+  type: string;
+  value: string;
+}
+
 export interface IUserContext {
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
@@ -72,6 +80,7 @@ export interface UserData {
   email: string;
   profileImg: string;
   password?: string;
+  repeatPassword?: string;
   cart: Product[];
   uploadedProducts: Product[];
 }

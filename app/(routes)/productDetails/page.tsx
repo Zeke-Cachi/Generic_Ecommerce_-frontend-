@@ -33,10 +33,6 @@ const ProductDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log(relatedProductsData);
-  }, [relatedProductsData]);
-
   //--------------------------------------------------------------------------------------------------------------------------
 
   return productInfo?._id === undefined ? (

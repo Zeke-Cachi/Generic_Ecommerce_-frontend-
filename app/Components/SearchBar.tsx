@@ -21,7 +21,7 @@ const SearchBar = () => {
       <input
         onChange={(e) => setSearchInput(e.target.value)}
         type="text"
-        placeholder="search"
+        placeholder="search by product name"
         className="ps-4 w-[20rem] h-12 border-2 border-gray-200 rounded-lg"
       />
       <button>

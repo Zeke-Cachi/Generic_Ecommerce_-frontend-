@@ -3,9 +3,29 @@ import Link from "next/link";
 import Button from "@/app/Components/Button";
 import { useGlobalUser } from "@/app/CustomHooks";
 import { Toaster } from "react-hot-toast";
+import FormWarnings from "@/app/Components/FormWarnings";
+import { useState } from "react";
 
 const Register = () => {
-  const { handleInput, handleRegisterSubmit, setUserData } = useGlobalUser();
+  const { handleInput, handleRegisterSubmit, userData, setUserData } =
+    useGlobalUser();
+
+  const [clickedPwInput, setClickedPwInput] = useState(false);
+
+  const checkTextInputValue = (
+    input: string,
+    inputType: "string" | "password"
+  ) => {
+    if (inputType === "string") {
+      return /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(input);
+    }
+    if (inputType === "password") {
+      return input.length < 5;
+    }
+    if (inputType === "password" && input.length >= 5) {
+      setClickedPwInput(false);
+    }
+  };
 
   return (
     <div
@@ -35,6 +55,13 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
+                {checkTextInputValue(userData.name, "string") ? (
+                  <FormWarnings
+                    message={
+                      "The name cannot have numbers or special characters"
+                    }
+                  />
+                ) : null}
                 <input
                   onChange={(e) => handleInput(e, setUserData)}
                   name="name"
@@ -47,6 +74,13 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Lastname</span>
                 </label>
+                {checkTextInputValue(userData.lastname, "string") ? (
+                  <FormWarnings
+                    message={
+                      "The lastname cannot have numbers or special characters"
+                    }
+                  />
+                ) : null}
                 <input
                   onChange={(e) => handleInput(e, setUserData)}
                   type="text"
@@ -71,10 +105,19 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
+                {clickedPwInput &&
+                checkTextInputValue(userData.password!, "password") ? (
+                  <FormWarnings
+                    message={
+                      "The password must be over 8 characters long and have a number or special character"
+                    }
+                  />
+                ) : null}
                 <input
                   onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="password"
+                  onFocus={() => setClickedPwInput(true)}
                   name="password"
                   className="input input-bordered"
                 />

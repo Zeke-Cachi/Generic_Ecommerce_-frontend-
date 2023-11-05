@@ -39,7 +39,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement, ChildProps>(
         </h2>
         <div className="flex relative gap-4 ps-4  h-[45rem]">
           <GrFormPrevious
-            className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-50 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+            className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
               slideProduct === "left" || slideProduct === ""
                 ? "cursor-not-allowed"
                 : "cursor-pointer hover:opacity-100"
@@ -67,7 +67,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement, ChildProps>(
             ))}
           </div>
           <GrFormNext
-            className={`absolute right-16 top-1/2 -translate-y-1/2 h-12 w-12  z-50 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+            className={`absolute right-16 top-1/2 -translate-y-1/2 h-12 w-12  z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
               slideProduct === "right"
                 ? "cursor-not-allowed"
                 : "cursor-pointer hover:opacity-100"

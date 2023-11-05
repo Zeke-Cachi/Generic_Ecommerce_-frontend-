@@ -84,10 +84,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
-
-  useEffect(() => {
     const uploadCartItems = async () => {
       const postData = { email: auth.currentUser?.email, cart: state.cart };
       try {
