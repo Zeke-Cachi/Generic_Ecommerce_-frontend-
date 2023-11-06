@@ -34,13 +34,14 @@ export const UserContext = createContext<IUserContext>({
   handlePasswordReset: () => {},
   updateProfileImg: () => {},
   logOut: () => {},
+  handleProductCreation: () => {},
 });
 
 //--------------------------------- PROVIDER ------------------------------------------------------------------//
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- HOOKS -------------------------------------------//
   const router = useRouter();
-  const { initializeState } = useGlobalCart();
+  const { initializeState, clearCart, product } = useGlobalCart();
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     name: "",
@@ -99,6 +100,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkProfilePicInUserData]);
 
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
   //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileImage(() => e.target.files![0]);
@@ -120,6 +125,33 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       return false;
     } else {
       return true;
+    }
+  };
+
+  //THIS FUNCTION IS HERE INSTEAD OF CARTCONTEXT, BECAUSE WE NEED ACCESS TO THE USERDATA STATE
+  const handleProductCreation = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (userData._id) {
+      const productPayload = { ...product, userId: userData._id };
+      try {
+        const response = await axios.post(
+          "http://localhost:5500/products",
+          productPayload
+        );
+        setUserData((prev) => ({
+          ...prev,
+          uploadedProducts: [...response.data[1].uploadedProducts],
+        }));
+        toast.success("Product successfully uploaded!", {
+          position: "bottom-center",
+        });
+        router.push("/profile");
+      } catch (error) {
+        console.error(error);
+        toast.error("There was an error. Try again", {
+          position: "bottom-center",
+        });
+      }
     }
   };
 
@@ -184,6 +216,9 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       router.push("/");
     } catch (error) {
       console.error(error);
+      toast.error("Incorrect data. Please try again", {
+        position: "bottom-center",
+      });
     }
   };
 
@@ -212,6 +247,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         cart: [],
         uploadedProducts: [],
       });
+      clearCart();
       toast.success("Succesfully logged out", { position: "bottom-center" });
     } catch (error) {
       console.error(error);
@@ -230,6 +266,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         handlePasswordReset,
         updateProfileImg,
         logOut,
+        handleProductCreation,
       }}
     >
       {children}

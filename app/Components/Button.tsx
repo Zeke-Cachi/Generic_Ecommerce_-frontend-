@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { ButtonProps } from "@/typesAndInterfaces";
-import { useRouter } from "next/navigation";
 
 const Button: React.FC<ButtonProps> = ({
+  passedFunction,
   passedFunctionWithId,
   passedFunctionWithItem,
   title,
@@ -11,7 +11,6 @@ const Button: React.FC<ButtonProps> = ({
   item,
   optionalStyle,
 }) => {
-  const router = useRouter();
   const checkIfUserIsLoggedIn = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -22,13 +21,16 @@ const Button: React.FC<ButtonProps> = ({
 
     if (passedFunctionWithItem && item) {
       passedFunctionWithItem(item);
+    } else {
+      passedFunction && passedFunction();
     }
   };
 
   return (
     <button
+      type="submit"
       onClick={
-        passedFunctionWithId || passedFunctionWithItem
+        passedFunction || passedFunctionWithId || passedFunctionWithItem
           ? (e) => checkIfUserIsLoggedIn(e)
           : undefined
       }

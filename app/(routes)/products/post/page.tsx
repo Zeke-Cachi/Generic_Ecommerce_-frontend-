@@ -4,9 +4,9 @@ import { Toaster } from "react-hot-toast";
 import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
 
 const PostProduct = () => {
-  const { setProduct, handleProductCreation, updateProductImg } =
-    useGlobalCart();
-  const { handleInput } = useGlobalUser();
+  const { setProduct, updateProductImg } = useGlobalCart();
+
+  const { handleInput, handleProductCreation } = useGlobalUser();
 
   return (
     <div
@@ -18,7 +18,7 @@ const PostProduct = () => {
           <h2 className="text-5xl text-white text-start">Upload a product</h2>
           <form
             className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100"
-            onSubmit={(e) => {
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               handleProductCreation(e);
             }}
           >
@@ -41,6 +41,7 @@ const PostProduct = () => {
                 </label>
                 <input
                   type="number"
+                  step={0.01}
                   placeholder="price"
                   name="price"
                   className="input input-bordered"

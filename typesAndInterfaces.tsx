@@ -21,7 +21,6 @@ export type ICartContext = {
   state: CartInitialState;
   totalAmount: number;
   updateProductImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
   setParams: (item: Product) => void;
 };
 
@@ -50,6 +49,7 @@ export interface IUserContext {
   handlePasswordReset: (e: React.FormEvent<HTMLFormElement>) => void;
   updateProfileImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logOut: () => void;
+  handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export interface LoginData {

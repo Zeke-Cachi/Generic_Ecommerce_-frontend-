@@ -1,8 +1,11 @@
 "use client";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import { useGlobalUser } from "../CustomHooks";
-import { useGlobalCart, useWindowHeight } from "@/app/CustomHooks";
+import {
+  useGlobalCart,
+  useWindowHeight,
+  useGlobalUser,
+} from "@/app/CustomHooks";
 import Link from "next/link";
 import Button from "./Button";
 import SearchBar from "./SearchBar";
@@ -11,7 +14,7 @@ import { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const { state, totalAmount } = useGlobalCart();
-  const { userData, setUserData, logOut } = useGlobalUser();
+  const { userData, logOut } = useGlobalUser();
   const checkHeight = useWindowHeight();
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
-import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
+import { useGlobalUser } from "@/app/CustomHooks";
 import Image from "next/image";
 import { BsFillBagXFill } from "react-icons/bs";
 import Button from "@/app/Components/Button";
@@ -46,18 +46,13 @@ const Profile = () => {
               <h6>{userData.email}</h6>
             </div>
           </div>
-          <div className="flex flex-col gap-4 pt-5 justify-between items-start h-1/4">
-            <h6>
-              <span className="font-bold text-purple-500">Address</span>: 2154
-              Evergreen Av., Springfield, Texas
-            </h6>
-            <h6>
-              <span className="font-bold text-purple-500">Phone number</span>:
-              +1549875698
+          <div className="flex flex-col gap-4 pt-5 justify-between items-center h-1/4">
+            <h4 className="text-2xl">Amount of items on sale</h4>
+            <h6 className="text-5xl font-bold text-purple-700 opacity-90">
+              {userData.uploadedProducts.length}
             </h6>
           </div>
         </div>
-        <Button title="Edit personal info" />
       </div>
       <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
       <div className="flex flex-col items-center mb-8">

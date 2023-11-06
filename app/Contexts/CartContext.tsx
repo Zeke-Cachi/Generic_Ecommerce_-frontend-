@@ -25,7 +25,6 @@ export const CartContext = createContext<ICartContext>({
   },
   totalAmount: 0,
   updateProductImg: () => {},
-  handleProductCreation: () => {},
   setParams: () => {},
 });
 
@@ -128,27 +127,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setProductImage(() => e.target.files![0]);
   };
 
-  const handleProductCreation = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (userData._id) {
-      const productPayload = { ...product, userId: userData._id };
-      try {
-        const response = await axios.post(
-          "http://localhost:5500/products",
-          productPayload
-        );
-        setUserData((prev) => ({
-          ...prev,
-          uploadedProducts: [...response.data[1].uploadedProducts],
-        }));
-        toast.success("Product successfully uploaded!");
-        router.push("/profile");
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
   const setParams = (item: Product) => {
     const encodedImg = encodeURIComponent(item.image);
     const queryParams = `product=${item._id}&product=${item.title}&product=${item.price}&product=${item.description}&product=${encodedImg}&product=${item.quantity}&product=${item.stock}`;
@@ -168,7 +146,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         state,
         totalAmount,
         updateProductImg,
-        handleProductCreation,
         setParams,
       }}
     >
