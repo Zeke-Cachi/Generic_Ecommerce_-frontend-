@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { ButtonProps } from "@/typesAndInterfaces";
+import { auth } from "@/firebase";
+import { useRouter } from "next/navigation";
 
 const Button: React.FC<ButtonProps> = ({
   passedFunction,
@@ -11,10 +13,15 @@ const Button: React.FC<ButtonProps> = ({
   item,
   optionalStyle,
 }) => {
+  const router = useRouter();
   const checkIfUserIsLoggedIn = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    if (!auth.currentUser) {
+      router.push("/login");
+      return;
+    }
     if (passedFunctionWithId && _id) {
       passedFunctionWithId(_id);
     }

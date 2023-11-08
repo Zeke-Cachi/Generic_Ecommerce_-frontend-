@@ -11,7 +11,7 @@ const PostProduct = () => {
   return (
     <div
       className="hero h-[90vh]"
-      style={{ backgroundImage: "url(/upload-product-bg-img.  jpeg" }}
+      style={{ backgroundImage: "url(/upload-product-bg-img.jpeg" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
         <div className="hero-content flex flex-col w-1/4">

@@ -5,17 +5,21 @@ import {
   useGlobalCart,
   useWindowHeight,
   useGlobalUser,
+  useWindowWidth,
 } from "@/app/CustomHooks";
 import Link from "next/link";
 import Button from "./Button";
 import SearchBar from "./SearchBar";
 import { auth } from "@/firebase";
 import { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 const Header = () => {
   const { state, totalAmount } = useGlobalCart();
   const { userData, logOut } = useGlobalUser();
   const checkHeight = useWindowHeight();
+  const isResponsive = useWindowWidth();
+  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
   return (
     <div
@@ -23,6 +27,7 @@ const Header = () => {
         checkHeight === 0 ? "h-32 bg-white" : "h-16 bg-white opacity-90"
       } sticky top-0 border-b-2 border-b-purple-800 px-4 flex justify-between transition-all z-50`}
     >
+      {isResponsive && showSearchBar && <SearchBar />}
       <div>
         <Link href={"/"}>
           {checkHeight === 0 ? (
@@ -44,7 +49,7 @@ const Header = () => {
         </Link>
       </div>
 
-      <SearchBar />
+      {!isResponsive && <SearchBar />}
 
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">
@@ -116,6 +121,11 @@ const Header = () => {
                   <Link href={"/profile"}>
                     <span>{auth.currentUser.displayName}`s</span>Profile
                   </Link>
+                  {isResponsive ? (
+                    <span onClick={() => setShowSearchBar(!showSearchBar)}>
+                      Search
+                    </span>
+                  ) : null}
                   <button onClick={logOut}>Log Out</button>
                 </>
               ) : (

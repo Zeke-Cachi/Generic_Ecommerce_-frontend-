@@ -1,15 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <footer className="footer p-10 text-base-content border-t-2 border-t-purple-800">
       <aside>
-        <Image
-          src="/site-logo.png"
-          height={150}
-          width={150}
-          alt="Company logo"
-        />
+        <Link href="/">
+          <Image
+            src="/site-logo.png"
+            height={150}
+            width={150}
+            alt="Company logo"
+          />
+        </Link>
         <p>
           Generic Ecommerce Ltd.
           <br />
@@ -18,23 +21,45 @@ const Footer = () => {
       </aside>
       <nav>
         <header className="footer-title text-purple-600">Services</header>
-        <a className="link link-hover">Branding</a>
-        <a className="link link-hover">Design</a>
-        <a className="link link-hover">Marketing</a>
-        <a className="link link-hover">Advertisement</a>
+        <Link href="/inconstruction" className="link link-hover">
+          Branding
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Design
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Marketing
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Advertisement
+        </Link>
       </nav>
       <nav>
         <header className="footer-title text-purple-600">Company</header>
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+        <Link href="/inconstruction" className="link link-hover">
+          About us
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Contact
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Jobs
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Press kit
+        </Link>
       </nav>
       <nav>
         <header className="footer-title text-purple-600">Legal</header>
-        <a className="link link-hover">Terms of use</a>
-        <a className="link link-hover">Privacy policy</a>
-        <a className="link link-hover">Cookie policy</a>
+        <Link href="/inconstruction" className="link link-hover">
+          Terms of use
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Privacy policy
+        </Link>
+        <Link href="/inconstruction" className="link link-hover">
+          Cookie policy
+        </Link>
       </nav>
     </footer>
   );
