@@ -6,6 +6,34 @@ import { useGlobalCart } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
 
+const easeInOutQuad = (t: number) =>
+  t < 0.5 ? 2 * t ** 2 : -1 + (4 - 2 * t) * t;
+
+const scrollToRef = (
+  ref: React.RefObject<HTMLHeadingElement>,
+  offset: number
+) => {
+  const start = window.pageYOffset;
+  const target = ref.current?.offsetTop! - offset || 0;
+  const duration = 1000;
+
+  const startTime = performance.now();
+
+  const animateScroll = (currentTime: DOMHighResTimeStamp) => {
+    const elapsedTime = currentTime - startTime;
+    const progress = Math.min(elapsedTime / duration, 1);
+    const ease = easeInOutQuad(progress);
+
+    window.scrollTo(0, start + ease * (target - start));
+
+    if (progress < 1) {
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
+  requestAnimationFrame(animateScroll);
+};
+
 export default function Home() {
   const { product } = useGlobalCart();
   const goToRef = useRef<HTMLHeadingElement>(null);
@@ -13,8 +41,7 @@ export default function Home() {
   useEffect(() => {
     setTimeout(() => {
       if (window.scrollY === 0) {
-        goToRef.current &&
-          goToRef.current.scrollIntoView({ behavior: "smooth" });
+        goToRef.current && scrollToRef(goToRef, 130);
       }
     }, 2000);
   }, []);

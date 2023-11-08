@@ -100,10 +100,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkProfilePicInUserData]);
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
   //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileImage(() => e.target.files![0]);
@@ -228,6 +224,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const sendLink = await sendPasswordResetEmail(auth, userData.email);
       toast.success("Link sent! check your email");
+      router.push("/login");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong... Try again");
@@ -249,6 +246,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       });
       clearCart();
       toast.success("Succesfully logged out", { position: "bottom-center" });
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
