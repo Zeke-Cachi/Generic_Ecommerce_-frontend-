@@ -16,9 +16,9 @@ const Profile = () => {
   return (
     <div className="p-4">
       <H2Title title={"My account"} />
-      <div className="w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
-        <div className="flex justify-between w-full p-8">
-          <div className="flex gap-4 items-center relative">
+      <div className="w-[90vw] lg:w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
+        <div className="flex flex-col lg:flex-row justify-between w-full p-8">
+          <div className="flex flex-col lg:flex-row gap-4 items-center relative">
             {userData.profileImg !== "" ? (
               <Image
                 src={userData.profileImg}
@@ -40,20 +40,23 @@ const Profile = () => {
               <FaCamera className="text-white" />
             </label>
             <div>
-              <h3 className="text-[2rem]">
+              <h3 className="text-[2rem] text-center lg:text-justify">
                 {userData.name + " " + userData.lastname}
               </h3>
               <h6>{userData.email}</h6>
             </div>
           </div>
           <div className="flex flex-col gap-4 pt-5 justify-between items-center h-1/4">
-            <h4 className="text-2xl">Amount of items on sale</h4>
+            <h4 className="text-2xl text-center lg:text-justify">
+              Amount of items on sale
+            </h4>
             <h6 className="text-5xl font-bold text-purple-700 opacity-90">
               {userData.uploadedProducts.length}
             </h6>
           </div>
         </div>
       </div>
+
       <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
       <div className="flex flex-col items-center mb-8">
         {userData.uploadedProducts === undefined ? (

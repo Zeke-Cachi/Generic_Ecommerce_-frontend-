@@ -32,7 +32,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   };
 
   return (
-    <div className="bg-white mt-24" ref={ref}>
+    <div className="bg-white mt-24 overflow-x-hidden" ref={ref}>
       <h2 className="text-[2.5rem] ps-4">Popular Products</h2>
       <div className="flex relative gap-4 ps-4  h-[45rem]">
         <GrFormPrevious

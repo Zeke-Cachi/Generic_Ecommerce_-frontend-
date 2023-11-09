@@ -22,6 +22,8 @@ export type ICartContext = {
   totalAmount: number;
   updateProductImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setParams: (item: Product) => void;
+  showSearchBar: boolean;
+  setShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export interface CartInitialState {

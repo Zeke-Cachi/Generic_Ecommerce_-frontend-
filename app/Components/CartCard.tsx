@@ -13,16 +13,16 @@ const CartCard: React.FC<{
 
   return (
     <div
-      className={`${extraStyling} h-36 grid grid-rows-1 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
+      className={`${extraStyling} min-h-52 lg:h-36 grid lg:grid-rows-1 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
     >
-      <div className="w-full flex flex-col justify-around">
+      <div className="w-full h-full flex flex-col justify-between lg:justify-around">
         <h3 className="text-xl">{item.title}</h3>
         <p>
           Unitary Price: <span className="italic font-bold">${item.price}</span>
         </p>
       </div>
 
-      <div className="relative w-full h-full">
+      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full">
         <Image
           src={item.image}
           fill={true}

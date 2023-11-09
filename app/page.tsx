@@ -2,41 +2,17 @@
 import Hero from "./Components/Hero";
 import ProductCard from "./Components/ProductCard";
 import { useEffect, useRef } from "react";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { useGlobalCart, useWindowHeight } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
-
-const easeInOutQuad = (t: number) =>
-  t < 0.5 ? 2 * t ** 2 : -1 + (4 - 2 * t) * t;
-
-const scrollToRef = (
-  ref: React.RefObject<HTMLHeadingElement>,
-  offset: number
-) => {
-  const start = window.pageYOffset;
-  const target = ref.current?.offsetTop! - offset || 0;
-  const duration = 1000;
-
-  const startTime = performance.now();
-
-  const animateScroll = (currentTime: DOMHighResTimeStamp) => {
-    const elapsedTime = currentTime - startTime;
-    const progress = Math.min(elapsedTime / duration, 1);
-    const ease = easeInOutQuad(progress);
-
-    window.scrollTo(0, start + ease * (target - start));
-
-    if (progress < 1) {
-      requestAnimationFrame(animateScroll);
-    }
-  };
-
-  requestAnimationFrame(animateScroll);
-};
+import SearchBar from "./Components/SearchBar";
+import { FaSearch } from "react-icons/fa";
+import { scrollToRef } from "./functions";
 
 export default function Home() {
-  const { product } = useGlobalCart();
+  const { product, showSearchBar, setShowSearchBar } = useGlobalCart();
   const goToRef = useRef<HTMLHeadingElement>(null);
+  const checkHeight = useWindowHeight();
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,7 +23,13 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <main>
+      {checkHeight > 1000 && (
+        <FaSearch
+          className="fixed bottom-[5vh] right-[5vw] h-12 w-12 text-purple-500 opacity-30 hover:opacity-100 transition-all cursor-pointer z-40"
+          onClick={() => setShowSearchBar(!showSearchBar)}
+        />
+      )}
       <Hero />
       <PopularProducts ref={goToRef} />
       <h2 className="px-4 my-4 text-[2.5rem]">Browse</h2>
@@ -62,6 +44,6 @@ export default function Home() {
           })}
         </div>
       )}
-    </>
+    </main>
   );
 }

@@ -12,14 +12,13 @@ import Button from "./Button";
 import SearchBar from "./SearchBar";
 import { auth } from "@/firebase";
 import { Toaster } from "react-hot-toast";
-import { useState } from "react";
 
 const Header = () => {
-  const { state, totalAmount } = useGlobalCart();
+  const { state, totalAmount, showSearchBar, setShowSearchBar } =
+    useGlobalCart();
   const { userData, logOut } = useGlobalUser();
   const checkHeight = useWindowHeight();
   const isResponsive = useWindowWidth();
-  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
   return (
     <div
@@ -27,7 +26,6 @@ const Header = () => {
         checkHeight === 0 ? "h-32 bg-white" : "h-16 bg-white opacity-90"
       } sticky top-0 border-b-2 border-b-purple-800 px-4 flex justify-between transition-all z-50`}
     >
-      {isResponsive && showSearchBar && <SearchBar />}
       <div>
         <Link href={"/"}>
           {checkHeight === 0 ? (
@@ -43,14 +41,11 @@ const Header = () => {
               width={50}
               height={50}
               alt="site logo"
-              className="ms-8"
+              className={`${!isResponsive ? "ms-8" : ""}`}
             />
           )}
         </Link>
       </div>
-
-      {!isResponsive && <SearchBar />}
-
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost">

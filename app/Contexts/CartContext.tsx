@@ -26,6 +26,8 @@ export const CartContext = createContext<ICartContext>({
   totalAmount: 0,
   updateProductImg: () => {},
   setParams: () => {},
+  showSearchBar: false,
+  setShowSearchBar: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
@@ -42,6 +44,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [productImage, setProductImage] = useState<File | null>(null);
+
+  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -147,6 +151,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         totalAmount,
         updateProductImg,
         setParams,
+        showSearchBar,
+        setShowSearchBar,
       }}
     >
       {children}
