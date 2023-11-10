@@ -13,10 +13,12 @@ const Login = () => {
       style={{ backgroundImage: "url(/login-img.webp" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content p-0 lg:p-4 flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left lg:ms-12">
-            <h1 className="text-5xl font-bold text-white">Login now!</h1>
-            <p className="py-6 text-white">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white">
+              Login now!
+            </h1>
+            <p className="py-6 px-2 text-white text-sm lg:text-base">
               Welcome back to our vibrant marketplace! Dive into a world of
               endless choices and seamless shopping. Discover curated
               collections, exclusive deals, and personalized recommendations
@@ -24,7 +26,7 @@ const Login = () => {
               embark on your shopping journey with us!
             </p>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100">
+          <div className="card lg:flex-shrink-0 w-[80%] lg:max-w-sm shadow-2xl bg-gray-100">
             <form className="card-body" onSubmit={(e) => handleLogin(e)}>
               <div className="form-control">
                 <label className="label">
@@ -49,7 +51,7 @@ const Login = () => {
                   name="password"
                   className="input input-bordered"
                 />
-                <label className="label">
+                <label className="label flex flex-col gap-2 lg:flex-row">
                   <Link
                     href="/resetpassword"
                     className="label-text-alt link link-hover"

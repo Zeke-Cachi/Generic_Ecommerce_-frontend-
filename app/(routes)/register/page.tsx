@@ -29,14 +29,16 @@ const Register = () => {
 
   return (
     <div
-      className="hero h-[90vh]"
+      className="hero min-h-[100vh]"
       style={{ backgroundImage: "url(/register-img.jpg" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content p-0 lg:p-4 flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left lg:ms-12">
-            <h1 className="text-5xl font-bold text-white">Register now!</h1>
-            <p className="py-6 text-white">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-8 lg:mt-0">
+              Register now!
+            </h1>
+            <p className="py-6 px-2 lg:px-0 text-sm lg:text-base text-white">
               Join our thriving community of shoppers! Create your account and
               unlock a world of shopping delights. Enjoy exclusive access to
               deals, personalized recommendations, and a seamless checkout
@@ -45,7 +47,7 @@ const Register = () => {
             </p>
           </div>
           <form
-            className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100"
+            className="card flex-shrink-0 w-[80%] lg:w-full max-w-sm shadow-2xl bg-gray-100 mb-8"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
               handleRegisterSubmit(e)
             }

@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { useGlobalCart, useWindowHeight } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
-import SearchBar from "./Components/SearchBar";
+import H2Title from "./Components/H2Title";
 import { FaSearch } from "react-icons/fa";
 import { scrollToRef } from "./functions";
 
@@ -32,7 +32,7 @@ export default function Home() {
       )}
       <Hero />
       <PopularProducts ref={goToRef} />
-      <h2 className="px-4 my-4 text-[2.5rem]">Browse</h2>
+      <H2Title title="Browse" />
       {product.length === 0 ? (
         <div className="w-full text-center">
           <div className="loading loading-spinner w-40 text-gray-300"></div>

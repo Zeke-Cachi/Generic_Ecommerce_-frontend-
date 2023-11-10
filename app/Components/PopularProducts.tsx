@@ -6,6 +6,7 @@ import { useGlobalCart, useWindowWidth } from "@/app/CustomHooks";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import Carousel from "nuka-carousel";
+import H2Title from "./H2Title";
 
 const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   const [firstSlide, setFirstSlide] = useState<Product[]>([]);
@@ -36,7 +37,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
 
   return (
     <div className="bg-white mt-24 overflow-x-hidden" ref={ref}>
-      <h2 className="text-[2.5rem] ps-4">Popular Products</h2>
+      <H2Title title="Popular products" />
       {!isResponsive ? (
         <div className="flex relative gap-4 ps-4  h-[45rem]">
           <GrFormPrevious
