@@ -2,9 +2,10 @@
 "use client";
 import React, { useState, useEffect, forwardRef } from "react";
 import { Product } from "@/typesAndInterfaces";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { useGlobalCart, useWindowWidth } from "@/app/CustomHooks";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import Carousel from "nuka-carousel";
 
 const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   const [firstSlide, setFirstSlide] = useState<Product[]>([]);
@@ -12,6 +13,8 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   const [slideProduct, setSlideProducts] = useState<string>("");
 
   const { product } = useGlobalCart();
+
+  const isResponsive = useWindowWidth();
 
   useEffect(() => {
     const sortedProductArray = product
@@ -34,44 +37,52 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   return (
     <div className="bg-white mt-24 overflow-x-hidden" ref={ref}>
       <h2 className="text-[2.5rem] ps-4">Popular Products</h2>
-      <div className="flex relative gap-4 ps-4  h-[45rem]">
-        <GrFormPrevious
-          className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
-            slideProduct === "left" || slideProduct === ""
-              ? "cursor-not-allowed"
-              : "cursor-pointer hover:opacity-100"
-          }`}
-          onClick={() => moveLeft()}
-        />
-        <div
-          className={`flex gap-12 justify-center absolute h-full w-full top-0 left-0 transition-all ${
-            slideProduct === "right" ? "translate-x-full" : ""
-          }`}
-        >
+      {!isResponsive ? (
+        <div className="flex relative gap-4 ps-4  h-[45rem]">
+          <GrFormPrevious
+            className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+              slideProduct === "left" || slideProduct === ""
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:opacity-100"
+            }`}
+            onClick={() => moveLeft()}
+          />
+          <div
+            className={`flex gap-12 justify-center absolute h-full w-full top-0 left-0 transition-all ${
+              slideProduct === "right" ? "translate-x-full" : ""
+            }`}
+          >
+            {firstSlide.map((product) => (
+              <ProductCard key={product._id} item={product} />
+            ))}
+          </div>
+          <div
+            className={`flex gap-4 justify-center absolute h-full w-full top-0 left-0 transition-all ${
+              slideProduct === "left" || slideProduct === ""
+                ? "translate-x-full"
+                : "translate-x-0"
+            }`}
+          >
+            {secondSlide.map((product) => (
+              <ProductCard key={product._id} item={product} />
+            ))}
+          </div>
+          <GrFormNext
+            className={`absolute right-16 top-1/2 -translate-y-1/2 h-12 w-12  z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
+              slideProduct === "right"
+                ? "cursor-not-allowed"
+                : "cursor-pointer hover:opacity-100"
+            }`}
+            onClick={() => moveRight()}
+          />
+        </div>
+      ) : (
+        <Carousel>
           {firstSlide.map((product) => (
             <ProductCard key={product._id} item={product} />
           ))}
-        </div>
-        <div
-          className={`flex gap-4 justify-center absolute h-full w-full top-0 left-0 transition-all ${
-            slideProduct === "left" || slideProduct === ""
-              ? "translate-x-full"
-              : "translate-x-0"
-          }`}
-        >
-          {secondSlide.map((product) => (
-            <ProductCard key={product._id} item={product} />
-          ))}
-        </div>
-        <GrFormNext
-          className={`absolute right-16 top-1/2 -translate-y-1/2 h-12 w-12  z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
-            slideProduct === "right"
-              ? "cursor-not-allowed"
-              : "cursor-pointer hover:opacity-100"
-          }`}
-          onClick={() => moveRight()}
-        />
-      </div>
+        </Carousel>
+      )}
     </div>
   );
 });
