@@ -29,7 +29,7 @@ const SearchBar = () => {
                 ? "fixed z-30 top-0 w-full h-full bg-black bg-opacity-50"
                 : ""
             } animate-fadeInSearchbar`
-          : "hidden"
+          : "hidden lg:flex lg:gap-4"
       }`}
       onSubmit={(e) => handleSearch(e)}
     >

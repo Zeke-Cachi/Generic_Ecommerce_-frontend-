@@ -98,7 +98,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         console.log(error);
       }
     };
-    if (state.cart.length > 0 && auth.currentUser?.email) {
+    if (auth.currentUser?.email) {
       uploadCartItems();
     }
   }, [state.cart, userData._id]);

@@ -25,8 +25,8 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-full h-[90vw] flex justify-center">
-      <div className="p-4 mt-12 w-[70%] h-[40%] bg-gray-100 border-gray-200 rounded-2xl flex flex-col justify-between">
+    <div className="w-full flex justify-center">
+      <div className="p-4 mt-12 w-[90%] lg:w-[70%]  bg-gray-100 border-gray-200 rounded-2xl flex flex-col justify-between">
         <H2Title title={"Checkout"} />
         <div>
           <div className="grid grid-cols-3 text-center mb-4 border-b-2 border-b-purple-400">
@@ -53,8 +53,14 @@ const Checkout = () => {
             </div>
           ))}
         </div>
-        <div className="flex items-end justify-between mt-4">
-          <h3 className="text-[2.5rem]">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 items-center lg:items-end justify-between mt-8">
+          <h3
+            className={`${
+              totalAmount.toFixed(2).length > 4
+                ? "text-[1.4rem]"
+                : "text-[2rem]"
+            }  lg:text-[2.5rem] mb-4 lg:mb-0`}
+          >
             Total: ${totalAmount.toFixed(2)} + tax
           </h3>
           <Button passedFunction={handlePurchase} title={"COMPLETE PURCHASE"} />

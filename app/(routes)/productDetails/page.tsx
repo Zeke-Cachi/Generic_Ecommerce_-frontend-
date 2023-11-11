@@ -41,8 +41,8 @@ const ProductDetails = () => {
     </div>
   ) : (
     <div className="mt-12">
-      <div className="flex w-[80vw] h-[70vh] border mx-auto mb-8 shadow-xl bg-gray-100 rounded-xl">
-        <div className="w-full p-4 flex flex-col justify-between">
+      <div className="flex flex-col lg:flex-row w-[20rem] h-[50rem] lg:w-[80vw] lg:h-[70vh] border mx-auto mb-8 shadow-xl bg-gray-100 rounded-xl">
+        <div className="w-full h-full p-4 flex flex-col justify-between">
           <div className="relative w-full h-full">
             <Image
               src={productInfo.image}
@@ -51,7 +51,7 @@ const ProductDetails = () => {
               className="object-contain"
             />
           </div>
-          <div className="flex justify-between text-xl">
+          <div className="flex justify-between text-xl mt-2 lg:mt-0">
             <h6>
               Rating:{" "}
               <span
@@ -61,7 +61,7 @@ const ProductDetails = () => {
                     : rating > 4
                     ? "text-green-500"
                     : ""
-                }`}
+                } my-2 lg:my-0`}
               >
                 {rating}
               </span>
@@ -69,7 +69,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div className=" flex flex-col justify-evenly w-full p-4">
+        <div className="flex flex-col gap-4 lg:justify-evenly w-full p-4">
           <h2
             className={`${
               productInfo.title.length > 20 ? "text-[2rem]" : "text-[2.5rem]"
@@ -105,7 +105,7 @@ const ProductDetails = () => {
       <div>
         <H2Title title={"You may also be interested in..."} />
 
-        <div className="flex justify-around p-8">
+        <div className="flex flex-col gap-2 lg:flex-row lg:gap-0 justify-around p-8">
           {relatedProductsData.map((relatedProduct) => (
             <RelatedProducts
               relatedProduct={relatedProduct}

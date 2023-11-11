@@ -12,9 +12,9 @@ const ResetPassword = () => {
       style={{ backgroundImage: "url(/reset-pw-bg.jpg)" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
-        <div className="hero-content flex-col">
+        <div className="hero-content flex-col w-[20rem] lg:w-auto">
           <div className="text-center">
-            <h1 className="text-5xl font-bold text-white mb-8">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-8">
               Reset your password
             </h1>
             <p className="text-md font-bold text-white mb-8 opacity-70">

@@ -63,9 +63,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
           const fetchUserAtPageLoad = await axios.get(
             `http://localhost:5500/users/getbyemail/${user.email}`
           );
-          fetchUserAtPageLoad.data[0].cart.length > 0 &&
-            (setUserData(() => fetchUserAtPageLoad.data[0]),
-            initializeState(fetchUserAtPageLoad.data[0].cart, "cart"));
+          setUserData(() => fetchUserAtPageLoad.data[0]),
+            initializeState(fetchUserAtPageLoad.data[0].cart, "cart");
         } catch (error) {
           console.log(error);
         }

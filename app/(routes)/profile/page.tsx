@@ -31,7 +31,7 @@ const Profile = () => {
               <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
             )}
 
-            <label className="bg-purple-400 h-8 w-8 p-2 absolute top-[4.3rem] left-[4.3rem] z-50 cursor-pointer rounded-full">
+            <label className="bg-purple-400 h-8 w-8 p-2 absolute top-[4.3rem] left-[4.3rem] z-10 cursor-pointer rounded-full">
               <input
                 type="file"
                 className="hidden"

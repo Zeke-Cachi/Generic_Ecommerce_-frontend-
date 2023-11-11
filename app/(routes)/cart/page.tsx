@@ -11,7 +11,7 @@ const Cart = () => {
 
   return (
     <section className="px-8">
-      <div className="flex justify-between items-center w-[90vw]">
+      <div className="flex flex-col gap-4 gl:flex-row justify-between items-center w-[90vw]">
         <H2Title title={"Your cart"} />
         <Button passedFunction={clearCart} title={"EMPTY CART"} />
       </div>
@@ -32,7 +32,7 @@ const Cart = () => {
           ))
         )}
       </div>
-      <div className="flex items-center justify-start mb-28 mt-8">
+      <div className="flex flex-col lg:flex-row items-center justify-start mb-28 mt-8">
         <h2
           className={`${
             state.cart.length === 0 ? "hidden" : "block"
