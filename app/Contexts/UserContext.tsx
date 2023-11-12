@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { storage } from "@/firebase";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 
 //--------------------------------- CREATE CONTEXT -------------------------------------------------------------//
 export const UserContext = createContext<IUserContext>({
@@ -41,7 +41,7 @@ export const UserContext = createContext<IUserContext>({
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- HOOKS -------------------------------------------//
   const router = useRouter();
-  const { initializeState, clearCart, product } = useGlobalCart();
+  const { initializeState, clearCart, product } = UseGlobalCart();
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     name: "",

@@ -1,12 +1,12 @@
 "use client";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Button from "@/app/Components/Button";
 import H2Title from "@/app/Components/H2Title";
 
 const Checkout = () => {
-  const { state, totalAmount, clearCart } = useGlobalCart();
+  const { state, totalAmount, clearCart } = UseGlobalCart();
   const router = useRouter();
 
   const handlePurchase = () => {
@@ -25,7 +25,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center bg-white">
       <div className="p-4 mt-12 w-[90%] lg:w-[70%]  bg-gray-100 border-gray-200 rounded-2xl flex flex-col justify-between">
         <H2Title title={"Checkout"} />
         <div>

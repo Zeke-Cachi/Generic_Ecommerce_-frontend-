@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
-import { useGlobalUser } from "@/app/CustomHooks";
+import { UseGlobalUser } from "@/app/CustomHooks";
 import { Toaster } from "react-hot-toast";
 import FormWarnings from "@/app/Components/FormWarnings";
 import { useState } from "react";
 
 const Register = () => {
   const { handleInput, handleRegisterSubmit, userData, setUserData } =
-    useGlobalUser();
+    UseGlobalUser();
 
   const [clickedPwInput, setClickedPwInput] = useState(false);
 

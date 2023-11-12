@@ -31,7 +31,7 @@ export default function RootLayout({
           <UserProvider>
             <Header />
             {children}
-            <SearchBar />
+            <SearchBar optionalStyle="hidden" />
             <Footer />
           </UserProvider>
         </CartProvider>

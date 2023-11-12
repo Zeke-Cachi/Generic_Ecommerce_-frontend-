@@ -2,7 +2,7 @@
 import Hero from "./Components/Hero";
 import ProductCard from "./Components/ProductCard";
 import { useEffect, useRef } from "react";
-import { useGlobalCart, useWindowHeight } from "@/app/CustomHooks";
+import { UseGlobalCart, UseWindowHeight } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
 import H2Title from "./Components/H2Title";
@@ -10,9 +10,9 @@ import { FaSearch } from "react-icons/fa";
 import { scrollToRef } from "./functions";
 
 export default function Home() {
-  const { product, showSearchBar, setShowSearchBar } = useGlobalCart();
+  const { product, showSearchBar, setShowSearchBar } = UseGlobalCart();
   const goToRef = useRef<HTMLHeadingElement>(null);
-  const checkHeight = useWindowHeight();
+  const checkHeight = UseWindowHeight();
 
   useEffect(() => {
     setTimeout(() => {

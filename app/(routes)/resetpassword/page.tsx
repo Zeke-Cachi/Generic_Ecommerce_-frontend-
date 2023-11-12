@@ -1,10 +1,10 @@
 "use client";
 import { Toaster } from "react-hot-toast";
 import Button from "@/app/Components/Button";
-import { useGlobalUser } from "@/app/CustomHooks";
+import { UseGlobalUser } from "@/app/CustomHooks";
 
 const ResetPassword = () => {
-  const { setUserData, handleInput, handlePasswordReset } = useGlobalUser();
+  const { setUserData, handleInput, handlePasswordReset } = UseGlobalUser();
 
   return (
     <div

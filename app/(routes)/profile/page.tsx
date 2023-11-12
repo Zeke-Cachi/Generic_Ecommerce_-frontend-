@@ -1,6 +1,6 @@
 "use client";
 import { FaUserAlt, FaCamera } from "react-icons/fa";
-import { useGlobalUser } from "@/app/CustomHooks";
+import { UseGlobalUser } from "@/app/CustomHooks";
 import Image from "next/image";
 import { BsFillBagXFill } from "react-icons/bs";
 import Button from "@/app/Components/Button";
@@ -9,12 +9,12 @@ import { useRouter } from "next/navigation";
 import H2Title from "@/app/Components/H2Title";
 
 const Profile = () => {
-  const { userData, updateProfileImg } = useGlobalUser();
+  const { userData, updateProfileImg } = UseGlobalUser();
   const router = useRouter();
   const goToPostProduct = () => router.push("/products/post");
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white">
       <H2Title title={"My account"} />
       <div className="w-[90vw] lg:w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
         <div className="flex flex-col lg:flex-row justify-between w-full p-8">

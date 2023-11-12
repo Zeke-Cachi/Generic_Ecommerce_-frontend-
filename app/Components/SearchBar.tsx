@@ -2,14 +2,14 @@
 import { FaSearch } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useWindowWidth, useGlobalCart } from "../CustomHooks";
+import { UseWindowWidth, UseGlobalCart } from "../CustomHooks";
 
-const SearchBar = () => {
+const SearchBar: React.FC<{ optionalStyle?: string }> = ({ optionalStyle }) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const isResponsive = useWindowWidth();
-  const { showSearchBar, setShowSearchBar } = useGlobalCart();
+  const isResponsive = UseWindowWidth();
+  const { showSearchBar, setShowSearchBar } = UseGlobalCart();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const SearchBar = () => {
                 ? "fixed z-30 top-0 w-full h-full bg-black bg-opacity-50"
                 : ""
             } animate-fadeInSearchbar`
-          : "hidden lg:flex lg:gap-4"
+          : optionalStyle
       }`}
       onSubmit={(e) => handleSearch(e)}
     >

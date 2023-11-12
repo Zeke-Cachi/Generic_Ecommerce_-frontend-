@@ -1,5 +1,5 @@
 "use client";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 import CartCard from "@/app/Components/CartCard";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
@@ -7,10 +7,10 @@ import Button from "@/app/Components/Button";
 import H2Title from "@/app/Components/H2Title";
 
 const Cart = () => {
-  const { state, totalAmount, clearCart } = useGlobalCart();
+  const { state, totalAmount, clearCart } = UseGlobalCart();
 
   return (
-    <section className="px-8">
+    <section className="px-8 bg-white">
       <div className="flex flex-col gap-4 gl:flex-row justify-between items-center w-[90vw]">
         <H2Title title={"Your cart"} />
         <Button passedFunction={clearCart} title={"EMPTY CART"} />

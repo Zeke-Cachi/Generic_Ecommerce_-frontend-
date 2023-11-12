@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import Button from "@/app/Components/Button";
-import { useGlobalUser } from "../../CustomHooks";
+import { UseGlobalUser } from "../../CustomHooks";
 import { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  const { handleInput, setUserData, handleLogin } = useGlobalUser();
+  const { handleInput, setUserData, handleLogin } = UseGlobalUser();
 
   return (
     <div

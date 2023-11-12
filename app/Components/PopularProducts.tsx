@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect, forwardRef } from "react";
 import { Product } from "@/typesAndInterfaces";
-import { useGlobalCart, useWindowWidth } from "@/app/CustomHooks";
+import { UseGlobalCart, UseWindowWidth } from "@/app/CustomHooks";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import Carousel from "nuka-carousel";
@@ -13,9 +13,9 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
   const [secondSlide, setSecondSlide] = useState<Product[]>([]);
   const [slideProduct, setSlideProducts] = useState<string>("");
 
-  const { product } = useGlobalCart();
+  const { product } = UseGlobalCart();
 
-  const isResponsive = useWindowWidth();
+  const isResponsive = UseWindowWidth();
 
   useEffect(() => {
     const sortedProductArray = product

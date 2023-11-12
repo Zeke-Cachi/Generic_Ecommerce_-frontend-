@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 import Button from "@/app/Components/Button";
 import H2Title from "@/app/Components/H2Title";
 import RelatedProducts from "@/app/Components/RelatedProducts";
@@ -12,7 +12,7 @@ import RelatedProducts from "@/app/Components/RelatedProducts";
 
 const ProductDetails = () => {
   const searchParams = useSearchParams();
-  const { addToCart, product } = useGlobalCart();
+  const { addToCart, product } = UseGlobalCart();
   const [productInfo, setProductInfo] = useState<Product>();
   const [relatedProductsData] = useState<Product[]>(product.slice(3, 6));
   const [rating] = useState(Math.floor(Math.random() * 10) + 1);
@@ -36,7 +36,7 @@ const ProductDetails = () => {
   //--------------------------------------------------------------------------------------------------------------------------
 
   return productInfo?._id === undefined ? (
-    <div className="w-full pt-[10rem] text-center h-[50vw]">
+    <div className="w-full pt-[10rem] text-center h-[50vw] bg-white">
       <span className="loading loading-spinner mx-auto w-[10rem]"></span>
     </div>
   ) : (
