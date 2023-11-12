@@ -1,12 +1,12 @@
 "use client";
 import Button from "@/app/Components/Button";
 import { Toaster } from "react-hot-toast";
-import { useGlobalUser, useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalUser, UseGlobalCart } from "@/app/CustomHooks";
 
 const PostProduct = () => {
-  const { setProduct, updateProductImg } = useGlobalCart();
+  const { setProduct, updateProductImg } = UseGlobalCart();
 
-  const { handleInput, handleProductCreation } = useGlobalUser();
+  const { handleInput, handleProductCreation } = UseGlobalUser();
 
   return (
     <div
@@ -14,8 +14,10 @@ const PostProduct = () => {
       style={{ backgroundImage: "url(/upload-product-bg-img.jpeg" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
-        <div className="hero-content flex flex-col w-1/4">
-          <h2 className="text-5xl text-white text-start">Upload a product</h2>
+        <div className="hero-content p-0 lg:p-4 flex flex-col w-[19rem] lg:w-1/4">
+          <h2 className="text-4xl lg:text-5xl text-white text-start">
+            Upload a product
+          </h2>
           <form
             className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-100"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {

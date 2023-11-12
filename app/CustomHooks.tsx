@@ -1,16 +1,23 @@
+"use client";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
 import { CartContext } from "./Contexts/CartContext";
 
-export const useGlobalUser = () => {
+//---------------------------------------------------------------------------
+
+export const UseGlobalUser = () => {
   return useContext(UserContext);
 };
 
-export const useGlobalCart = () => {
+//---------------------------------------------------------------------------
+
+export const UseGlobalCart = () => {
   return useContext(CartContext);
 };
 
-export const useWindowHeight = () => {
+//---------------------------------------------------------------------------
+
+export const UseWindowHeight = () => {
   const [checkHeight, setCheckHeight] = useState<number>(0);
 
   useEffect(() => {
@@ -23,4 +30,26 @@ export const useWindowHeight = () => {
   }, []);
 
   return checkHeight;
+};
+
+//---------------------------------------------------------------------------
+
+export const UseWindowWidth = () => {
+  const [isResponsive, setIsResponsive] = useState<boolean>(
+    window.innerWidth <= 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsResponsive(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return isResponsive;
 };

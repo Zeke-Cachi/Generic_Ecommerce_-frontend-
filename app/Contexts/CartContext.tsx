@@ -7,8 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
-import { useGlobalUser } from "../CustomHooks";
-import toast from "react-hot-toast";
+import { UseGlobalUser } from "../CustomHooks";
 import { useRouter } from "next/navigation";
 
 export const CartContext = createContext<ICartContext>({
@@ -26,6 +25,8 @@ export const CartContext = createContext<ICartContext>({
   totalAmount: 0,
   updateProductImg: () => {},
   setParams: () => {},
+  showSearchBar: false,
+  setShowSearchBar: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
@@ -33,7 +34,7 @@ export const CartContext = createContext<ICartContext>({
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const { userData, setUserData } = useGlobalUser();
+  const { userData } = UseGlobalUser();
 
   const [product, setProduct] = useState<Product[]>([]);
 
@@ -42,6 +43,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [productImage, setProductImage] = useState<File | null>(null);
+
+  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -94,7 +97,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         console.log(error);
       }
     };
-    if (state.cart.length > 0 && auth.currentUser?.email) {
+    if (auth.currentUser?.email) {
       uploadCartItems();
     }
   }, [state.cart, userData._id]);
@@ -147,6 +150,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         totalAmount,
         updateProductImg,
         setParams,
+        showSearchBar,
+        setShowSearchBar,
       }}
     >
       {children}

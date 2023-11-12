@@ -1,7 +1,7 @@
 "use client";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart, UseWindowWidth } from "@/app/CustomHooks";
 import Button from "./Button";
 
 const CartCard: React.FC<{
@@ -9,20 +9,22 @@ const CartCard: React.FC<{
   showSecondaryBtn: boolean;
   extraStyling?: string;
 }> = ({ item, showSecondaryBtn, extraStyling }) => {
-  const { addToCart, removeFromCart, completelyRemoveItem } = useGlobalCart();
+  const { addToCart, removeFromCart, completelyRemoveItem } = UseGlobalCart();
+  const isResponsive = UseWindowWidth();
 
   return (
     <div
-      className={`${extraStyling} h-36 grid grid-rows-1 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
+      className={`${extraStyling} min-h-52 lg:h-36 grid grid-rows-2 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
     >
-      <div className="w-full flex flex-col justify-around">
+      <div className="w-full h-full flex flex-col justify-between lg:justify-around">
         <h3 className="text-xl">{item.title}</h3>
+        {isResponsive ? <hr className="my-2 text-purple-800" /> : null}
         <p>
           Unitary Price: <span className="italic font-bold">${item.price}</span>
         </p>
       </div>
 
-      <div className="relative w-full h-full">
+      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full">
         <Image
           src={item.image}
           fill={true}
@@ -32,7 +34,7 @@ const CartCard: React.FC<{
       </div>
 
       {showSecondaryBtn ? (
-        <div className="flex justify-end items-center w-full pe-16">
+        <div className="flex justify-center lg:justify-end items-center w-full lg:pe-16 col-span-2 lg:col-span-1">
           <button
             className="bg-purple-100 rounded-full h-12 w-12 me-4 text-xl font-bold transition-all  active:bg-purple-300"
             onClick={() => item._id && removeFromCart(item._id)}
@@ -53,7 +55,7 @@ const CartCard: React.FC<{
         passedFunctionWithId={completelyRemoveItem}
         _id={item._id}
         title={"remove Item"}
-        optionalStyle="mx-auto"
+        optionalStyle="mx-auto col-span-2 lg:col-span-1"
       />
     </div>
   );

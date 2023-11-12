@@ -2,12 +2,12 @@
 import Image from "next/image";
 import { Product } from "@/typesAndInterfaces";
 import Button from "./Button";
-import { useGlobalCart } from "../CustomHooks";
+import { UseGlobalCart } from "../CustomHooks";
 
 const RelatedProducts: React.FC<{ relatedProduct: Product }> = ({
   relatedProduct,
 }) => {
-  const { setParams } = useGlobalCart();
+  const { setParams } = UseGlobalCart();
 
   return (
     <div className="transition-all w-72 h-96 border border-gray-200 bg-gray-100 overflow-hidden rounded-xl shadow-xl flex flex-col items-center px-2 pb-2">

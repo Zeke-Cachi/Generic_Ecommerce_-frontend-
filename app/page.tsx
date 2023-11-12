@@ -2,9 +2,12 @@
 import Hero from "./Components/Hero";
 import ProductCard from "./Components/ProductCard";
 import { useEffect, useRef } from "react";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart, UseWindowHeight } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import PopularProducts from "./Components/PopularProducts";
+import H2Title from "./Components/H2Title";
+import { FaSearch } from "react-icons/fa";
+import { scrollToRef } from "./functions";
 
 const easeInOutQuad = (t: number) =>
   t < 0.5 ? 2 * t ** 2 : -1 + (4 - 2 * t) * t;
@@ -35,8 +38,9 @@ const scrollToRef = (
 };
 
 export default function Home() {
-  const { product } = useGlobalCart();
+  const { product, showSearchBar, setShowSearchBar } = UseGlobalCart();
   const goToRef = useRef<HTMLHeadingElement>(null);
+  const checkHeight = UseWindowHeight();
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,10 +51,16 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <main>
+      {checkHeight > 1000 && (
+        <FaSearch
+          className="fixed bottom-[5vh] right-[5vw] h-12 w-12 text-purple-500 opacity-30 hover:opacity-100 transition-all cursor-pointer z-40 lg:hidden"
+          onClick={() => setShowSearchBar(!showSearchBar)}
+        />
+      )}
       <Hero />
       <PopularProducts ref={goToRef} />
-      <h2 className="px-4 my-4 text-[2.5rem]">Browse</h2>
+      <H2Title title="Browse" />
       {product.length === 0 ? (
         <div className="w-full text-center">
           <div className="loading loading-spinner w-40 text-gray-300"></div>
@@ -62,6 +72,6 @@ export default function Home() {
           })}
         </div>
       )}
-    </>
+    </main>
   );
 }

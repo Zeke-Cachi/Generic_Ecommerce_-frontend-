@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { storage } from "@/firebase";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 
 //--------------------------------- CREATE CONTEXT -------------------------------------------------------------//
 export const UserContext = createContext<IUserContext>({
@@ -41,7 +41,7 @@ export const UserContext = createContext<IUserContext>({
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- HOOKS -------------------------------------------//
   const router = useRouter();
-  const { initializeState, clearCart, product } = useGlobalCart();
+  const { initializeState, clearCart, product } = UseGlobalCart();
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     name: "",
@@ -63,9 +63,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
           const fetchUserAtPageLoad = await axios.get(
             `http://localhost:5500/users/getbyemail/${user.email}`
           );
-          fetchUserAtPageLoad.data[0].cart.length > 0 &&
-            (setUserData(() => fetchUserAtPageLoad.data[0]),
-            initializeState(fetchUserAtPageLoad.data[0].cart, "cart"));
+          setUserData(() => fetchUserAtPageLoad.data[0]),
+            initializeState(fetchUserAtPageLoad.data[0].cart, "cart");
         } catch (error) {
           console.log(error);
         }
@@ -99,10 +98,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     triggerUpdateProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkProfilePicInUserData]);
-
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
 
   //--------------------------------- VARIOUS FUNCTIONS -------------------------------------------//
   const updateProfileImg = async (e: React.ChangeEvent<HTMLInputElement>) => {

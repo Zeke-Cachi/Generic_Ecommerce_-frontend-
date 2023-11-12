@@ -2,9 +2,10 @@
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
 import {
-  useGlobalCart,
-  useWindowHeight,
-  useGlobalUser,
+  UseGlobalCart,
+  UseWindowHeight,
+  UseGlobalUser,
+  UseWindowWidth,
 } from "@/app/CustomHooks";
 import Link from "next/link";
 import Button from "./Button";
@@ -13,9 +14,11 @@ import { auth } from "@/firebase";
 import { Toaster } from "react-hot-toast";
 
 const Header = () => {
-  const { state, totalAmount } = useGlobalCart();
-  const { userData, logOut } = useGlobalUser();
-  const checkHeight = useWindowHeight();
+  const { state, totalAmount, showSearchBar, setShowSearchBar } =
+    UseGlobalCart();
+  const { userData, logOut } = UseGlobalUser();
+  const checkHeight = UseWindowHeight();
+  const isResponsive = UseWindowWidth();
 
   return (
     <div
@@ -38,14 +41,14 @@ const Header = () => {
               width={50}
               height={50}
               alt="site logo"
-              className="ms-8"
+              className={`${!isResponsive ? "ms-8" : ""}`}
             />
           )}
         </Link>
       </div>
-
-      <SearchBar />
-
+      {!isResponsive ? (
+        <SearchBar optionalStyle="hidden lg:flex lg:gap-4" />
+      ) : null}
       <div className="flex items-center justify-center">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost">
@@ -108,7 +111,7 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-30 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
               {auth.currentUser ? (
@@ -116,6 +119,11 @@ const Header = () => {
                   <Link href={"/profile"}>
                     <span>{auth.currentUser.displayName}`s</span>Profile
                   </Link>
+                  {isResponsive ? (
+                    <span onClick={() => setShowSearchBar(!showSearchBar)}>
+                      Search
+                    </span>
+                  ) : null}
                   <button onClick={logOut}>Log Out</button>
                 </>
               ) : (

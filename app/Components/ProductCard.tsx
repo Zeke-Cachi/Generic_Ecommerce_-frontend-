@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   const [shortenedTitle, setShortenedTitle] = useState<string>("");
   const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
-  const { addToCart } = useGlobalCart();
+  const { addToCart } = UseGlobalCart();
 
   useEffect(() => {
     if (item.title.length > 20) {
@@ -40,7 +40,7 @@ const ProductCard: React.FC<{ item: Product }> = ({ item }) => {
   };
 
   return (
-    <div className="group card w-64 max-h-[40rem] shadow-2xl relative border border-gray-200 text-center bg-gray-100 overflow-hidden">
+    <div className="mx-auto group card w-64 max-h-[40rem] shadow-2xl relative border border-gray-200 text-center bg-gray-100 overflow-hidden">
       <FaShoppingCart
         onClick={() => item._id && handleShoppingCartClick(item._id)}
         className={`absolute top-4 right-4 w-8 h-8 text-purple-400 transition-all opacity-0 group-hover:opacity-100 cursor-pointer ${
