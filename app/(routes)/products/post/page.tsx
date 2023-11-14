@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { UseGlobalUser, UseGlobalCart } from "@/app/CustomHooks";
 
 const PostProduct = () => {
-  const { setProduct, updateProductImg } = UseGlobalCart();
+  const { setStoreNewProduct, updateProductImg } = UseGlobalCart();
 
   const { handleInput, handleProductCreation } = UseGlobalUser();
 
@@ -34,7 +34,7 @@ const PostProduct = () => {
                   type="text"
                   placeholder="product title"
                   className="input input-bordered"
-                  onChange={(e) => handleInput(e, setProduct)}
+                  onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
               <div className="form-control">
@@ -47,7 +47,7 @@ const PostProduct = () => {
                   placeholder="price"
                   name="price"
                   className="input input-bordered"
-                  onChange={(e) => handleInput(e, setProduct)}
+                  onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
               <div className="form-control">
@@ -59,7 +59,7 @@ const PostProduct = () => {
                   placeholder="stock"
                   name="stock"
                   className="input input-bordered"
-                  onChange={(e) => handleInput(e, setProduct)}
+                  onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
               <div className="form-control">
@@ -80,7 +80,7 @@ const PostProduct = () => {
                 <textarea
                   className="h-32 input input-bordered"
                   name="description"
-                  onChange={(e) => handleInput(e, setProduct)}
+                  onChange={(e) => handleInput(e, setStoreNewProduct)}
                 ></textarea>
               </div>
               <div className="form-control mt-6">

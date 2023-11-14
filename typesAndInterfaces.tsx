@@ -24,6 +24,8 @@ export type ICartContext = {
   setParams: (item: Product) => void;
   showSearchBar: boolean;
   setShowSearchBar: React.Dispatch<React.SetStateAction<boolean>>;
+  storeNewProduct: Product;
+  setStoreNewProduct: React.Dispatch<React.SetStateAction<Product>>;
 };
 
 export interface CartInitialState {

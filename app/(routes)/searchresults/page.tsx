@@ -6,6 +6,7 @@ import { Product } from "@/typesAndInterfaces";
 import ProductCard from "@/app/Components/ProductCard";
 import H2Title from "@/app/Components/H2Title";
 import { FaTimes } from "react-icons/fa";
+import { SERVER_URL } from "@/app/functions";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ const SearchResults = () => {
         try {
           setIsSearchFetching(() => true);
           const response = await axios.get(
-            `http://localhost:5500/products/generalsearch?query=${encodeURIComponent(
+            `${SERVER_URL}/products/generalsearch?query=${encodeURIComponent(
               decodedParams
             )}`
           );

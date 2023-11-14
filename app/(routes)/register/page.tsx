@@ -4,7 +4,7 @@ import Button from "@/app/Components/Button";
 import { UseGlobalUser } from "@/app/CustomHooks";
 import { Toaster } from "react-hot-toast";
 import FormWarnings from "@/app/Components/FormWarnings";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Register = () => {
   const { handleInput, handleRegisterSubmit, userData, setUserData } =
@@ -129,6 +129,7 @@ const Register = () => {
                   <span className="label-text">Repeat password</span>
                 </label>
                 <input
+                  onChange={(e) => handleInput(e, setUserData)}
                   type="password"
                   placeholder="repeat password"
                   name="repeatPassword"

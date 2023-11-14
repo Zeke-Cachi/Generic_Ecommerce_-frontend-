@@ -53,3 +53,5 @@ export const UseWindowWidth = () => {
 
   return isResponsive;
 };
+
+//CAMBIAR LAS RUTAS API POR genericecommerce-backend-production.up.railway.app Y SU CORRESPONDIENTE ENDPOINT, Y VER DE ENCRIPTAR ESO

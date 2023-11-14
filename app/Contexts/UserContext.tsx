@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
-import { IUserContext, UserData, IError } from "@/typesAndInterfaces";
+import { IUserContext, UserData } from "@/typesAndInterfaces";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -8,13 +8,14 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "@/firebase";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uuid } from "uuidv4";
 import { storage } from "@/firebase";
 import { UseGlobalCart } from "@/app/CustomHooks";
+import { SERVER_URL } from "../functions";
 
 //--------------------------------- CREATE CONTEXT -------------------------------------------------------------//
 export const UserContext = createContext<IUserContext>({
@@ -41,7 +42,7 @@ export const UserContext = createContext<IUserContext>({
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- HOOKS -------------------------------------------//
   const router = useRouter();
-  const { initializeState, clearCart, product } = UseGlobalCart();
+  const { initializeState, clearCart, storeNewProduct } = UseGlobalCart();
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     name: "",
@@ -61,7 +62,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         try {
           const fetchUserAtPageLoad = await axios.get(
-            `http://localhost:5500/users/getbyemail/${user.email}`
+            `${SERVER_URL}/users/getbyemail/${user.email}`
           );
           setUserData(() => fetchUserAtPageLoad.data[0]),
             initializeState(fetchUserAtPageLoad.data[0].cart, "cart");
@@ -90,7 +91,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const triggerUpdateProfilePic = async () => {
       if (userData.profileImg !== "") {
         const sendProfileImage = await axios.put(
-          `http://localhost:5500/users/updateprofileimage/${userData._id}`,
+          `${SERVER_URL}/users/updateprofileimage/${userData._id}`,
           userData
         );
       }
@@ -112,14 +113,14 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setterFunction((prev) => ({ ...prev, [name]: value }));
   }
 
-  const doubleCheckPw = (userData: UserData) => {
-    if (
-      userData.password !== userData.repeatPassword ||
-      /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(userData.password!)
-    ) {
-      return false;
+  const doubleCheckPw = (userData: UserData): number => {
+    if (userData.password !== userData.repeatPassword) {
+      return 1;
+    }
+    if (!/[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(userData.password!)) {
+      return 2;
     } else {
-      return true;
+      return 3;
     }
   };
 
@@ -127,10 +128,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const handleProductCreation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userData._id) {
-      const productPayload = { ...product, userId: userData._id };
+      const productPayload = { ...storeNewProduct, userId: userData._id };
       try {
         const response = await axios.post(
-          "http://localhost:5500/products",
+          `${SERVER_URL}/products`,
           productPayload
         );
         setUserData((prev) => ({
@@ -153,11 +154,12 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //--------------------------------- REGISTER FORM ------------------------------------//
   const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const checkPwResult: boolean = doubleCheckPw(userData);
-    if (!checkPwResult) {
-      return toast.error(
-        "Passwords do not match or don´t contain the necessary characters. Try again"
-      );
+    const checkPwResult: number = doubleCheckPw(userData);
+    if (checkPwResult === 1) {
+      return toast.error("Passwords do not match");
+    }
+    if (checkPwResult === 2) {
+      return toast.error("Password doesn´t have numbers or special characters");
     }
     try {
       const postData = { ...userData };
@@ -165,7 +167,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       delete postData.repeatPassword;
       delete postData._id;
       const createUser = await axios.post(
-        "http://localhost:5500/users/create",
+        `${SERVER_URL}/users/create`,
         postData
       );
       setUserData(() => createUser.data);
@@ -204,7 +206,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         userData.password!
       );
       const fetchUserData = await axios.get(
-        `http://localhost:5500/users/getbyemail/${userData.email}`
+        `${SERVER_URL}/users/getbyemail/${userData.email}`
       );
       setUserData(fetchUserData.data[0]);
       toast.success("Successfully logged in!", { position: "bottom-center" });

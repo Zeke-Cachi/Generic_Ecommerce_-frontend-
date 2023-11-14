@@ -1,6 +1,8 @@
 const easeInOutQuad = (t: number) =>
   t < 0.5 ? 2 * t ** 2 : -1 + (4 - 2 * t) * t;
 
+//---------------------------------------------------------------------------------------
+
 export const scrollToRef = (
   ref: React.RefObject<HTMLHeadingElement>,
   offset: number
@@ -25,3 +27,8 @@ export const scrollToRef = (
 
   requestAnimationFrame(animateScroll);
 };
+
+//---------------------------------------------------------------------------------------
+
+export const SERVER_URL =
+  "https://genericecommerce-backend-production.up.railway.app";

@@ -9,6 +9,7 @@ import { cartInitialState, CartReducer } from "../Components/Cart/CartReducer";
 import { TYPES } from "../Components/Cart/CartActions";
 import { UseGlobalUser } from "../CustomHooks";
 import { useRouter } from "next/navigation";
+import { SERVER_URL } from "../functions";
 
 export const CartContext = createContext<ICartContext>({
   product: [],
@@ -27,6 +28,15 @@ export const CartContext = createContext<ICartContext>({
   setParams: () => {},
   showSearchBar: false,
   setShowSearchBar: () => {},
+  storeNewProduct: {
+    title: "",
+    price: 1,
+    description: "",
+    image: "",
+    quantity: 1,
+    stock: 1,
+  },
+  setStoreNewProduct: () => {},
 });
 
 //------------------------------------- / STATES / -----------------------------------------------------------------------------
@@ -45,6 +55,15 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [productImage, setProductImage] = useState<File | null>(null);
 
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
+
+  const [storeNewProduct, setStoreNewProduct] = useState<Product>({
+    title: "",
+    price: 1,
+    description: "",
+    image: "",
+    quantity: 1,
+    stock: 1,
+  });
 
   //----------------------------------- / REDUCER FUNCTIONS / -------------------------------------------------------------------------------
 
@@ -73,9 +92,13 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
 
   useEffect(() => {
+    console.log(storeNewProduct);
+  }, [storeNewProduct]);
+
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5500/products");
+        const response = await axios.get(`${SERVER_URL}/products`);
         response.data.length > 0 && initializeState(response.data, "products");
         setProduct(response.data);
       } catch (error) {
@@ -90,7 +113,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const postData = { email: auth.currentUser?.email, cart: state.cart };
       try {
         const response = await axios.post(
-          "http://localhost:5500/users/savecart",
+          `${SERVER_URL}/users/savecart`,
           postData
         );
       } catch (error) {
@@ -119,7 +142,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       );
       await uploadBytes(imageRef, productImage);
       const uploadURL = await getDownloadURL(imageRef);
-      setProduct((prev) => ({ ...prev, image: uploadURL }));
+      setStoreNewProduct((prev) => ({ ...prev, image: uploadURL }));
     };
     uploadProductImageToFirebase();
   }, [productImage]);
@@ -152,6 +175,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         setParams,
         showSearchBar,
         setShowSearchBar,
+        storeNewProduct,
+        setStoreNewProduct,
       }}
     >
       {children}

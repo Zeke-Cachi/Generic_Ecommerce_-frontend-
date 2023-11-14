@@ -31,7 +31,7 @@ const Profile = () => {
               <FaUserAlt className="rounded-full border border-purple-200 h-24 w-24" />
             )}
 
-            <label className="bg-purple-400 h-8 w-8 p-2 absolute top-[4.3rem] left-[4.3rem] z-10 cursor-pointer rounded-full">
+            <label className="bg-purple-400 h-8 w-8 p-2 absolute top-16 left-[52%] lg:top-[4.3rem] lg:left-[4.3rem] z-10 cursor-pointer rounded-full">
               <input
                 type="file"
                 className="hidden"
@@ -57,7 +57,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <h2 className="text-[2.5rem] mb-8">My products for sale</h2>
+      <H2Title title="My products for sale" />
       <div className="flex flex-col items-center mb-8">
         {userData.uploadedProducts === undefined ? (
           <div>
