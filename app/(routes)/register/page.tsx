@@ -4,7 +4,7 @@ import Button from "@/app/Components/Button";
 import { UseGlobalUser } from "@/app/CustomHooks";
 import { Toaster } from "react-hot-toast";
 import FormWarnings from "@/app/Components/FormWarnings";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Register = () => {
   const { handleInput, handleRegisterSubmit, userData, setUserData } =

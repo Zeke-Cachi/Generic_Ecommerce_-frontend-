@@ -2,7 +2,8 @@
 "use client";
 import React, { useState, useEffect, forwardRef } from "react";
 import { Product } from "@/typesAndInterfaces";
-import { UseGlobalCart, UseWindowWidth } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
+import { useGlobalUtils } from "../Contexts/UtilsContext";
 import ProductCard from "./ProductCard";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import Carousel from "nuka-carousel";
@@ -15,7 +16,9 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
 
   const { product } = UseGlobalCart();
 
-  const isResponsive = UseWindowWidth();
+  const { useWindowWidth, isClient } = useGlobalUtils();
+
+  const isResponsive = useWindowWidth();
 
   useEffect(() => {
     const sortedProductArray = product
@@ -35,7 +38,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
     setSlideProducts("left");
   };
 
-  return (
+  return isClient ? (
     <div className="bg-white mt-24 overflow-x-hidden" ref={ref}>
       <H2Title title="Popular products" />
       {!isResponsive ? (
@@ -84,6 +87,10 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
           ))}
         </Carousel>
       )}
+    </div>
+  ) : (
+    <div className="w-full grid place-items-center">
+      <span className="loading loading-spinner text-gray-300 w-1/6"></span>
     </div>
   );
 });

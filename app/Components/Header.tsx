@@ -1,12 +1,8 @@
 "use client";
 import { FaUserAlt } from "react-icons/fa";
 import Image from "next/image";
-import {
-  UseGlobalCart,
-  UseWindowHeight,
-  UseGlobalUser,
-  UseWindowWidth,
-} from "@/app/CustomHooks";
+import { UseGlobalCart, UseGlobalUser } from "@/app/CustomHooks";
+import { useGlobalUtils } from "../Contexts/UtilsContext";
 import Link from "next/link";
 import Button from "./Button";
 import SearchBar from "./SearchBar";
@@ -17,8 +13,9 @@ const Header = () => {
   const { state, totalAmount, showSearchBar, setShowSearchBar } =
     UseGlobalCart();
   const { userData, logOut } = UseGlobalUser();
-  const checkHeight = UseWindowHeight();
-  const isResponsive = UseWindowWidth();
+  const { useWindowHeight, useWindowWidth } = useGlobalUtils();
+  const checkHeight = useWindowHeight();
+  const isResponsive = useWindowWidth();
 
   return (
     <div

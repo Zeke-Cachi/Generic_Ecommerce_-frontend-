@@ -39,7 +39,7 @@ const SearchResults = () => {
       <H2Title title={"Your search results"} />
       {isSearchFetching ? (
         <div className="w-full grid place-items-center">
-          <span className="loading loading-spinner text-gray-300 w-1/4"></span>
+          <span className="loading loading-spinner text-gray-300 w-1/6"></span>
         </div>
       ) : (
         <div className="flex justify-center gap-4 flex-wrap">

@@ -1,8 +1,9 @@
 "use client";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { UseGlobalCart, UseWindowWidth } from "@/app/CustomHooks";
+import { UseGlobalCart } from "@/app/CustomHooks";
 import Button from "./Button";
+import { useGlobalUtils } from "../Contexts/UtilsContext";
 
 const CartCard: React.FC<{
   item: Product;
@@ -10,7 +11,8 @@ const CartCard: React.FC<{
   extraStyling?: string;
 }> = ({ item, showSecondaryBtn, extraStyling }) => {
   const { addToCart, removeFromCart, completelyRemoveItem } = UseGlobalCart();
-  const isResponsive = UseWindowWidth();
+  const { useWindowWidth } = useGlobalUtils();
+  const isResponsive = useWindowWidth();
 
   return (
     <div

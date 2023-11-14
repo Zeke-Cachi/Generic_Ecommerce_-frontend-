@@ -56,6 +56,12 @@ export interface IUserContext {
   handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
+export interface IUtilsContext {
+  useWindowHeight: () => number;
+  useWindowWidth: () => boolean;
+  isClient: boolean;
+}
+
 export interface LoginData {
   email: string;
   password: string;

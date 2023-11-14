@@ -2,13 +2,15 @@
 import { FaSearch } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { UseWindowWidth, UseGlobalCart } from "../CustomHooks";
+import { UseGlobalCart } from "../CustomHooks";
+import { useGlobalUtils } from "../Contexts/UtilsContext";
 
 const SearchBar: React.FC<{ optionalStyle?: string }> = ({ optionalStyle }) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const isResponsive = UseWindowWidth();
+  const { useWindowWidth } = useGlobalUtils();
+  const isResponsive = useWindowWidth();
   const { showSearchBar, setShowSearchBar } = UseGlobalCart();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {

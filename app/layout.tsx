@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import CartProvider from "./Contexts/CartContext";
 import UserProvider from "./Contexts/UserContext";
+import UtilsProvider from "./Contexts/UtilsContext";
 import SearchBar from "./Components/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,14 +28,16 @@ export default function RootLayout({
         <meta name="description" content={metadata.description!} />
       </head>
       <body className={inter.className}>
-        <CartProvider>
-          <UserProvider>
-            <Header />
-            {children}
-            <SearchBar optionalStyle="hidden" />
-            <Footer />
-          </UserProvider>
-        </CartProvider>
+        <UtilsProvider>
+          <CartProvider>
+            <UserProvider>
+              <Header />
+              {children}
+              <SearchBar optionalStyle="hidden" />
+              <Footer />
+            </UserProvider>
+          </CartProvider>
+        </UtilsProvider>
       </body>
     </html>
   );
