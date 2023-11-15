@@ -69,7 +69,7 @@ const Register = () => {
                   name="name"
                   type="text"
                   placeholder="name"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control">
@@ -88,7 +88,7 @@ const Register = () => {
                   type="text"
                   placeholder="lastname"
                   name="lastname"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control">
@@ -100,7 +100,7 @@ const Register = () => {
                   type="email"
                   placeholder="email"
                   name="email"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control">
@@ -121,7 +121,7 @@ const Register = () => {
                   placeholder="password"
                   onFocus={() => setClickedPwInput(true)}
                   name="password"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control">
@@ -133,7 +133,7 @@ const Register = () => {
                   type="password"
                   placeholder="repeat password"
                   name="repeatPassword"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
                 <label className="label">
                   <Link

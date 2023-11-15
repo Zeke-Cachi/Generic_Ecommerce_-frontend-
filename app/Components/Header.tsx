@@ -52,7 +52,7 @@ const Header = () => {
             <div className="indicator">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 w-5 text-purple-950"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -65,7 +65,7 @@ const Header = () => {
                 />
               </svg>
               {/* THIS IS THE NUMBER IN THE CART ICON */}
-              <span className="badge badge-sm indicator-item">
+              <span className="badge badge-sm indicator-item bg-purple-200 text-black outline-none border-0">
                 {state.cart.length}
               </span>
             </div>
@@ -94,7 +94,7 @@ const Header = () => {
           <label tabIndex={0} className="btn btn-ghost avatar text-center">
             <div className="w-10 rounded-full">
               {userData.profileImg === "" ? (
-                <FaUserAlt className="h-[1.5rem] w-[1.5rem]" />
+                <FaUserAlt className="h-[1.5rem] w-[1.5rem] text-purple-950" />
               ) : (
                 <Image
                   src={userData.profileImg}
@@ -108,7 +108,7 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-30 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-30 p-2 shadow bg-gray-100 rounded-box w-52 text-gray-500"
           >
             <li>
               {auth.currentUser ? (

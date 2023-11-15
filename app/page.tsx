@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className="bg-white">
       {checkHeight > 1000 && (
         <FaSearch
           className="fixed bottom-[5vh] right-[5vw] h-12 w-12 text-purple-500 opacity-30 hover:opacity-100 transition-all cursor-pointer z-40 lg:hidden"

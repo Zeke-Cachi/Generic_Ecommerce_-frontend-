@@ -36,7 +36,7 @@ const ResetPassword = () => {
                   onChange={(e) => handleInput(e, setUserData)}
                   placeholder="email"
                   name="email"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control mt-6">

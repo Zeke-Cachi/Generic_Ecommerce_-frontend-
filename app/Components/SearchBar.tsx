@@ -40,7 +40,7 @@ const SearchBar: React.FC<{ optionalStyle?: string }> = ({ optionalStyle }) => {
         ref={inputRef}
         type="text"
         placeholder="search by product name"
-        className="p-4 lg:w-[20rem] h-12 border-2 border-gray-200 rounded-lg"
+        className="p-4 lg:w-[20rem] h-12 border-2 border-gray-200 rounded-lg bg-white"
       />
       {!isResponsive ? (
         <button>

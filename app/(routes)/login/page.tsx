@@ -37,7 +37,7 @@ const Login = () => {
                   type="text"
                   placeholder="email"
                   name="email"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
               </div>
               <div className="form-control">
@@ -49,7 +49,7 @@ const Login = () => {
                   type="password"
                   placeholder="password"
                   name="password"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                 />
                 <label className="label flex flex-col gap-2 lg:flex-row">
                   <Link

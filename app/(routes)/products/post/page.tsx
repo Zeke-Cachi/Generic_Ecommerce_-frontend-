@@ -33,7 +33,7 @@ const PostProduct = () => {
                   name="title"
                   type="text"
                   placeholder="product title"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                   onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
@@ -46,7 +46,7 @@ const PostProduct = () => {
                   step={0.01}
                   placeholder="price"
                   name="price"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                   onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
@@ -58,7 +58,7 @@ const PostProduct = () => {
                   type="number"
                   placeholder="stock"
                   name="stock"
-                  className="input input-bordered"
+                  className="input input-bordered bg-white"
                   onChange={(e) => handleInput(e, setStoreNewProduct)}
                 />
               </div>
@@ -69,7 +69,7 @@ const PostProduct = () => {
                 <input
                   type="file"
                   name="image"
-                  className="file:btn file:btn-primary file:bg-purple-800 file:text-white file:hover:bg-white file:hover:text-purple-800 file:hover:border-2 file:hover:border-purple-800"
+                  className="file:btn file:btn-primary file:bg-purple-800 file:text-white file:hover:bg-white file:hover:text-purple-800 file:hover:border-2 file:hover:border-purple-800 bg-white"
                   onChange={(e) => updateProductImg(e)}
                 />
               </div>
@@ -78,7 +78,7 @@ const PostProduct = () => {
                   <span className="label-text">Product description</span>
                 </label>
                 <textarea
-                  className="h-32 input input-bordered"
+                  className="h-32 input input-bordered bg-white"
                   name="description"
                   onChange={(e) => handleInput(e, setStoreNewProduct)}
                 ></textarea>
