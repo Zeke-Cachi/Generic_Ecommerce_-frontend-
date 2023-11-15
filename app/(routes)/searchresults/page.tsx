@@ -35,7 +35,7 @@ const SearchResults = () => {
   }, [searchParams]);
 
   return (
-    <div className="px-4 my-12 bg-white">
+    <div className="px-4 py-12 bg-white">
       <H2Title title={"Your search results"} />
       {isSearchFetching ? (
         <div className="w-full grid place-items-center">
