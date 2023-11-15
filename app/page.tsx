@@ -40,7 +40,7 @@ export default function Home() {
           <div className="loading loading-spinner w-40 text-gray-300"></div>
         </div>
       ) : (
-        <div className="px-4 flex gap-4 flex-wrap mt-4 mx-auto justify-center mb-8">
+        <div className="px-4 flex gap-4 flex-wrap mt-4 mx-auto justify-center pb-8">
           {product.map((item: Product, i) => {
             return <ProductCard key={i} item={item} />;
           })}

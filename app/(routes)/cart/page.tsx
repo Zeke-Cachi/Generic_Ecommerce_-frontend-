@@ -32,7 +32,7 @@ const Cart = () => {
           ))
         )}
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-start mb-28 mt-8">
+      <div className="flex flex-col lg:flex-row items-center justify-start pb-28 mt-8">
         <h2
           className={`${
             state.cart.length === 0 ? "hidden" : "block"
