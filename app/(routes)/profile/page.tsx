@@ -14,7 +14,7 @@ const Profile = () => {
   const goToPostProduct = () => router.push("/products/post");
 
   return (
-    <div className="p-4 bg-white">
+    <div className="p-4 bg-white min-h-[80vh]">
       <H2Title title={"My account"} />
       <div className="w-[90vw] lg:w-1/2 border-xl flex flex-col items-center justify-between gap-8 px-4 pb-4 mx-auto mb-12 bg-purple-50 border border-purple-100">
         <div className="flex flex-col lg:flex-row justify-between w-full p-8">

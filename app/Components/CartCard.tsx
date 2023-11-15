@@ -18,7 +18,7 @@ const CartCard: React.FC<{
 
   return (
     <div
-      className={`${extraStyling} min-h-52 lg:h-36 grid grid-rows-2 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
+      className={`${extraStyling} min-h-52 lg:h-36 grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
     >
       <div className="w-full h-full flex flex-col justify-between lg:justify-around">
         <h3 className="text-xl">{item.title}</h3>

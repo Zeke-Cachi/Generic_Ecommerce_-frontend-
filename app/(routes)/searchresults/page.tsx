@@ -20,7 +20,7 @@ const SearchResults = () => {
         try {
           setIsSearchFetching(() => true);
           const response = await axios.get(
-            `${SERVER_URL}/products/generalsearch?query=${encodeURIComponent(
+            `http://localhost:5500/products/generalsearch?query=${encodeURIComponent(
               decodedParams
             )}`
           );

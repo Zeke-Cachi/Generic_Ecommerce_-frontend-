@@ -9,7 +9,7 @@ const Login = () => {
 
   return (
     <div
-      className="hero h-[90vh]"
+      className="hero h-[90vh] bg-purple-300"
       style={{ backgroundImage: "url(/login-img.webp" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
