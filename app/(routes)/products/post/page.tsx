@@ -10,7 +10,7 @@ const PostProduct = () => {
 
   return (
     <div
-      className="hero h-[100vh]"
+      className="hero h-[100vh] bg-purple-300"
       style={{ backgroundImage: "url(/upload-product-bg-img.jpeg" }}
     >
       <div className="hero-overlay bg-opacity-60 grid place-items-center">
