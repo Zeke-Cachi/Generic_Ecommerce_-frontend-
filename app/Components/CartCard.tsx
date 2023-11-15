@@ -32,7 +32,7 @@ const CartCard: React.FC<{
         </p>
       </div>
 
-      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full row-span-2">
+      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full row-span-2 place-self-center">
         <Image
           src={item.image}
           fill={true}
