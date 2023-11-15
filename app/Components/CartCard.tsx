@@ -18,10 +18,14 @@ const CartCard: React.FC<{
 
   return (
     <div
-      className={`${extraStyling} min-h-52 lg:h-36 grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
+      className={`${extraStyling} h-[15rem] lg:h-36 grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 items-center bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
     >
       <div className="w-full h-full flex flex-col justify-between lg:justify-around">
-        <h3 className="text-xl">{item.title}</h3>
+        <h3 className="text-xl">
+          {item.title.length < 30
+            ? item.title
+            : `${item.title.slice(0, 30)}...`}
+        </h3>
         {isResponsive ? <hr className="my-2 text-purple-800" /> : null}
         <p>
           Unitary Price: <span className="italic font-bold">${item.price}</span>

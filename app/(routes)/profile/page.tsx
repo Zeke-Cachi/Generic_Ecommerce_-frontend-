@@ -72,7 +72,7 @@ const Profile = () => {
               item={item}
               key={item._id}
               showSecondaryBtn={false}
-              extraStyling={"lg:w-3/4"}
+              extraStyling={"w-[90%] lg:w-3/4"}
             />
           ))
         )}
