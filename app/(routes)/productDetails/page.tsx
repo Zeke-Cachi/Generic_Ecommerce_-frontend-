@@ -40,7 +40,7 @@ const ProductDetails = () => {
       <span className="loading loading-spinner mx-auto w-[10rem]"></span>
     </div>
   ) : (
-    <div className="mt-12">
+    <div className="pt-12 bg-white">
       <div className="flex flex-col lg:flex-row w-[20rem] h-[50rem] lg:w-[80vw] lg:h-[70vh] border mx-auto mb-8 shadow-xl bg-gray-100 rounded-xl">
         <div className="w-full h-full p-4 flex flex-col justify-between">
           <div className="relative w-full h-full">
