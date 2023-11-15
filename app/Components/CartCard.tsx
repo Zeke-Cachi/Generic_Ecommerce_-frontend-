@@ -20,7 +20,7 @@ const CartCard: React.FC<{
     <div
       className={`${extraStyling} h-[15rem] lg:h-36 grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-4 bg-gray-100 border-gray-200 shadow-xl rounded-lg my-4 p-2`}
     >
-      <div className="w-full h-full flex flex-col justify-between lg:justify-around">
+      <div className="w-full h-full flex flex-col justify-between lg:justify-around row-span-2">
         <h3 className="text-xl">
           {item.title.length < 30
             ? item.title
@@ -32,7 +32,7 @@ const CartCard: React.FC<{
         </p>
       </div>
 
-      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full">
+      <div className="relative h-1/2 w-1/2 mx-auto lg:w-full lg:h-full row-span-2">
         <Image
           src={item.image}
           fill={true}
