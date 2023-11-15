@@ -62,7 +62,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         try {
           const fetchUserAtPageLoad = await axios.get(
-            `${SERVER_URL}/users/getbyemail/${user.email}`
+            `http://localhost:5500/users/getbyemail/${user.email}`
           );
           setUserData(() => fetchUserAtPageLoad.data[0]),
             initializeState(fetchUserAtPageLoad.data[0].cart, "cart");
@@ -91,7 +91,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const triggerUpdateProfilePic = async () => {
       if (userData.profileImg !== "") {
         const sendProfileImage = await axios.put(
-          `${SERVER_URL}/users/updateprofileimage/${userData._id}`,
+          `http://localhost:5500/users/updateprofileimage/${userData._id}`,
           userData
         );
       }
@@ -131,7 +131,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       const productPayload = { ...storeNewProduct, userId: userData._id };
       try {
         const response = await axios.post(
-          `${SERVER_URL}/products`,
+          `http://localhost:5500/products`,
           productPayload
         );
         setUserData((prev) => ({
@@ -167,7 +167,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       delete postData.repeatPassword;
       delete postData._id;
       const createUser = await axios.post(
-        `${SERVER_URL}/users/create`,
+        `http://localhost:5500/users/create`,
         postData
       );
       setUserData(() => createUser.data);
@@ -206,7 +206,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         userData.password!
       );
       const fetchUserData = await axios.get(
-        `${SERVER_URL}/users/getbyemail/${userData.email}`
+        `http://localhost:5500/users/getbyemail/${userData.email}`
       );
       setUserData(fetchUserData.data[0]);
       toast.success("Successfully logged in!", { position: "bottom-center" });
