@@ -27,7 +27,7 @@ const Cart = () => {
               key={i}
               item={item}
               showSecondaryBtn={true}
-              extraStyling={"lg:w-[90vw] grid-cols-4"}
+              extraStyling={"lg:w-[90vw]"}
             />
           ))
         )}
