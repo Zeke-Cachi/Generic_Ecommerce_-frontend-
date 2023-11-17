@@ -98,7 +98,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:5500/products`);
+        const response = await axios.get(`${SERVER_URL}/products`);
         response.data.length > 0 && initializeState(response.data, "products");
         setProduct(response.data);
       } catch (error) {
@@ -113,7 +113,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const postData = { email: auth.currentUser?.email, cart: state.cart };
       try {
         const response = await axios.post(
-          `http://localhost:5500/users/savecart`,
+          `${SERVER_URL}/users/savecart`,
           postData
         );
       } catch (error) {
