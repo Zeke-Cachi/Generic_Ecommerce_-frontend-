@@ -82,7 +82,7 @@ const Header = () => {
           </label>
           <div
             tabIndex={0}
-            className={`mt-3 z-[1] card card-compact absolute -left-24 w-52 bg-base-100 shadow ${
+            className={`mt-3 z-[1] card card-compact absolute -left-24 lg:-left-40 w-52 bg-base-100 shadow ${
               closeCartPopUp ? "block" : "hidden"
             }`}
           >
@@ -127,7 +127,7 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className={`menu menu-sm absolute right-4 mt-3 z-30 p-2 shadow bg-gray-100 rounded-box w-52 text-gray-500 ${
+            className={`menu menu-sm absolute right-4 lg:right-12 mt-3 z-30 p-2 shadow bg-gray-100 rounded-box w-52 text-gray-500 ${
               closeOptionsPopUp ? "block" : "hidden"
             }`}
           >
