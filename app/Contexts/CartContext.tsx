@@ -10,6 +10,7 @@ import { TYPES } from "../Components/Cart/CartActions";
 import { UseGlobalUser } from "../CustomHooks";
 import { useRouter } from "next/navigation";
 import { SERVER_URL } from "../functions";
+import imageCompression from "browser-image-compression";
 
 export const CartContext = createContext<ICartContext>({
   product: [],
@@ -92,10 +93,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   //------------------------------------- / USEEFFECTS / -----------------------------------------------------------------------------
 
   useEffect(() => {
-    console.log(storeNewProduct);
-  }, [storeNewProduct]);
-
-  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${SERVER_URL}/products`);
@@ -136,13 +133,25 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const uploadProductImageToFirebase = async () => {
       if (productImage === null) return null;
-      const imageRef = ref(
-        storage,
-        `productImage/${productImage.name}${uuid()}`
-      );
-      await uploadBytes(imageRef, productImage);
-      const uploadURL = await getDownloadURL(imageRef);
-      setStoreNewProduct((prev) => ({ ...prev, image: uploadURL }));
+      try {
+        const compressionOptions = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+        };
+        const compressedImage = await imageCompression(
+          productImage,
+          compressionOptions
+        );
+        const imageRef = ref(
+          storage,
+          `productImage/${productImage.name}${uuid()}`
+        );
+        await uploadBytes(imageRef, compressedImage);
+        const uploadURL = await getDownloadURL(imageRef);
+        setStoreNewProduct((prev) => ({ ...prev, image: uploadURL }));
+      } catch (error) {
+        console.log(error);
+      }
     };
     uploadProductImageToFirebase();
   }, [productImage]);
