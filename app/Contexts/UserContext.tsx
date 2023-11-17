@@ -64,7 +64,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         try {
           const fetchUserAtPageLoad = await axios.get(
-            `http://localhost:5500/users/getbyemail/${user.email}`
+            `${SERVER_URL}/users/getbyemail/${user.email}`
           );
           setUserData(() => fetchUserAtPageLoad.data[0]),
             initializeState(fetchUserAtPageLoad.data[0].cart, "cart");
@@ -93,7 +93,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const triggerUpdateProfilePic = async () => {
       if (userData.profileImg !== "") {
         const sendProfileImage = await axios.put(
-          `http://localhost:5500/users/updateprofileimage/${userData._id}`,
+          `${SERVER_URL}/users/updateprofileimage/${userData._id}`,
           userData
         );
       }
@@ -129,7 +129,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const deleteUploadedProduct = async (_id: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5500/users/${userData._id}/deleteuploadedproduct/${_id}`
+        `${SERVER_URL}/users/${userData._id}/deleteuploadedproduct/${_id}`
       );
       response.status === 200 && console.log("Deleted uploaded product");
       const updatedUserProductsArr = userData.uploadedProducts.filter(
@@ -151,7 +151,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       const productPayload = { ...storeNewProduct, userId: userData._id };
       try {
         const response = await axios.post(
-          `http://localhost:5500/products`,
+          `${SERVER_URL}/products`,
           productPayload
         );
         setUserData((prev) => ({
@@ -187,7 +187,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       delete postData.repeatPassword;
       delete postData._id;
       const createUser = await axios.post(
-        `http://localhost:5500/users/create`,
+        `${SERVER_URL}/users/create`,
         postData
       );
       setUserData(() => createUser.data);
@@ -226,7 +226,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         userData.password!
       );
       const fetchUserData = await axios.get(
-        `http://localhost:5500/users/getbyemail/${userData.email}`
+        `${SERVER_URL}/users/getbyemail/${userData.email}`
       );
       setUserData(fetchUserData.data[0]);
       toast.success("Successfully logged in!", { position: "bottom-center" });
