@@ -54,6 +54,7 @@ export interface IUserContext {
   updateProfileImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logOut: () => void;
   handleProductCreation: (e: React.FormEvent<HTMLFormElement>) => void;
+  deleteUploadedProduct: (_id:string) => void;
 }
 
 export interface IUtilsContext {

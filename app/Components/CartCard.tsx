@@ -1,7 +1,7 @@
 "use client";
 import { Product } from "@/typesAndInterfaces";
 import Image from "next/image";
-import { UseGlobalCart } from "@/app/CustomHooks";
+import { UseGlobalCart, UseGlobalUser } from "@/app/CustomHooks";
 import Button from "./Button";
 import { useGlobalUtils } from "../Contexts/UtilsContext";
 
@@ -11,6 +11,7 @@ const CartCard: React.FC<{
   extraStyling?: string;
 }> = ({ item, showSecondaryBtn, extraStyling }) => {
   const { addToCart, removeFromCart, completelyRemoveItem } = UseGlobalCart();
+  const { deleteUploadedProduct } = UseGlobalUser();
   const { useWindowWidth } = useGlobalUtils();
   const isResponsive = useWindowWidth();
   const placeholderImg =
@@ -62,7 +63,7 @@ const CartCard: React.FC<{
       ) : null}
 
       <Button
-        passedFunctionWithId={completelyRemoveItem}
+        passedFunctionWithId={deleteUploadedProduct}
         _id={item._id}
         title={"remove Item"}
         optionalStyle="mx-auto col-span-2 lg:col-span-1 lg:place-self-center mt-4 lg:mt-0"
