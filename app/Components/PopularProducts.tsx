@@ -42,7 +42,7 @@ const PopularItemsSlider = forwardRef<HTMLHeadingElement>(({}, ref) => {
     <div className="bg-white mt-24 overflow-x-hidden" ref={ref}>
       <H2Title title="Popular products" />
       {!isResponsive ? (
-        <div className="flex relative gap-4 ps-4  h-[45rem]">
+        <div className="flex relative gap-4 ps-4  h-[35rem]">
           <GrFormPrevious
             className={`absolute left-16 top-1/2 -translate-y-1/2 h-12 w-12 z-40 opacity-50 transition-opacity bg-purple-800 rounded-full ${
               slideProduct === "left" || slideProduct === ""

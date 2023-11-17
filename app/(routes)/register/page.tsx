@@ -19,10 +19,10 @@ const Register = () => {
     if (inputType === "string") {
       return /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(input);
     }
-    if (inputType === "password") {
+    if (inputType === "password" && input) {
       return input.length < 5;
     }
-    if (inputType === "password" && input.length >= 5) {
+    if (inputType === "password" && input && input.length >= 5) {
       setClickedPwInput(false);
     }
   };

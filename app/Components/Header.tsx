@@ -8,6 +8,7 @@ import Button from "./Button";
 import SearchBar from "./SearchBar";
 import { auth } from "@/firebase";
 import { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 const Header = () => {
   const { state, totalAmount, showSearchBar, setShowSearchBar } =
@@ -16,6 +17,8 @@ const Header = () => {
   const { useWindowHeight, useWindowWidth } = useGlobalUtils();
   const checkHeight = useWindowHeight();
   const isResponsive = useWindowWidth();
+  const [closeCartPopUp, setCloseCartPopUp] = useState<boolean>(false);
+  const [closeOptionsPopUp, setCloseOptionsPopUp] = useState<boolean>(false);
 
   return (
     <div
@@ -47,7 +50,14 @@ const Header = () => {
         <SearchBar optionalStyle="hidden lg:flex lg:gap-4" />
       ) : null}
       <div className="flex items-center justify-center">
-        <div className="dropdown dropdown-end">
+        <div
+          className="dropdown dropdown-end"
+          role="button"
+          onClick={() => {
+            setCloseCartPopUp(!closeCartPopUp);
+            setCloseOptionsPopUp(false);
+          }}
+        >
           <label tabIndex={0} className="btn btn-ghost">
             <div className="indicator">
               <svg
@@ -72,7 +82,9 @@ const Header = () => {
           </label>
           <div
             tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+            className={`mt-3 z-[1] card card-compact absolute -left-24 w-52 bg-base-100 shadow ${
+              closeCartPopUp ? "block" : "hidden"
+            }`}
           >
             <div className="card-body border rounded-xl border-gray-200 bg-gray-100">
               <span className="font-bold text-lg">
@@ -90,7 +102,14 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
+        <div
+          className="dropdown dropdown-end"
+          role="button"
+          onClick={() => {
+            setCloseOptionsPopUp(!closeOptionsPopUp);
+            setCloseCartPopUp(false);
+          }}
+        >
           <label tabIndex={0} className="btn btn-ghost avatar text-center">
             <div className="w-10 rounded-full">
               {userData.profileImg === "" ? (
@@ -108,7 +127,9 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-30 p-2 shadow bg-gray-100 rounded-box w-52 text-gray-500"
+            className={`menu menu-sm absolute right-4 mt-3 z-30 p-2 shadow bg-gray-100 rounded-box w-52 text-gray-500 ${
+              closeOptionsPopUp ? "block" : "hidden"
+            }`}
           >
             <li>
               {auth.currentUser ? (

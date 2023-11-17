@@ -11,7 +11,7 @@ const Cart = () => {
 
   return (
     <section className="px-8 bg-white">
-      <div className="flex flex-col gap-4 gl:flex-row justify-between items-center w-[90vw]">
+      <div className="flex flex-col gap-4 gl:flex-row justify-between items-center lg:items-baseline">
         <H2Title title={"Your cart"} />
         <Button passedFunction={clearCart} title={"EMPTY CART"} />
       </div>

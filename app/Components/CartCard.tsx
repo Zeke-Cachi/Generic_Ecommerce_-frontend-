@@ -65,7 +65,7 @@ const CartCard: React.FC<{
         passedFunctionWithId={completelyRemoveItem}
         _id={item._id}
         title={"remove Item"}
-        optionalStyle="mx-auto col-span-2 lg:col-span-1"
+        optionalStyle="mx-auto col-span-2 lg:col-span-1 lg:place-self-center mt-4 lg:mt-0"
       />
     </div>
   );
