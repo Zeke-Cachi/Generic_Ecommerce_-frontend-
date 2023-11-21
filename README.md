@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Generic E-Commerce (frontend)
 
-## Getting Started
+Presenting "Generic E-Commerce", a complete ecommerce site, where you can purchase all kind of item, as well as publish your stuff to sell!
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js
+- Typescript
+- Tailwind
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Libraries
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- DaisyUI
+- Slick-Carousel
+- Dotenv
+- React-hot-toast
+- React-icons
+- Sweetalert2
+- Axios
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+#### The project has three Contexts for global management:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. UtilsContext (for general management)
+2. UserContext (for everything relating user data)
+3. CartContext (for everything relating the cart or the products)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+The cart functionality was made using the useReducer hook (CartReducer). Allows to add to cart, remove from cart, remove all instances of a single product, and delete the whole cart, as well as an initializer for when the products are loaded. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Extras
+
+There´s some extra files, that define functionalities that didn´t fit anywhere else:
+
+- functions.tsx --> Has some scrolling functions and an export for the server url
+- CustomHooks.tsx --> Has a couple of custom hooks, mainly to directly call the contexts, and others to handle the screen dimentions
+-  typesAndInterfaces.tsx --> Here are all the types and Interfaces used in the whole project
