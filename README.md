@@ -19,6 +19,7 @@ Presenting "Generic E-Commerce", a complete ecommerce site, where you can purcha
 - React-icons
 - Sweetalert2
 - Axios
+- Firebase
 
 ---
 
@@ -40,4 +41,6 @@ There´s some extra files, that define functionalities that didn´t fit anywhere
 
 - functions.tsx --> Has some scrolling functions and an export for the server url
 - CustomHooks.tsx --> Has a couple of custom hooks, mainly to directly call the contexts, and others to handle the screen dimentions
--  typesAndInterfaces.tsx --> Here are all the types and Interfaces used in the whole project
+- typesAndInterfaces.tsx --> Here are all the types and Interfaces used in the whole project
+
+All of the Auth and Storage were handled using Firebase.
